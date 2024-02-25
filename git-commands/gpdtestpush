@@ -1,0 +1,11 @@
+#! /usr/bin/env bash
+
+rmts=( $(git remote) )
+
+for rmt in "${rmts[@]}"
+do
+	echo "[INFO] checking if 'main' and '${rmt}/main' are in sync ..."
+	git push --dry-run ${rmt} main
+	echo "---"
+done
+

@@ -1,0 +1,76 @@
+#! /usr/bin/env bash
+
+### Name:		dirs-by-size
+### Author:		RgregoR
+### Date:		20201214 
+### Decription:	display dirs by size with totla in decending order
+### ---
+### update 20210218:	added the grep part to command to ddisplay only the sizes +10M
+###						if -a flag is supplied as argument all dirs are displayed
+### 					changed ctrtc() function to print only 3 dashes "---" if no
+### 					number of dashes suplied as argument
+###						display usage ih -h flag is supplied as argument
+### ---
+### 
+
+# usage
+function usage() {
+cat <<EOF
+    Usage:
+    $0 [arg]
+    - arg:  none --> display all dirs with the size more than 9M
+            -h   --> display this usage
+            -a   --> display all dirs no matter the size
+
+EOF
+}
+
+long=0
+
+if [ $# -ne 0 ]; then
+	if [ $1 == "-h" ]; then
+		usage
+		exit 0
+	elif [ $1 == "-a" ]; then
+		long=1
+	else
+		long=0
+	fi
+fi
+
+# timestamp
+function tms() {
+    echo -n "[ $(date +%Y%m%d_%H%M%S) ] "
+}
+
+# crtice
+crtn=70
+function crtc() {
+	if [ $# -ne 1 ]; then
+		echo "---"
+	else
+		for ((i=1; i<=$1; i++)); do
+			echo -n "-"
+		done
+		echo
+	fi
+}
+
+# Start
+tms; echo "Started: $0"
+# crtc $crtn
+crtc
+
+# command:
+# find * -maxdepth 0 -type d | xargs du -sh --total | sort -hr
+
+if [ $long -eq 0 ]; then
+	sudo find * -maxdepth 0 -type d -print0 | xargs -0 sudo du -sh --total | sort -hr | grep -E "^[0-9]\.*[0-9]{1,2}G|^[0-9]{2,3}M"
+else
+	sudo find * -maxdepth 1 -type d -print0 | xargs -0 sudo du -sh --total | sort -hr
+fi
+
+# crtc $crtn
+crtc
+tms; echo "Done!"
+

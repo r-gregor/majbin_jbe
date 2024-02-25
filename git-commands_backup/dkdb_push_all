@@ -1,0 +1,17 @@
+#! /usr/bin/env bash
+
+export KDBWORKTREE="${HOME}/OLDHDD/Dropbox/ODPRTO"
+export KDBGITDIR="${HOME}/majstaf/d_kdb/knowledgedb.git"
+
+git_dkdb="/usr/bin/git --git-dir=${KDBGITDIR} --work-tree=${KDBWORKTREE}"
+
+echo "Push-ing to d_GITHUB ..."
+echo "---"
+${git_dkdb} push ghkdb main
+
+echo
+
+echo "Push-ing to d_GITLAB ..."
+echo "---"
+${git_dkdb} push glkdb main
+

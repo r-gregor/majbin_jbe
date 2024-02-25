@@ -1,0 +1,11 @@
+#! /usr/bin/env bash
+
+
+for DDD in $(ls -1 ~/majstaf/coding2/testing/); do
+	echo "[INFO] Testing git status on ${DDD} ..."
+	cd $DDD
+	/usr/bin/git status
+	cd ${HOME}
+	echo -e "---\n"
+done
+

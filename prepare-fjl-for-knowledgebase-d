@@ -1,0 +1,25 @@
+#! /bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "You must supply filename as argument!"
+    exit 1
+fi
+
+FJL=$1
+
+rpr=~/.local/bin/repair2-inplace-quotation-marks
+
+# WIDOWS / cygwin
+# npp=$HOME/majstaf/majbin/np.sh
+
+# linux
+npp=/usr/bin/mousepad
+atm=/usr/bin/atom
+vim=/usr/bin/vim
+
+
+# run command:
+
+$rpr $FJL &&
+echo "$FJL ... OPENING ..."
+$vim $FJL

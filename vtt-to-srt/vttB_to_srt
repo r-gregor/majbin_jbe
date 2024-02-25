@@ -1,0 +1,45 @@
+#! /usr/bin/env python3
+
+import datetime as dt
+import sys
+import re
+
+tmstmp = dt.datetime.now().strftime('%Y%m%d_%H%M%S')
+
+# vttf = "Underworld.Extended.Cut.2003.720p.Brrip.x264.Deceit.YIFY.srt"
+if len(sys.argv) != 2:
+    print("Must suply a filename" + "\n")
+    sys.exit(1)
+else:
+    vttf = sys.argv[1]
+
+srtf = "subs-converted-from-vtt-to-srt_" + str(tmstmp) + ".srt"
+count = 1
+newLines = []
+nline = ""
+
+with open(vttf, "r") as vtf:
+    for line in vtf.readlines():
+        line = line.strip()
+        if len(line) == 0:
+            nline = "\n" + str(count) + "\n"
+            # print(line)
+            count += 1
+        else:
+            # print(line)
+            nline = line + "\n"
+            if re.search("^\d{2}:", line):
+                if len(nline) != 30:
+                    print("This line is out of order: {}".format(nline))
+            
+
+        newLines.append(nline)
+
+# test
+# print(newLines)
+
+
+with open(srtf, "w") as stf:
+    for wline in newLines:
+        stf.write(wline)
+

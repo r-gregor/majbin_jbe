@@ -1,0 +1,11 @@
+#! /usr/bin/env bash
+
+rmts=( $(git remote) )
+
+for rmt in "${rmts[@]}"
+do
+	echo "[INFO] git push to: '${rmt}/main' ..."
+	git push ${rmt} main
+	echo "---"
+done
+

@@ -1,0 +1,81 @@
+#! /usr/bin/env python3
+### (PYTHON3 !!)
+
+
+# importing python modules:
+import smtplib
+import os
+import argparse
+import sys
+
+# import local email settings:
+import send_config_d as scd
+
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+import datetime as dt
+
+# timestamp
+def tms():
+    return dt.datetime.now().strftime('%Y%m%d_%H%M%S')
+
+
+# clear the screen:
+os.system('clear')
+
+
+# START
+print("[ {} ] Started: {}".format(tms(), sys.argv[0]))
+
+# Parsing arguments: subject, body:
+parser = argparse.ArgumentParser()
+
+parser.add_argument("-a", "--aditional-mail", dest = 'andlist', default = [],  nargs = '+', help = 'Use option -a to ADD aditional destination mails')
+parser.add_argument('subject', help='The message [SUBJECT] (between quotes if it contains spaces)')
+parser.add_argument('body', help='The [BODY] of the message (between quotes if it contains spaces, or if multiline -- closing with quote sign!)')
+args = parser.parse_args()
+
+# Assigning arguments to variables:
+gMsgf = MIMEMultipart()
+gSbj = args.subject
+gBdy = args.body
+gAdd = ''
+gDest = scd.gTo
+gMsgf['From'] = scd.gFrom
+
+if args.andlist != []:
+    gAdd = ', '.join(args.andlist)
+    gDest.extend(args.andlist)
+
+gMsgf['To'] = ', '.join(scd.gTo)
+
+'''
+# TEST print
+print("gAdd = {}".format(gAdd))
+print("gMsgf['To'] = {}".format(gMsgf['To']))
+print("scd.gTo = {}".format(scd.gTo))
+'''
+
+# Inserting a SUBJECT as first line into BODY:
+gBdyf = "Subject: " + gSbj + "\n" + gBdy
+
+# Composing a email message: header + body ... 
+gMsgf['Subject'] = str(gSbj)
+gMsgf.attach(MIMEText(gBdyf, 'plain'))
+
+
+# send email:
+print("[ {} ] SENDING MAIL ...".format(tms()))
+
+server = smtplib.SMTP(scd.gSmtp, scd.gPort)
+server.starttls()
+server.login(scd.gUnm, scd.gPsswd)
+gTxt = gMsgf.as_string()
+# server.sendmail(scd.gFrom, scd.gTo, gTxt)
+server.sendmail(scd.gFrom, gDest, gTxt)
+server.quit()
+
+print("[ {} ] DONE!".format(tms()))
+
+

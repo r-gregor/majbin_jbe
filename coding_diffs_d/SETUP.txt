@@ -1,0 +1,7 @@
+1 - src/coding_diffs_v4.sh exports LOCAL and REMOTE paths to ~/.tmp/CODING_{LOCAL,REMOTE} files
+2 - add to .bashrc:
+		# 20230907
+		export CODING_LOCAL=$(cat ~/.tmp/CODING_LOCAL)
+		export CODING_REMOTE=$(cat ~/.tmp/CODING_REMOTE)
+	so that both paths are strored in environmental variables to be used as placeholders for manipulations in parent shells
+

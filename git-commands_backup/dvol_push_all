@@ -1,0 +1,18 @@
+#! /usr/bin/env bash
+
+export DVOLGITDIR="${HOME}/majstaf/d_vol"
+export DVOLWORKDIR="${HOME}/majstaf/majvolpejpers"
+
+git_dvol="/usr/bin/git --git-dir=${DVOLGITDIR} --work-tree=${DVOLWORKDIR}"
+
+
+echo "Push-ing to d_GITHUB ..."
+echo "---"
+${git_dvol} push github_dvol master
+
+echo
+
+echo "Push-ing to d_GITLAB ..."
+echo "---"
+${git_dvol} push gitlab_dvol master
+

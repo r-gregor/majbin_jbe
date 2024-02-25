@@ -1,0 +1,87 @@
+#!/bin/bash
+
+# timestamp
+function tms() {
+    echo -n "[ $(date +%Y%m%d_%H%M%S) ] "
+}
+
+crtn=3
+function crtc() {
+    for ((i=1; i<=$1; i++)); do
+        echo -n "-"
+    done
+    echo
+}
+
+
+
+# source folder:
+gr_FROMCDNG=$HOME/majstaf
+
+gFromBrc="$HOME/.[hidden files]"
+gFromSzn=$HOME/majstaf/seznami
+gFromMtss=$HOME/majstaf/metsys_jbez0rg
+
+# destination folder
+# !!! PAZI-  POT ZA ARHIVO !!!
+gDest=$HOME/majstaf/bckps_all/bckp_jbez0rg
+gLog=$HOME/majstaf/bckps_all/bckp.log
+
+
+# datestamp:
+gDate=$(date +%Y%m%d_%H%M%S)
+
+# archive:
+gCurrCdng="bckp_cdng_d_${gDate}.tar.gz"
+gCurrRcs="bckp_rcs_d_${gDate}.tar.gz"
+gCurrSzn="bckp_szn_d_${gDate}.tar.gz"
+gCurrBrc="bckp_brc_d_${gDate}.tar"
+gCurrDoma="bckp-doma_d_${gDate}.tar.gz"
+gCurrMtss="bckp_mtss_d_${gDate}.tar.gz"
+
+
+
+# MAIN
+
+tms; echo "Started: $0"
+tms; crtc ${crtn}
+
+# TEST if archive file exists:
+if [ "$(ls -A ${gDest})" ]; then
+	tms; echo "${gDest}/ is NOT empty!"
+	# Ask for confirmation:
+	# read -p "Press any key to REMOVE files or [ctrl+c] to quit"
+	tms; echo "Removing files from ${gDest}/ ... "
+	rm -v ${gDest}/* | grep -v '^[[:space:]]*$' | while read line; do (tms; echo $line); done
+	tms; crtc ${crtn}
+else
+	tms; echo "${gDest}/ is empty ..."
+fi
+
+# creating an archive:
+tms; echo -n "Creating archive: ${gDest}/${gCurrCdng} ... "
+tar -czf ${gDest}/${gCurrCdng} -C ${HOME}/majstaf coding2 majbin
+echo "[OK]"
+
+tms; echo -n "Creating archive: ${gDest}/${gCurrRcs} ... "
+tar -czf ${gDest}/${gCurrRcs} -C ${HOME}/majstaf majrcs
+echo "[OK]"
+
+tms; echo -n "Creating archive: ${gDest}/${gCurrSzn} ... "
+tar -czf ${gDest}/${gCurrSzn} -C ${HOME}/majstaf seznami
+echo "[OK]"
+
+tms; echo -n "Creating archive: ${gDest}/${gCurrMtss} ... "
+tar -czf ${gDest}/${gCurrMtss} -C ${HOME}/majstaf metsys_jbez0rg
+echo "[OK]"
+
+tms; echo -n "Creating archive: ${gDest}/${gCurrBrc} ... "
+cd $HOME && find -maxdepth 1 -type f -iname "\.*" | tar -cf ${gDest}/${gCurrBrc} -T -
+cd $HOME && tar -rf ${gDest}/${gCurrBrc} -C ${HOME}/majstaf ".alseg/"
+gzip ${gDest}/${gCurrBrc}
+echo "[OK]"
+
+(tms; echo "successfully backed up CODING, FAU, SZN, MTSS and BRC archives to ${gDest}/") | tee -a ${gLog} # append to log
+tms; echo "DONE!"
+tms; crtc ${crtn}
+

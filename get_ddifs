@@ -1,0 +1,27 @@
+#! /usr/bin/env bash
+
+cd ~/majstaf/majrcs
+echo "*** diffs: ~/majstaf/majrcs/* and d_majrcs/* ... ***"
+export DBRC=$HOME/majstaf/d_metsys_git/d_metsys_source/d_majrcs
+for FFF in $(find $DBRC/ -type f); do diff -q $FFF $(echo $FFF | cut -d'/' -f8-); done 2>/dev/null
+echo -e "---\n"
+cd $HOME
+# for FFF in $(find $DBRC/ -type f); do diff -q $FFF $(echo $FFF | cut -d'/' -f8-); done 2>/dev/null > nbrcs_diffs_$(date +"%Y%m%d_%H%M%S").txt
+#---
+cd ~/majstaf/majbin
+echo "*** diffs: ~/majstaf/majbin/* and d_majbin/* ... ***"
+export DBIN=$HOME/majstaf/d_metsys_git/d_metsys_source/d_majbin
+for FFF in $(find $DBIN/ -type f); do diff -q $FFF $(echo $FFF | cut -d'/' -f8-); done 2>/dev/null
+echo -e "---\n"
+cd $HOME
+# for FFF in $(find $DBIN/ -type f); do diff -q $FFF $(echo $FFF | cut -d'/' -f8-); done 2>/dev/null > nbrcs_diffs_$(date +"%Y%m%d_%H%M%S").txt
+#---
+cd $HOME
+export DDOT=$HOME/majstaf/d_metsys_git/d_metsys_source/d_dotfiles
+echo "*** diffs: ~/.* and d_dotfiles/* ... ***"
+for FFF in $(find $DDOT -type f -not -path "*.config/*"); do diff -q $FFF $(echo $FFF | cut -d'/' -f8-) 2>/dev/null; done
+# for FFF in $(find $DDOT -type f -not -path "*/.config/*" -name "\.*"); do diff -q $(basename $FFF) ${FFF}; done 2>/dev/null
+echo -e "---\n"
+# for FFF in $(find $DDOT/ -type f); do diff -q $FFF $(echo $FFF | cut -d'/' -f8-); done 2>/dev/null > ndot_diffs_$(date +"%Y%m%d_%H%M%S").txt
+# ---
+

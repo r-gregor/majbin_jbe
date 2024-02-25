@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+
+cd ${HOME}/majstaf/coding2/testing
+for DDD in $(ls -d *); do cd $DDD && ${HOME}/.local/bin/gpdtestpush && cd ..; done
+
