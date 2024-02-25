@@ -1,0 +1,42 @@
+# get_jbediffs.sh
+#! /usr/bin/env bash
+
+MJSTF_JBE=/home/rgregor/majstaf
+BRC_JBE=${MJSTF_JBE}/jbegit/majrcs_jbe
+MTS_JBE=${MJSTF_JBE}/jbegit/metsys_jbe
+BIN_JBE=${MJSTF_JBE}/jbegit/majbin_jbe
+DOT_JBE=${MJSTF_JBE}/jbegit/dotfiles_jbe
+SZN_JBE=${MJSTF_JBE}/jbegit/seznami_jbe
+
+cd ${MJSTF_JBE}/majrcs
+echo "[INFO] diffs: majrcs_jbe ..."
+for FFF in $(find $BRC_JBE/ -type f); do diff -q $FFF $(echo $FFF | cut -d'/' -f8-); done 2>/dev/null
+echo "---"
+cd $HOME
+#---
+cd ${MJSTF_JBE}/metsys_jbez0rg
+echo "[INFO] diffs: metsys_jbe ..."
+for FFF in $(find $MTS_JBE/ -type f); do diff -q $FFF $(echo $FFF | cut -d'/' -f8-); done 2>/dev/null
+echo "---"
+cd $HOME
+#---
+cd ${MJSTF_JBE}/majbin
+echo "[INFO] diffs: majbin_jbe ..."
+for FFF in $(find $BIN_JBE/ -type f); do diff -q $FFF $(echo $FFF | cut -d'/' -f8-); done 2>/dev/null
+echo "---"
+cd $HOME
+#---
+cd $HOME
+echo "[INFO] diffs: dotfiles_jbe ..."
+# for FFF in $(find $DOT_JBE -type f -not -path "*.config/*"); do diff -q $FFF $(echo $FFF | cut -d'/' -f8-) 2>/dev/null; done
+for FFF in $(find $DOT_JBE -type f); do diff -q $FFF $(echo $FFF | cut -d'/' -f8-) 2>/dev/null; done
+echo "---"
+#---
+cd ${MJSTF_JBE}/seznami
+echo "[INFO] diffs: seznami_jbe ..."
+for FFF in $(find $SZN_JBE -type f); do diff -q $FFF $(echo $FFF | cut -d'/' -f8-) 2>/dev/null; done
+echo "---"
+cd $HOME
+#---
+
+
