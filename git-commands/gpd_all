@@ -1,5 +1,10 @@
 #! /usr/bin/env bash
 
+CURRDIR=$PWD
 cd ${HOME}/majstaf/coding2/testing
-for DDD in $(ls -d *); do cd $DDD && ${HOME}/.local/bin/gpdtestpush && cd ..; done
+for DDD in $(ls -d *); do
+	echo "*** git testpush in ${DDD} ... ***"
+	cd $DDD &>/dev/null && ${HOME}/.local/bin/gpdtestpush && cd ..
+done
 
+cd ${CURRDIR}

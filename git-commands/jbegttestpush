@@ -1,0 +1,15 @@
+#! /usr/bin/env bash
+# filename: jbegttestpush
+# last edit: 20240227_jbe
+
+CURRDIR=$PWD
+cd ~/majstaf/jbegit
+for DDD in $(find * -maxdepth 0 -type d); do
+	echo ""
+	echo "*** git testpush in ${DDD} ... ***"
+	cd $DDD &>/dev/null && ~/.local/bin/gpdtestpush && cd ..
+# echo -e "\n---"
+done
+
+cd ${CURRDIR}
+

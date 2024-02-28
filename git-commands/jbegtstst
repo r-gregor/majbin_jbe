@@ -1,0 +1,23 @@
+#! /usr/bin/env bash
+# filename: jbegtstst
+# last edit: 20240228_jbe
+
+CURRDIR=$PWD
+cd ~/majstaf/jbegit
+for DDD in $(find * -maxdepth 0 -type d | grep -v 'vlpprs_jbe'); do
+	echo "[INFO] checking git status in ${DDD} ..."
+	cd $DDD
+	/usr/bin/git status
+	cd ..
+	echo -e "\n---"
+done
+cd ${CURRDIR}
+
+
+JBEVOLGITDIR="${HOME}/majstaf/jbegit/vlpprs_jbe"
+JBEVOLWORKDIR="${HOME}/majstaf/majvolpejpers"
+echo "[INFO] checking git status in ${JBEVOLGITDIR} ..."
+JBEVCMD="/usr/bin/git --git-dir=${JBEVOLGITDIR} --work-tree=${JBEVOLWORKDIR}"
+${JBEVCMD} status
+echo -e "\n---"
+

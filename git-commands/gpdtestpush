@@ -4,8 +4,8 @@ rmts=( $(git remote) )
 
 for rmt in "${rmts[@]}"
 do
-	echo "[INFO] checking if 'main' and '${rmt}/main' are in sync ..."
-	git push --dry-run ${rmt} main
-	echo "---"
-done
-
+		echo "[INFO] git testpush in: $(git remote get-url ${rmt}) ..."
+			git push --dry-run ${rmt} main
+				echo "---"
+			done
+			echo ""
