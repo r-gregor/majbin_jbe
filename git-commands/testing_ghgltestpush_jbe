@@ -1,10 +1,13 @@
 #! /usr/bin/env bash
+# testing_ghgltestpush_jbe
+# last update: 20240228_jbe
 
 CURRDIR=$PWD
 cd ${HOME}/majstaf/coding2/testing
 for DDD in $(ls -d *); do
 	echo "*** git testpush in ${DDD} ... ***"
-	cd $DDD &>/dev/null && ${HOME}/.local/bin/gpdtestpush && cd ..
+	cd $DDD &>/dev/null && ${HOME}/.local/bin/ghgltestpush_jbe && cd ..
 done
 
 cd ${CURRDIR}
+

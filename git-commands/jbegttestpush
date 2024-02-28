@@ -7,7 +7,7 @@ cd ~/majstaf/jbegit
 for DDD in $(find * -maxdepth 0 -type d); do
 	echo ""
 	echo "*** git testpush in ${DDD} ... ***"
-	cd $DDD &>/dev/null && ~/.local/bin/gpdtestpush && cd ..
+	cd $DDD &>/dev/null && ~/.local/bin/ghgltestpush_jbe && cd ..
 # echo -e "\n---"
 done
 
