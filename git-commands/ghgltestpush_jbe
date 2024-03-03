@@ -31,12 +31,13 @@ do
 	/usr/bin/git push --dry-run ${rmt} main &> status
 	grep 'main' status > /dev/null
 	if [[ $? -eq 0 ]]; then
-		printf " ${COLOR_SET} NEED TO PUSH!!\n"
+		printf "${COLOR_SET}"
+		printf " NEED TO PUSH!!\n"
 		cat status
 		rm status > /dev/null
 		printf "${COLOR_RESET}"
 	else
-		echo " nothig to push!"
+		printf " nothig to push!\n"
 		rm status > /dev/null
 	fi
 done

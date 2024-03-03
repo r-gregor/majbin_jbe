@@ -14,27 +14,48 @@ JBEBIN=${MJSTF_JBE}/majbin
 JBEBRC=${MJSTF_JBE}/majrcs
 JBEMTS=${MJSTF_JBE}/metsys
 
-cd ${DOT_JBE}
+### cd ${DOT_JBE}
+### echo "[INFO] diffs: dotfiles_jbe ..."
+### # for FFF in $(find -type f -iname ".*"); do diff -q ${FFF} ${HOME}/${FFF}; done # 2>/dev/null;
+### for DDD in $(ls -1A); do diff -q $DDD ${HOME}/$DDD 2>/dev/null; done | grep -vi "common\|only"
+### echo "---"
+### # ---
+### cd ${BIN_JBE}
+### echo "[INFO] diffs: majbin_jbe ..."
+### for FFF in $(find * -type f | grep -v '\.dat' 2>/dev/null); do diff -q ${FFF} ${JBEBIN}/${FFF} | grep -vi 'common'; done 2>/dev/null
+### echo "---"
+### cd $HOME
+### #---
+### cd ${BRC_JBE}
+### echo "[INFO] diffs: majrcs_jbe ..."
+### for FFF in $(find * -type f 2>/dev/null); do diff -q ${FFF} ${JBEBRC}/${FFF} | grep -vi 'common'; done 2>/dev/null
+### echo "---"
+### cd $HOME
+### #---
+### cd ${MTS_JBE}
+### echo "[INFO] diffs: metsys_jbe ..."
+### for FFF in $(find * -type f 2>/dev/null); do diff -q ${FFF} ${JBEMTS}/${FFF} | grep -vi 'common'; done 2>/dev/null
+### echo "---"
+### cd $HOME
+### 
+#############################################################################################
+
+CURRDIR=$PWD
+MJSTFJBE=${HOME}/majstaf
+MJSTFJBE_G=${MJSTFJBE}/jbegit
+
+cd ${MJSTFJBE_G}/dotfiles_jbe
 echo "[INFO] diffs: dotfiles_jbe ..."
-# for FFF in $(find -type f -iname ".*"); do diff -q ${FFF} ${HOME}/${FFF}; done # 2>/dev/null;
-for DDD in $(ls -1A); do diff -q $DDD ${HOME}/$DDD 2>/dev/null; done | grep -vi "common\|only"
+for FFF in $(ls -1A); do diff -qr -x ".git" $FFF ${HOME}/${FFF} 2>/dev/null | grep -iv 'only'; done
 echo "---"
-# ---
-cd ${BIN_JBE}
-echo "[INFO] diffs: majbin_jbe ..."
-for FFF in $(find * -type f | grep -v '\.dat' 2>/dev/null); do diff -q ${FFF} ${JBEBIN}/${FFF} | grep -vi 'common'; done 2>/dev/null
-echo "---"
-cd $HOME
-#---
-cd ${BRC_JBE}
-echo "[INFO] diffs: majrcs_jbe ..."
-for FFF in $(find * -type f 2>/dev/null); do diff -q ${FFF} ${JBEBRC}/${FFF} | grep -vi 'common'; done 2>/dev/null
-echo "---"
-cd $HOME
-#---
-cd ${MTS_JBE}
-echo "[INFO] diffs: metsys_jbe ..."
-for FFF in $(find * -type f 2>/dev/null); do diff -q ${FFF} ${JBEMTS}/${FFF} | grep -vi 'common'; done 2>/dev/null
-echo "---"
-cd $HOME
+
+for check_dir in majbin majrcs metsys seznami; do
+	cd ${MJSTFJBE_G}/${check_dir}_jbe
+	echo "[INFO] diffs: ${check_dir} ..."
+	for FFF in $(ls -1); do diff -qr $FFF ${MJSTFJBE}/${check_dir}/${FFF} | grep -iv 'only'; done
+	echo "---"
+	cd $HOME
+done
+
+cd ${CURRDIR}
 
