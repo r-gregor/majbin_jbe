@@ -52,7 +52,7 @@ echo "---"
 for check_dir in majbin majrcs metsys seznami; do
 	cd ${MJSTFJBE_G}/${check_dir}_jbe
 	echo "[INFO] diffs: ${check_dir} ..."
-	for FFF in $(ls -1); do diff -qr $FFF ${MJSTFJBE}/${check_dir}/${FFF} | grep -iv 'only'; done
+	for FFF in $(ls -1); do diff -qr $FFF ${MJSTFJBE}/${check_dir}/${FFF} |  grep -iv "hstl_\|only"; done
 	echo "---"
 	cd $HOME
 done
