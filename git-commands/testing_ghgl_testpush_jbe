@@ -2,12 +2,17 @@
 # testing_ghgltestpush_jbe
 # last update: 20240228_jbe
 
+COLOR_SET="\e[1;94m"
+COLOR_RESET="\e[0m"
+
 CURRDIR=$PWD
 cd ${HOME}/majstaf/coding2/testing
 for DDD in $(ls -d *); do
-	echo "*** git testpush in ${DDD} ... ***"
-	cd $DDD &>/dev/null && ${HOME}/.local/bin/ghgl_testpush_jbe && cd ..
 	echo ""
+	printf "${COLOR_SET}"
+	echo "*** git testpush in ${DDD} ... ***"
+	printf "${COLOR_RESET}"
+	cd $DDD &>/dev/null && ${HOME}/.local/bin/ghgl_testpush_jbe && cd ..
 done
 
 cd ${CURRDIR}
