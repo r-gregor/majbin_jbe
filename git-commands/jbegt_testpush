@@ -1,12 +1,17 @@
 #! /usr/bin/env bash
-# filename: jbegttestpush
-# last edit: 20240227_jbe
+# filename: jbegt_testpush
+# last edit: 20240321_jbe
+
+COLOR_SET="\e[1;94m"
+COLOR_RESET="\e[0m"
 
 CURRDIR=$PWD
 cd ~/majstaf/jbegit
 for DDD in $(find * -maxdepth 0 -type d); do
 	echo ""
+	printf "${COLOR_SET}"
 	echo "*** git testpush in ${DDD} ... ***"
+	printf "${COLOR_RESET}"
 	cd $DDD &>/dev/null && ~/.local/bin/ghgl_testpush_jbe && cd ..
 # echo -e "\n---"
 done
