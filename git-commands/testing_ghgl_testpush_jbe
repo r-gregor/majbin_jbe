@@ -2,7 +2,8 @@
 # testing_ghgltestpush_jbe
 # last update: 20240228_jbe
 
-COLOR_SET="\e[1;94m"
+# COLOR_SET="\e[1;94m"
+COLOR_SET="\e[1;38;5;75m"
 COLOR_RESET="\e[0m"
 
 CURRDIR=$PWD

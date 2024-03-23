@@ -2,7 +2,8 @@
 # filename: jbegt_testpush
 # last edit: 20240321_jbe
 
-COLOR_SET="\e[1;94m"
+# COLOR_SET="\e[1;94m"
+COLOR_SET="\e[1;38;5;75m"
 COLOR_RESET="\e[0m"
 
 CURRDIR=$PWD
