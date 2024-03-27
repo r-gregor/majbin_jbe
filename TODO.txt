@@ -1,4 +1,0 @@
-20201209:
-1 - from RUN-en- to RUN-d- (command --> STDOUT output)
-2 - .vimrc from EN: inoremap ... into .vimrc doma
-

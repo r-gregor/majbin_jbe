@@ -9,11 +9,11 @@ git_jvol="/usr/bin/git --git-dir=${JBEVOLGITDIR} --work-tree=${JBEVOLWORKDIR}"
 ghjvol="git@github.com:r-gregor/vlpprs_jbe.git"
 gljvol="git@gitlab.com:r-gregor/vlpprs_jbe.git"
 
-echo "[INFO] Push to d_GITHUB ..."
+echo "[INFO] Push to ${ghjvol} ..."
 ${git_jvol} push ${ghjvol} main
 echo "---"
 
-echo "[INFO] Push to d_GITLAB ..."
+echo "[INFO] Push to ${gljvol} ..."
 ${git_jvol} push ${gljvol} main
 echo "---"
 
