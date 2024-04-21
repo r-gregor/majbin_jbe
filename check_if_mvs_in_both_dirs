@@ -1,0 +1,30 @@
+#! /usr/bin/env bash
+# check_if_mvs_in_both_dirs.sh
+
+if [ $# -ne 1 ]; then
+	echo "Must supply a year as argument!"
+	exit
+fi
+YR=$1
+
+if [ ! -d ./Movies ] && [ ! -d ./Seivom ]; then
+	echo "There are no dirs: 'Movies' and 'Seivom'!"
+	exit
+fi
+
+# set IFS to newline
+IFS=$'\n'
+
+# echo "List of movies that are in both dirs: Movies and Seivom"
+for VSM in $(find ./Seivom/ -type d -name "*(${YR})"); do
+	for MVS in $(find ./Movies/ -type d -name "*(${YR})"); do
+		if [ $(basename $MVS) == $(basename $VSM) ]; then
+			# echo "$(basename $MVS)"
+			echo "$MVS : $VSM"
+		fi
+	done
+done
+
+# set ifs to original
+IFS=$' \t\n'
+
