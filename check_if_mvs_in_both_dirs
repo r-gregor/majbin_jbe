@@ -1,8 +1,10 @@
 #! /usr/bin/env bash
 # check_if_mvs_in_both_dirs.sh
+# 20240422_d: - added check if parameter is 4-digit year
+#             - and 'all' as parameter to check all durectories
 
 if [ $# -ne 1 ]; then
-	echo "Must supply a year as argument!"
+	echo "Must supply year or 'all' as argument"
 	exit
 fi
 YR=$1
@@ -15,9 +17,20 @@ fi
 # set IFS to newline
 IFS=$'\n'
 
+if [[ $YR =~ [[:digit:]]{4} ]] && [ ${#YR} -eq 4 ]; then
+	fname="*(${YR})"
+	echo "fname: $fname"
+elif [ $YR == "all" ]; then
+	fname='*'
+	echo "fname: $fname"
+else
+	echo "No suitable parameter"
+	exit
+fi
+
 # echo "List of movies that are in both dirs: Movies and Seivom"
-for VSM in $(find ./Seivom/ -type d -name "*(${YR})"); do
-	for MVS in $(find ./Movies/ -type d -name "*(${YR})"); do
+for VSM in $(find ./Seivom/ -type d -name "$fname"); do
+	for MVS in $(find ./Movies/ -type d -name "$fname"); do
 		if [ $(basename $MVS) == $(basename $VSM) ]; then
 			# echo "$(basename $MVS)"
 			echo "$MVS : $VSM"
