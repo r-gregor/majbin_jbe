@@ -45,3 +45,5 @@ Tomaž Vrhovc,10.05.1979
 Palma Cvek,19.05.1979
 Matic Redelonghi,28.08.1975
 Manca Gorišek,28.09.1971
+Pika Gorišek,08.10.2009
+Florjan Bevc,16.11.1979
