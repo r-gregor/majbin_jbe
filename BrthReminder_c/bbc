@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+
+~/majstaf/majbin/BrthReminder_c/BrthReminder_c_color "$@"
+
+
