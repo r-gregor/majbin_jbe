@@ -1,20 +1,42 @@
 #! /usr/bin/env bash
-# testing_ghgltestpush_jbe
-# last update: 20240228_jbe
+# testing_ghgl_testpush_jbe
+# last change: 20240601_jbe
 
 # COLOR_SET="\e[1;94m"
 COLOR_SET="\e[1;38;5;75m"
 COLOR_RESET="\e[0m"
+DEST=${HOME}/majstaf/coding2/testing
+STTS=${TMP}/status2
+RPRT=${TMP}/report
+> ${STTS}
+> ${RPRT}
 
 CURRDIR=$PWD
-cd ${HOME}/majstaf/coding2/testing
+cd ${DEST}
 for DDD in $(ls -d *); do
 	echo ""
 	printf "${COLOR_SET}"
 	echo "*** git testpush in ${DDD} ... ***"
 	printf "${COLOR_RESET}"
-	cd $DDD &>/dev/null && ${HOME}/.local/bin/ghgl_testpush_jbe && cd ..
+	cd $DDD &>/dev/null && ${HOME}/.local/bin/ghgl_testpush_jbe | tee -a ${STTS}
+	grep -i 'pull' ${STTS} > /dev/null
+	if [[ $? -eq 0 ]]; then
+		echo -e "[INFO] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE!\n" >> ${RPRT}
+	fi
+	> ${STTS}
+	cd ..
 done
+
+echo ""
+printf "${COLOR_SET}"
+echo "*** REPORT ***"
+printf "${COLOR_RESET}"
+if [ -s ${RPRT} ]; then
+	cat ${RPRT}
+else
+	echo "[INFO] Nothing to push!"
+fi
+rm ${RPRT} ${STTS} 2>/dev/null
 
 cd ${CURRDIR}
 

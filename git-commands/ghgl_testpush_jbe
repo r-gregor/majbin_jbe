@@ -1,43 +1,29 @@
 #! /usr/bin/env bash
-# ghgltestpush_jbe
-# last update: 20240228_jbe
-
-### rmts=( $(git remote) )
-### 
-### COLOR_SET="\e[1;92m"
-### COLOR_RESET="\e[0m"
-### 
-### 
-### 
-### for rmt in "${rmts[@]}"
-### do
-### 		echo "[INFO] git testpush in: $(git remote get-url ${rmt}) ..."
-### 			git push --dry-run ${rmt} main
-### 				echo "---"
-### 			done
-### 			echo ""
-### 
-### 
-#########################################################################
+# ghgl_testpush_jbe
+# last change: 20240601_jbe
 
 rmts=( $(git remote) )
 
-COLOR_SET="\e[1;92m"
+COLOR_RED="\e[1;92m"
 COLOR_RESET="\e[0m"
+pgs=2
 
 for rmt in "${rmts[@]}"
 do
 	echo -n "[INFO] git testpush in: $(git remote get-url ${rmt}) ..."
 	/usr/bin/git push --dry-run ${rmt} main &> status
-	grep 'main' status > /dev/null
+	grep 'reject\|pull' status > /dev/null
 	if [[ $? -eq 0 ]]; then
-		printf "${COLOR_SET}"
-		printf " NEED TO PUSH!!\n"
-		cat status
-		rm status > /dev/null
+		printf " ${COLOR_RED} NEED TO PULL FROM REMOTE!!\n"
 		printf "${COLOR_RESET}"
+		#cat status
+		rm status > /dev/null
+		if [ $pgs -eq 1 ]; then
+			echo -e "---"
+		fi
+		pgs=2
 	else
-		printf " nothig to push!\n"
+		echo " nothig to push!"
 		rm status > /dev/null
 	fi
 done
