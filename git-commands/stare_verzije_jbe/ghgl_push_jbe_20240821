@@ -1,0 +1,12 @@
+#! /usr/bin/env bash
+# ghglpush_jbe
+# last update: 20240228_jbe
+
+rmts=( $(git remote) )
+
+for rmt in "${rmts[@]}"; do
+	echo "[INFO] git testpush in: $(git remote get-url ${rmt}) ..."
+	git push ${rmt} main
+	echo "---"
+done
+echo ""

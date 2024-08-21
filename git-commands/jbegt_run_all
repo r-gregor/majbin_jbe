@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+# jbegt_run_all
+# last change: 20240821_jbe
+
+jbegt_status
+jbegt_testpush
+
+
+
+

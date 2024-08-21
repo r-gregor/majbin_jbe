@@ -1,48 +1,31 @@
 #! /usr/bin/env bash
-# filename: jbegtstst
-# last edit: 20240228_jbe
+# filename: engtstst
+# last edit: 20240821_en
 
-### CURRDIR=$PWD
-### cd ~/majstaf/jbegit
-### for DDD in $(find * -maxdepth 0 -type d | grep -v 'vlpprs_jbe'); do
-### 	echo "[INFO] checking git status in ${DDD} ..."
-### 	cd $DDD
-### 	/usr/bin/git status
-### 	cd ..
-### 	echo -e "\n---"
-### done
-### cd ${CURRDIR}
-### 
-### 
-### JBEVOLGITDIR="${HOME}/majstaf/jbegit/vlpprs_jbe"
-### JBEVOLWORKDIR="${HOME}/majstaf/majvolpejpers"
-### echo "[INFO] checking git status in ${JBEVOLGITDIR} ..."
-### JBEVCMD="/usr/bin/git --git-dir=${JBEVOLGITDIR} --work-tree=${JBEVOLWORKDIR}"
-### ${JBEVCMD} status
-### echo -e "\n---"
-### 
-#######################################################################################
 
 COLOR_SET="\e[1;92m"
 COLOR_RESET="\e[0m"
 CURRDIR=$PWD
+TRPRT=${TMP}/testing_report
+> ${TRPRT}
 
 
 function get_status() {
 	cmd=$1
 	OUTPUT=$(${cmd} status)
 
-	echo $OUTPUT | grep -i "git push\|untracked\|modified" > /dev/null
+	echo $OUTPUT | grep -i "git push\|untracked\|modified\|deleted" > /dev/null
 
 	if [[ $? -ne 0 ]]; then
 		echo -n "[INFO] checking git status in ${DDD} ..."
-		echo " nothing to commit"
+		echo " no action required"
 	else
+		echo "---"
 		printf "${COLOR_SET}"
-		echo -n "[INFO] checking git status in ${DDD} ..."
-		printf " NEED TO ADD and/or COMMIT!!\n"
+		printf "[INFO] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT!!\n" | tee -a ${TRPRT}
 		printf "${COLOR_RESET}"
 		${cmd} status
+		echo "---"
 	fi
 }
 
@@ -51,19 +34,25 @@ for DDD in $(find * -maxdepth 0 -type d | grep -v 'vlpprs_jbe'); do
 	cd $DDD &> /dev/null
 
 	get_status "/usr/bin/git"
-
 	cd ..
-	echo "---"
 done
 
 # volpejpers
 DDD="vlpprs_jbe"
-# get_status '/usr/bin/git --git-dir=/home/gregor.redelonghi/majstaf_en/engit/vlpprs_en --work-tree=/c/Users/gregor.redelonghi/majstaf_en/en_staf/majvolpejprs'
 JBEVOLGITDIR="${HOME}/majstaf/jbegit/vlpprs_jbe"
 JBEVOLWORKTREE="${HOME}/majstaf/majvolpejpers"
 get_status="/usr/bin/git --git-dir=${JBEVOLGITDIR} --work-tree=${JBEVOLWORKTREE}"
-echo "---"
 
+echo ""
+printf "${COLOR_SET}"
+echo "*** REPORT ***"
+printf "${COLOR_RESET}"
+if [ -s ${TRPRT} ]; then
+	cat ${TRPRT}
+else
+	echo "[INFO] No action required"
+fi
+
+rm ${TRPRT} 2>/dev/null
 cd ${CURRDIR}
-
 

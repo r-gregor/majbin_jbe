@@ -1,13 +1,50 @@
 #! /usr/bin/env bash
-# testing_ghglstatus_jbe
-# last update: 20240228_jbe
+#testing_ghgl_status_jbe 
+# last change: 20240821_en
 
+COLOR_SET="\e[1;92m"
+COLOR_RESET="\e[0m"
+CURRDIR=$PWD
+TRPRT=${TMP}/testing_report
+> ${TRPRT}
 
-for DDD in $(ls -1 ~/majstaf/coding2/testing/); do
-	echo "[INFO] Testing git status on ${DDD} ..."
-	cd $DDD
-	/usr/bin/git status
-	cd ${HOME}
-	echo -e "---\n"
+function get_status() {
+	cmd=$1
+	OUTPUT=$(${cmd} status)
+
+	echo $OUTPUT | grep -i "git push\|untracked\|modifiedi\|deleted" > /dev/null
+
+	if [[ $? -ne 0 ]]; then
+		echo -n "[INFO] checking git status in ${DDD} ..."
+		echo " no action required"
+	else
+		echo "---"
+		printf "${COLOR_SET}"
+		printf "[INFO] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n" | tee -a ${TRPRT}
+		printf "${COLOR_RESET}"
+		${cmd} status
+		echo "---"
+	fi
+}
+
+cd ~/majstaf/coding2/testing
+for DDD in $(find * -maxdepth 0 -type d | grep -v 'vlpprs_en'); do
+	cd $DDD &> /dev/null
+
+	get_status "/usr/bin/git"
+	cd ..
 done
+
+echo ""
+printf "${COLOR_SET}"
+echo "*** REPORT ***"
+printf "${COLOR_RESET}"
+if [ -s ${TRPRT} ]; then
+	cat ${TRPRT}
+else
+	echo "[INFO] No action required"
+fi
+
+rm ${TRPRT} 2>/dev/null
+cd ${CURRDIR}
 

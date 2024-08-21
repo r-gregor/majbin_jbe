@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 # ghgl_testpush_jbe
-# last change: 20240821_jbe
+# last change: 20240601_jbe
 
 rmts=( $(git remote) )
 
@@ -14,7 +14,7 @@ do
 	/usr/bin/git push --dry-run ${rmt} main &> status
 	grep 'reject\|pull' status > /dev/null
 	if [[ $? -eq 0 ]]; then
-		printf " ${COLOR_RED} NEED TO PULL FROM REMOTE\n"
+		printf " ${COLOR_RED} NEED TO PULL FROM REMOTE!!\n"
 		printf "${COLOR_RESET}"
 		#cat status
 		rm status > /dev/null
@@ -23,7 +23,7 @@ do
 		fi
 		pgs=2
 	else
-		echo " no action required"
+		echo " nothig to push!"
 		rm status > /dev/null
 	fi
 done
