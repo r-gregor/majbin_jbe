@@ -22,7 +22,7 @@ function get_status() {
 	else
 		echo "---"
 		printf "${COLOR_SET}"
-		printf "[INFO] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT!!\n" | tee -a ${TRPRT}
+		printf "[INFO] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n" | tee -a ${TRPRT}
 		printf "${COLOR_RESET}"
 		${cmd} status
 		echo "---"

@@ -21,7 +21,7 @@ for DDD in $(ls -d *); do
 	cd $DDD &>/dev/null && ${HOME}/.local/bin/ghgl_testpush_jbe | tee -a ${TSTTS}
 	grep -i 'pull' ${TSTTS} > /dev/null
 	if [[ $? -eq 0 ]]; then
-		echo -e "[INFO] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE!\n" >> ${TRPRT}
+		echo -e "[INFO] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE\n" >> ${TRPRT}
 	fi
 	> ${TSTTS}
 	cd ..
@@ -34,7 +34,7 @@ printf "${COLOR_RESET}"
 if [ -s ${TRPRT} ]; then
 	cat ${TRPRT}
 else
-	echo "[INFO] Nothing to push!"
+	echo "[INFO] No action required"
 fi
 rm ${TRPRT} ${TSTTS} 2>/dev/null
 
