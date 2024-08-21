@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
-# ghglpush_jbe
-# last update: 20240228_jbe
+# ghgl_push_jbe
+# last change: 20240821_jbe
 
 rmts=( $(git remote) )
 

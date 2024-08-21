@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
-# filename: engtstst
-# last edit: 20240821_en
+# jbegt_status
+# last change: 20240821_en
 
 
 COLOR_SET="\e[1;92m"

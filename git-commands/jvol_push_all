@@ -1,5 +1,6 @@
-# jvol_push_all
 #! /usr/bin/env bash
+# jvol_push_all
+# last change: 20240821_jbe
 
 export JBEVOLGITDIR="${HOME}/majstaf/jbegit/vlpprs_jbe"
 export JBEVOLWORKDIR="${HOME}/majstaf/majvolpejpers"
