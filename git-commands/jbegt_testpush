@@ -6,7 +6,7 @@
 # COLOR_SET="\e[1;34m"
 COLOR_SET="\e[1;38;5;75m"
 COLOR_RESET="\e[0m"
-USR="mdb"
+USR="jbe"
 JDEST=${HOME}/majstaf/${USR}git/
 JSTTS=${TMP}/${USR}git_status
 JRPRT=${TMP}/${USR}git_report
