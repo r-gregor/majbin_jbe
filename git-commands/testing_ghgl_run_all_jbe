@@ -1,6 +1,7 @@
 #! /usr/bin/env bash
-# testing_ghgl_run_all
-# last change: 20240821_mdb
+# testing_ghgl_run_all_jbe
+# last change: 20240821_jbe
+USR="jbe"
 
-testing_ghgl_status_jbe
-testing_ghgl_testpush_jbe
+testing_ghgl_status_${USR}
+testing_ghgl_testpush_${USR}

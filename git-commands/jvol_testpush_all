@@ -1,20 +1,19 @@
 #! /usr/bin/env bash
 # jvol_testpush_all
-# last change: 20240821_jbe
+# last update: 20240821_jbe
 
-export JBEVOLGITDIR="${HOME}/majstaf/jbegit/vlpprs_jbe"
+USR="jbe"
+
+export JBEVOLGITDIR="${HOME}/majstaf/${USR}git/vlpprs_${USR}"
 export JBEVOLWORKDIR="${HOME}/majstaf/majvolpejpers"
 
-git_jvol="/usr/bin/git --git-dir=${JBEVOLGITDIR} --work-tree=${JBEVOLWORKDIR}"
+jbeg_vol="/usr/bin/git --git-dir=${JBEVOLGITDIR} --work-tree=${JBEVOLWORKDIR}"
 
-ghjvol="git@github.com:r-gregor/vlpprs_jbe.git"
-gljvol="git@gitlab.com:r-gregor/vlpprs_jbe.git"
-
-echo "[INFO] Testpush to ${ghjvol} ..."
-${git_jvol} push --dry-run ${ghjvol} main
+echo "[INFO] Testpush to d_GITHUB ..."
+${jbeg_vol} push --dry-run git@github.com:r-gregor/vlpprs_${USR}.git main
 echo "---"
 
-echo "[INFO] Testpush to ${gljvol} ..."
-${git_jvol} push --dry-run ${gljvol} main
+echo "[INFO] Testpush to d_GITLAB ..."
+${jbeg_vol} push --dry-run git@gitlab.com:r-gregor/vlpprs_${USR}.git main
 echo "---"
 

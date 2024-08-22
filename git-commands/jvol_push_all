@@ -1,20 +1,19 @@
 #! /usr/bin/env bash
 # jvol_push_all
-# last change: 20240821_jbe
+# last update: 20240821_jbe
 
-export JBEVOLGITDIR="${HOME}/majstaf/jbegit/vlpprs_jbe"
+USR="mdb"
+
+export JBEVOLGITDIR="${HOME}/majstaf/mdbgit/vlpprs_${USR}"
 export JBEVOLWORKDIR="${HOME}/majstaf/majvolpejpers"
 
-git_jvol="/usr/bin/git --git-dir=${JBEVOLGITDIR} --work-tree=${JBEVOLWORKDIR}"
+mdbg_vol="/usr/bin/git --git-dir=${JBEVOLGITDIR} --work-tree=${JBEVOLWORKDIR}"
 
-ghjvol="git@github.com:r-gregor/vlpprs_jbe.git"
-gljvol="git@gitlab.com:r-gregor/vlpprs_jbe.git"
-
-echo "[INFO] Push to ${ghjvol} ..."
-${git_jvol} push ${ghjvol} main
+echo "[INFO] Push to d_GITHUB ..."
+${mdbg_vol} push git@github.com:r-gregor/vlpprs_${USR}.git main
 echo "---"
 
-echo "[INFO] Push to ${gljvol} ..."
-${git_jvol} push ${gljvol} main
+echo "[INFO] Push to d_GITLAB ..."
+${mdbg_vol} push git@gitlab.com:r-gregor/vlpprs_${USR}.git main
 echo "---"
 
