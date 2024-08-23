@@ -1,9 +1,9 @@
 #! /usr/bin/env bash
 # jbegt_status
-# last change: 20240821_jbe
+# last change: 20240823
 
 
-USR="jbe"
+HST="jbe"
 COLOR_SET="\e[1;92m"
 COLOR_RESET="\e[0m"
 CURRDIR=$PWD
@@ -30,8 +30,8 @@ function get_status() {
 	fi
 }
 
-cd ~/majstaf/${USR}git/
-for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${USR}"); do
+cd ~/majstaf/${HST}git/
+for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${HST}"); do
 	cd $DDD &> /dev/null
 
 	get_status "/usr/bin/git"
@@ -39,10 +39,10 @@ for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${USR}"); do
 done
 
 # volpejpers
-DDD="vlpprs_${USR}"
-JBEVOLGITDIR="${HOME}/majstaf/${USR}git/vlpprs_${USR}"
-JBEVOLWORKTREE="${HOME}/majstaf/majvolpejpers"
-get_status "/usr/bin/git --git-dir=${JBEVOLGITDIR} --work-tree=${JBEVOLWORKTREE}"
+DDD="vlpprs_${HST}"
+VOLGITDIR="${HOME}/majstaf/${HST}git/vlpprs_${HST}"
+VOLWORKTREE="${HOME}/majstaf/majvolpejpers"
+get_status "/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKTREE}"
 
 echo ""
 printf "${COLOR_SET}"

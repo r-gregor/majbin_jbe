@@ -1,7 +1,8 @@
 #! /usr/bin/env bash
 # testing_ghgl_status_jbe
-# last change: 20240821_jbe
+# last change: 20240823
 
+HST="jbe"
 COLOR_SET="\e[1;92m"
 COLOR_RESET="\e[0m"
 CURRDIR=$PWD
@@ -28,7 +29,7 @@ function get_status() {
 }
 
 cd ~/majstaf/coding2/testing
-for DDD in $(find * -maxdepth 0 -type d | grep -v 'vlpprs_en'); do
+for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${HST}"); do
 	cd $DDD &> /dev/null
 
 	get_status "/usr/bin/git"

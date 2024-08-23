@@ -1,8 +1,9 @@
 #! /usr/bin/env bash
 # gcommit_timestamp_jbe
+# 20240823
 
 cmd="/usr/bin/git commit"
-USR="jbe"
+HST="jbe"
 
 if [ $# -eq 1 ]; then
 	if [ $1 == "-a" ]; then
@@ -17,7 +18,7 @@ else
 	msg="update"
 fi
 
-tmpstmp=$(date +"%Y%m%d_%H%M")_${USR}
+tmpstmp=$(date +"%Y%m%d_%H%M")_${HST}
 desc="$msg ${tmpstmp}"
 
 echo "/usr/bin/git commit -m \"$desc\""

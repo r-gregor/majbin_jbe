@@ -1,9 +1,11 @@
 #! /usr/bin/env bash
 # jbegt_run_all
-# last change: 20240821_jbe
+# last change: 20240823
 
-jbegt_status
-jbegt_testpush
+HST="jbe"
+
+${HST}gt_status
+${HST}gt_testpush
 
 
 

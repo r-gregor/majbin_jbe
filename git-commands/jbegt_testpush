@@ -1,15 +1,15 @@
 #! /usr/bin/env bash
 # jbegt_testpush
-# last change: 20240821_jbe
+# last change: 20240823
 
 # COLOR_SET="\e[1;94m"
 # COLOR_SET="\e[1;34m"
 COLOR_SET="\e[1;38;5;75m"
 COLOR_RESET="\e[0m"
-USR="jbe"
-JDEST=${HOME}/majstaf/${USR}git/
-JSTTS=${TMP}/${USR}git_status
-JRPRT=${TMP}/${USR}git_report
+HST="jbe"
+JDEST=${HOME}/majstaf/${HST}git/
+JSTTS=${TMP}/${HST}git_status
+JRPRT=${TMP}/${HST}git_report
 > ${JSTTS}
 > ${JRPRT}
 
@@ -20,7 +20,7 @@ for DDD in $(find * -maxdepth 0 -type d); do
 	printf "${COLOR_SET}"
 	echo "*** git testpush in ${DDD} ... ***"
 	printf "${COLOR_RESET}"
-	cd $DDD &>/dev/null && ~/.local/bin/ghgl_testpush_${USR} | tee -a ${JSTTS}
+	cd $DDD &>/dev/null && ~/.local/bin/ghgl_testpush_${HST} | tee -a ${JSTTS}
 	grep -i 'pull' ${JSTTS} > /dev/null
 	if [[ $? -eq 0 ]]; then
 		echo -e "[INFO] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE\n" >> ${JRPRT}
