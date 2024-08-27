@@ -1,19 +1,19 @@
 #! /usr/bin/env bash
 # jvol_testpush_all
-# last update: 20240823
+# last update: 20240827
 
 HST="jbe"
 
 export VOLGITDIR="${HOME}/majstaf/${HST}git/vlpprs_${HST}"
 export VOLWORKDIR="${HOME}/majstaf/majvolpejpers"
 
-jbeg_vol="/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKDIR}"
+vol_cmd="/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKDIR}"
 
 echo "[INFO] Testpush to d_GITHUB ..."
-${jbeg_vol} push --dry-run git@github.com:r-gregor/vlpprs_${HST}.git main
+${vol_cmd} push --dry-run git@github.com:r-gregor/vlpprs_${HST}.git main
 echo "---"
 
 echo "[INFO] Testpush to d_GITLAB ..."
-${jbeg_vol} push --dry-run git@gitlab.com:r-gregor/vlpprs_${HST}.git main
+${vol_cmd} push --dry-run git@gitlab.com:r-gregor/vlpprs_${HST}.git main
 echo "---"
 
