@@ -1,0 +1,23 @@
+#! /usr/bin/env bash
+
+choice=$(echo -e "logout\nreboot\nshutdown" | fzf --reverse)
+
+case $choice in
+	logout)
+		sudo loginctl terminate-user ${USER}
+		;;
+	
+	reboot)
+		sudo reboot
+		;;
+	
+	shutdown)
+		sudo systemctl poweroff
+		;;
+
+	*)
+		exit
+	;;
+esac
+
+
