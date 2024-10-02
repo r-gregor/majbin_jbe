@@ -1,0 +1,13 @@
+#! /bin/bash
+# echo "<filename>" | tr '[:upper:]' '[:lower:]' | tr ' ' '-'
+
+if [ $# -ne 1 ]; then
+	echo "[ERROR] -- no filename as argument"
+	exit
+else
+	FJLM=$1
+fi
+
+OUTPUT=$(echo ${FJLM} |  tr '[:upper:]' '[:lower:]' | sed -e 's/: */_/g' -e 's/,//g' | tr ' ' '-')
+echo "${OUTPUT}" | sed 's/"//g'
+

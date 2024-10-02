@@ -1,0 +1,13 @@
+#! /bin/bash
+
+if [ $# -ne 1 ]; then
+	echo "[ERROR] -- no string as argument"
+	exit
+else
+	FNAME=$1
+fi
+
+echo -n "Converting 4 spaces to tabs for file ${FNAME} ... "
+sed -i 's/ \{4\}/\t/g' ${FNAME}
+echo "[OK]."
+

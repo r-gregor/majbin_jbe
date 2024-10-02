@@ -1,0 +1,13 @@
+$> for FF in "TESTDIR1/New File 1.txt" "TESTDIR1/New Book 2.txt"; do echo "$FF --> $(./string-to-lower-with-hypens "$FF")"; done
+TESTDIR1/New File 1.txt --> testdir1/new-file-1.txt
+TESTDIR1/New Book 2.txt --> testdir1/new-book-2.txt
+
+---
+$> ./fnames-from-unix2dos TESTDIR1/
+unix2dos: converting file TESTDIR1/new-book-2.txt to DOS format...
+unix2dos: converting file TESTDIR1/new-file-1.txt to DOS format...
+unix2dos: converting file TESTDIR1/TEST_FILE.txt to DOS format...
+unix2dos: converting file TESTDIR1/TESZT_JAJEL2.txt to DOS format...
+
+---
+

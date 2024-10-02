@@ -1,0 +1,30 @@
+#! /bin/bash
+
+
+if [ $# -eq 1 ]; then
+	CURDIR="$1"
+else
+	CURDIR="$PWD"
+fi
+
+if [ ! -d $CURDIR ]; then
+	echo "[ERROR] -- no such directory"
+	exit
+fi
+
+read -p "All '*.txt' files will be converted from unix to dos line endings! Continue?"
+
+nifs() {
+	IFS=$'\n'
+}
+
+# set IFS to orginal ' \t\n'
+oifs() {
+	IFS=$' \t\n'
+}
+
+
+nifs
+for FFF in $(find ${CURDIR} -type f -name "*\.txt"); do unix2dos $FFF; done
+oifs
+

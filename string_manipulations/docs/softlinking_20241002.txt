@@ -1,0 +1,39 @@
+$> for FFF in fname_4-spaces-to-tabs \
+> fnames-from-unix2dos \
+> hypens-to-underscores \
+> lower-to-upper \
+> spaces-to-* \
+> string-to-lower-with-hypens \
+> upper-to-lower; do echo $FFF; done
+
+fname_4-spaces-to-tabs
+fnames-from-unix2dos
+hypens-to-underscores
+lower-to-upper
+spaces-to-hypens
+spaces-to-underscores
+string-to-lower-with-hypens
+upper-to-lower
+
+$> cmd=softlink1-fname-to-ulb
+
+$> for FFF in fname_4-spaces-to-tabs fnames-from-unix2dos hypens-to-underscores lower-to-upper spaces-to-* string-to-lower-with-hypens upper-to-lower; do $cmd $FFF; done
+Soft-linking fname_4-spaces-to-tabs to /home/gregor.redelonghi/.local/bin/ ...
+'/home/gregor.redelonghi/.local/bin/fname_4-spaces-to-tabs' -> '/home/gregor.redelonghi/majstaf_en/majbin_en/string_manipulations/fname_4-spaces-to-tabs'
+Soft-linking fnames-from-unix2dos to /home/gregor.redelonghi/.local/bin/ ...
+'/home/gregor.redelonghi/.local/bin/fnames-from-unix2dos' -> '/home/gregor.redelonghi/majstaf_en/majbin_en/string_manipulations/fnames-from-unix2dos'
+Soft-linking hypens-to-underscores to /home/gregor.redelonghi/.local/bin/ ...
+'/home/gregor.redelonghi/.local/bin/hypens-to-underscores' -> '/home/gregor.redelonghi/majstaf_en/majbin_en/string_manipulations/hypens-to-underscores'
+Soft-linking lower-to-upper to /home/gregor.redelonghi/.local/bin/ ...
+'/home/gregor.redelonghi/.local/bin/lower-to-upper' -> '/home/gregor.redelonghi/majstaf_en/majbin_en/string_manipulations/lower-to-upper'
+Soft-linking spaces-to-hypens to /home/gregor.redelonghi/.local/bin/ ...
+'/home/gregor.redelonghi/.local/bin/spaces-to-hypens' -> '/home/gregor.redelonghi/majstaf_en/majbin_en/string_manipulations/spaces-to-hypens'
+Soft-linking spaces-to-underscores to /home/gregor.redelonghi/.local/bin/ ...
+'/home/gregor.redelonghi/.local/bin/spaces-to-underscores' -> '/home/gregor.redelonghi/majstaf_en/majbin_en/string_manipulations/spaces-to-underscores'
+Soft-linking string-to-lower-with-hypens to /home/gregor.redelonghi/.local/bin/ ...
+'/home/gregor.redelonghi/.local/bin/string-to-lower-with-hypens' -> '/home/gregor.redelonghi/majstaf_en/majbin_en/string_manipulations/string-to-lower-with-hypens'
+Soft-linking upper-to-lower to /home/gregor.redelonghi/.local/bin/ ...
+'/home/gregor.redelonghi/.local/bin/upper-to-lower' -> '/home/gregor.redelonghi/majstaf_en/majbin_en/string_manipulations/upper-to-lower'
+
+---
+
