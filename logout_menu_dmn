@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-choice=$(echo -e "logout\nreboot\nshutdown" | dmenu -l 3)
+choice=$(echo -e "logout\nreboot\nshutdown\nquit" | dmenu -l 5 -p "logout/poweroff:")
 
 case $choice in
 	logout)
@@ -13,6 +13,10 @@ case $choice in
 	
 	shutdown)
 		sudo systemctl poweroff
+		;;
+
+	quit)
+		exit
 		;;
 
 	*)

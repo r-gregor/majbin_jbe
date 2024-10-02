@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-choice=$(echo -e "logout\nreboot\nshutdown" | fzf --reverse +c)
+choice=$(echo -e "logout\nreboot\nshutdown\nquit" | fzf --reverse +c --info=hidden --prompt="logout/poweroff:")
 
 case $choice in
 	logout)
@@ -15,9 +15,13 @@ case $choice in
 		sudo systemctl poweroff
 		;;
 
+	quit)
+		exit
+		;;
+
 	*)
 		exit
 	;;
-esac
+
 
 
