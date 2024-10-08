@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-choice=$(echo -e "logout\nreboot\nshutdown\nquit" | dmenu -l 5 -p "logout/poweroff:")
+choice=$(echo -e "logout\nreboot\nshutdown\nquit" | dmenu -fn 'Ubuntu Mono-24' -l 5 -p "logout/poweroff:")
 
 case $choice in
 	logout)
