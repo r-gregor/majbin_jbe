@@ -14,30 +14,33 @@ TRPRT=${TMP}/${HST}_testing_report
 
 CURRDIR=$PWD
 cd ${TDEST}
+
+echo "========================================"
+echo "[INFO] running testing_ghgl_testpush_jbe ..."
+echo "========================================"
 for DDD in $(ls -d *); do
-	echo ""
 	printf "${COLOR_SET}"
-	echo "*** git testpush in ${DDD} ... ***"
+	echo "[INFO] git testpush in ${DDD} ..."
 	printf "${COLOR_RESET}"
 	cd $DDD &>/dev/null && ${HOME}/.local/bin/ghgl_testpush_${HST} | tee -a ${TSTTS}
 	grep -i 'pull' ${TSTTS} > /dev/null
 	if [[ $? -eq 0 ]]; then
-		echo -e "[INFO] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE\n" >> ${TRPRT}
+		echo "[REPORT] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE" >> ${TRPRT}
 	fi
 	> ${TSTTS}
 	cd ..
 done
 
-echo ""
 printf "${COLOR_SET}"
-echo "*** REPORT ***"
-printf "${COLOR_RESET}"
 if [ -s ${TRPRT} ]; then
-	cat ${TRPRT}
+	while read LINE; do
+		echo "*** ${LINE} ***"
+	done < ${TRPRT}
 else
-	echo "[INFO] No action required"
+	echo "*** [REPORT] No action required ***"
 fi
+printf "${COLOR_RESET}"
 rm ${TRPRT} ${TSTTS} 2>/dev/null
 
 cd ${CURRDIR}
-
+echo ""
