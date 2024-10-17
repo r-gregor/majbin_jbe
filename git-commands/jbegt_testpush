@@ -15,8 +15,11 @@ JRPRT=${TMP}/${HST}git_report
 
 CURRDIR=$PWD
 cd ${JDEST}
+
+echo "========================================"
+echo "[INFO] running jbegt_testpush ..."
+echo "========================================"
 for DDD in $(find * -maxdepth 0 -type d); do
-	echo ""
 	printf "${COLOR_SET}"
 	echo "*** git testpush in ${DDD} ... ***"
 	printf "${COLOR_RESET}"
@@ -25,20 +28,23 @@ for DDD in $(find * -maxdepth 0 -type d); do
 	if [[ $? -eq 0 ]]; then
 		echo -e "[INFO] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE\n" >> ${JRPRT}
 	fi
+	echo "---"
 	> ${JSTTS}
 	cd ..
 done
 
 echo ""
 printf "${COLOR_SET}"
-echo "*** REPORT ***"
-printf "${COLOR_RESET}"
 if [ -s ${JRPRT} ]; then
-	cat ${JRPRT}
+	while read LINE; do
+		echo "[REPORT] ${LINE}"
+	done < ${JRPRT}
 else
 	echo "[INFO] No action required"
 fi
+printf "${COLOR_RESET}"
 rm ${JRPRT} ${JSTTS} 2>/dev/null
 
 cd ${CURRDIR}
 
+echo ""

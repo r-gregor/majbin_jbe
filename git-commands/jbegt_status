@@ -30,6 +30,10 @@ function get_status() {
 	fi
 }
 
+echo "========================================"
+echo "[INFO] running jbegt_status ..."
+echo "========================================"
+cd ~/majstaf_${HST}/${HST}git/
 cd ~/majstaf/${HST}git/
 for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${HST}"); do
 	cd $DDD &> /dev/null
@@ -44,16 +48,17 @@ VOLGITDIR="${HOME}/majstaf/${HST}git/vlpprs_${HST}"
 VOLWORKTREE="${HOME}/majstaf/majvolpejpers"
 get_status "/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKTREE}"
 
-echo ""
 printf "${COLOR_SET}"
-echo "*** REPORT ***"
-printf "${COLOR_RESET}"
 if [ -s ${TRPRT} ]; then
-	cat ${TRPRT}
+	while read LINE; do
+		echo "[REPORT] ${LINE}"
+	done < ${TRPRT}
 else
-	echo "[INFO] No action required"
+	echo "[REPORT] No action required"
 fi
+printf "${COLOR_RESET}"
 
 rm ${TRPRT} 2>/dev/null
 cd ${CURRDIR}
 
+echo ""
