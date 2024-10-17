@@ -46,5 +46,4 @@ printf "${COLOR_RESET}"
 rm ${JRPRT} ${JSTTS} 2>/dev/null
 
 cd ${CURRDIR}
-
 echo ""
