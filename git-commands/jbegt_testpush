@@ -21,26 +21,26 @@ echo "[INFO] running jbegt_testpush ..."
 echo "========================================"
 for DDD in $(find * -maxdepth 0 -type d); do
 	printf "${COLOR_SET}"
-	echo "*** git testpush in ${DDD} ... ***"
+	# echo "*** git testpush in ${DDD} ... ***"
+	echo "[INFO] git testpush in ${DDD} ... "
 	printf "${COLOR_RESET}"
 	cd $DDD &>/dev/null && ~/.local/bin/ghgl_testpush_${HST} | tee -a ${JSTTS}
 	grep -i 'pull' ${JSTTS} > /dev/null
 	if [[ $? -eq 0 ]]; then
-		echo -e "[INFO] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE\n" >> ${JRPRT}
+		echo "[REPORT] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE" >> ${JRPRT}
 	fi
-	echo "---"
+	# echo "---"
 	> ${JSTTS}
 	cd ..
 done
 
-echo ""
 printf "${COLOR_SET}"
 if [ -s ${JRPRT} ]; then
 	while read LINE; do
-		echo "[REPORT] ${LINE}"
+		echo "*** ${LINE} ***"
 	done < ${JRPRT}
 else
-	echo "[INFO] No action required"
+	echo "*** [REPORT] No action required ***"
 fi
 printf "${COLOR_RESET}"
 rm ${JRPRT} ${JSTTS} 2>/dev/null

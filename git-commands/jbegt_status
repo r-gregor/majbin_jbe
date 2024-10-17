@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-# jbegt_status
+ #jbegt_status
 # last change: 20240823
 
 
@@ -23,7 +23,7 @@ function get_status() {
 	else
 		echo "---"
 		printf "${COLOR_SET}"
-		printf "[INFO] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n" | tee -a ${TRPRT}
+		printf "[REPORT] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n" | tee -a ${TRPRT}
 		printf "${COLOR_RESET}"
 		${cmd} status
 		echo "---"
@@ -33,7 +33,6 @@ function get_status() {
 echo "========================================"
 echo "[INFO] running jbegt_status ..."
 echo "========================================"
-cd ~/majstaf_${HST}/${HST}git/
 cd ~/majstaf/${HST}git/
 for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${HST}"); do
 	cd $DDD &> /dev/null
@@ -51,10 +50,10 @@ get_status "/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKTREE}"
 printf "${COLOR_SET}"
 if [ -s ${TRPRT} ]; then
 	while read LINE; do
-		echo "[REPORT] ${LINE}"
+		echo "*** ${LINE} ***"
 	done < ${TRPRT}
 else
-	echo "[REPORT] No action required"
+	echo "*** [REPORT] No action required ***"
 fi
 printf "${COLOR_RESET}"
 
