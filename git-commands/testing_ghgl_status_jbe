@@ -21,13 +21,16 @@ function get_status() {
 	else
 		echo "---"
 		printf "${COLOR_SET}"
-		printf "[INFO] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n" | tee -a ${TRPRT}
+		printf "[REPORT] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n" | tee -a ${TRPRT}
 		printf "${COLOR_RESET}"
 		${cmd} status
 		echo "---"
 	fi
 }
 
+echo "========================================"
+echo "[INFO] running testing_ghgl_status_jbe ..."
+echo "========================================"
 cd ~/majstaf/coding2/testing
 for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${HST}"); do
 	cd $DDD &> /dev/null
@@ -36,16 +39,17 @@ for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${HST}"); do
 	cd ..
 done
 
-echo ""
 printf "${COLOR_SET}"
-echo "*** REPORT ***"
-printf "${COLOR_RESET}"
 if [ -s ${TRPRT} ]; then
-	cat ${TRPRT}
+	while read LINE; do
+		echo "*** ${LINE} ***"
+	done < ${TRPRT}
 else
-	echo "[INFO] No action required"
+	echo "*** [REPORT] No action required ***"
 fi
+printf "${COLOR_RESET}"
 
 rm ${TRPRT} 2>/dev/null
 cd ${CURRDIR}
 
+echo ""
