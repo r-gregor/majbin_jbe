@@ -20,7 +20,8 @@ echo "[INFO] running testing_ghgl_testpush_jbe ..."
 echo "========================================"
 for DDD in $(ls -d *); do
 	printf "${COLOR_SET}"
-	echo "[INFO] git testpush in ${DDD} ..."
+	# echo "[INFO] git testpush in ${DDD} ..."
+	echo "***    git testpush in ${DDD} ... ***"
 	printf "${COLOR_RESET}"
 	cd $DDD &>/dev/null && ${HOME}/.local/bin/ghgl_testpush_${HST} | tee -a ${TSTTS}
 	grep -i 'pull' ${TSTTS} > /dev/null
