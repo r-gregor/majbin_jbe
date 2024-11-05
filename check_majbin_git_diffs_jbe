@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+
+majbin_src=~/majstaf/majbin/
+majbin_dst=~/majstaf/jbegit/majbin_jbe/
+diff -q ${majbin_src} ${majbin_dst} | grep -iv common |grep -iv .git | cut -d' ' -f3- | sed 's/: //'
+# diff -q ${majbin_src} ${majbin_dst} | grep -iv common |grep -iv .git | cut -d' ' -f3- | sed 's/: //' | fzf
+# diff -q ${majbin_src} ${majbin_dst} | grep -iv common |grep -iv .git | cut -d' ' -f3- | sed 's/: //' | fzf -m | xargs -I{} cp -v {} ${majbin_dst}
+# cd ${majbin_dst}
+
