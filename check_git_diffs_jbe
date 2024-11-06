@@ -1,0 +1,72 @@
+#! /usr/bin/env bash
+# 20241106_01 -- en
+# 20241106_02 -- jbe
+
+HST="jbe"
+
+if [ $# -eq 1 ]; then
+	majfjls_src="${HOME}/majstaf/$1"
+	majfjls_dst="${HOME}/majstaf/${HST}git/${1}_${HST}"
+else
+	majfjls_src="${HOME}/majstaf/majbin"
+	majfjls_dst="${HOME}/majstaf/${HST}git/majbin_${HST}"
+fi
+
+if [ ! -d ${majfjls_src} ] || [ ! -d ${majfjls_dst} ]; then
+	echo "[ERROR] No such directories found"
+	exit
+fi
+
+short_src=$(echo ${majfjls_src} | sed "s:${HOME}/majstaf:...:")
+short_dst=$(echo ${majfjls_dst} | sed "s:${HOME}/majstaf:...:")
+
+echo "[INFO] Checking diffs in \"${short_src}\" and \"${short_dst}\""
+
+# fjls=($(diff -q ${majfjls_src}/ ${majfjls_dst}/ | grep -iv "common\|differ\|backup" | grep -iv '\.git' | grep -iv '\.txt' | cut -d' ' -f3- | sed 's/: //' | fzf -m --reverse))
+# check=($(diff -qr ${majfjls_src} ${majfjls_dst} | grep -iv "common\|differ\|backup" | grep -iv '\.git' | grep -iv 'jbegit' | cut -d' ' -f3- | sed -e 's/\/: /\//' -e 's/: /\//'))
+check=($(diff -qr ${majfjls_src} ${majfjls_dst} \
+	| grep -i "only" \
+	| grep -iv "${HST}git\|backup\|pycache\|common\|differ" \
+	| grep -iv '\.git' \
+	| cut -d' ' -f3- \
+	| sed -e 's/\/: /\//' -e 's/: /\//'))
+
+if [ "x${check[0]}" == "x" ]; then
+	echo "No files found"
+	exit
+fi
+
+fjls=$(for FFF in $(echo ${check[@]}); do echo $FFF; done | fzf -m --reverse)
+
+
+if [ "x${fjls[0]}" == "x" ]; then
+	echo "No files found/selected"
+	exit
+fi
+
+SRC=$(echo ${majfjls_src} | sed "s:${HOME}/majstaf/::")
+DST=$(echo ${majfjls_dst} | sed "s:${HOME}/majstaf/::")
+
+echo -e "Files to be copied from [${SRC}] to [${DST}]:"
+i=0
+for FJL in ${fjls[@]}; do
+	let i=$i+1
+	if [ $i -lt 10 ]; then
+		i="0${i}"
+	fi
+	# echo -e "\t${i} - $(basename ${FJL})"
+	echo -e "\t${i} - $(echo ${FJL} | sed -e "s:${majfjls_src}::" | sed "s:^/::")"
+done
+echo ""
+
+read -p "[y/Y] to procede [Any other key to quit] " choice
+
+if [ $choice == "y" ] || [ $choice == "Y" ]; then
+	for FJL in ${fjls[@]}; do
+		cp -irv ${FJL} $(echo ${majfjls_dst} | sed 's/\/$//')/$(echo ${FJL} | sed "s:${majfjls_src}::" | sed "s:^/::")
+	done
+else
+	echo "quit"
+	exit
+fi
+
