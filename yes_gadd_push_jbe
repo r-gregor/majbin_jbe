@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+
+yes | gadd_gcmt_jbe && ghgl_push_jbe
+
