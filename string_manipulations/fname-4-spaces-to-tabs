@@ -1,10 +1,12 @@
 #! /bin/bash
 
-if [ $# -ne 1 ]; then
+ARG="$@"
+
+if [ "x${ARG}" = "x" ]; then
 	echo "[ERROR] -- no string as argument"
 	exit
 else
-	FNAME=$1
+	FNAME=$ARG
 fi
 
 echo -n "Converting 4 spaces to tabs for file ${FNAME} ... "

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+arg="$@"
+
+BIG=$(echo $arg | sed 's/ \././' | tr [:lower:] [:upper:])
+
+echo $BIG
+echo $BIG | xclip

@@ -2,7 +2,7 @@
 
 arg="$@"
 
-SMALL=$(echo $arg | tr [:upper:] [:lower:])
+SMALL=$(echo $arg | sed 's/ \././' | tr [:upper:] [:lower:])
 
 echo $SMALL
 echo $SMALL | xclip   # use xclip on Linux!!

@@ -2,13 +2,15 @@
 
 # echo "<filename>" | tr ' ' '_'
 
-if [ $# -ne 1 ]; then
+ARG="$@"
+
+if [ "x${ARG}" = "x" ]; then
 	echo "[ERROR] -- no string as argument"
 	exit
 else
-	STRNG=$1
+	STRNG=$ARG
 fi
 
-OUTPUT=$(echo ${STRNG} | tr ' ' '_')
+OUTPUT=$(echo ${STRNG} | sed 's/ \././'  | tr ' ' '_')
 echo "${OUTPUT}" | sed 's/"//g'
 
