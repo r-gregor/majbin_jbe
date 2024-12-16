@@ -1,0 +1,60 @@
+#! /usr/bin/env bash
+# testing_ghgl_status_jbe
+# last change: 20241216
+
+HST="jbe"
+TSTDST=${HOME}/majstaf/coding2/testing
+COLOR_SET="\e[1;92m"
+COLOR_RESET="\e[0m"
+CURRDIR=$PWD
+
+unset msg
+unset report
+report=()
+
+get_status() {
+	cmd=$1
+	OUTPUT=$(${cmd} status)
+
+	echo $OUTPUT | grep -i "git push\|untracked\|modifiedi\|deleted" > /dev/null
+
+	if [[ $? -ne 0 ]]; then
+		echo -n "[INFO] checking git status in ${DDD} ..."
+		echo " no action required"
+	else
+		echo "---"
+		printf "${COLOR_SET}"
+		msg=$(echo -e "[REPORT] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n")
+		echo -e "$msg"
+		printf "${COLOR_RESET}"
+		readarray -t -O "${#report[@]}" report < <(echo -e "$msg")
+		${cmd} status
+		echo "---"
+	fi
+}
+
+echo "========================================"
+echo "[INFO] running testing_ghgl_status_jbe ..."
+echo "========================================"
+cd ${TSTDST}
+for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${HST}"); do
+	cd $DDD &> /dev/null
+
+	get_status "/usr/bin/git"
+	cd ..
+done
+
+printf "${COLOR_SET}"
+if [ ${#report[@]} -gt 0 ]; then
+	for j in $(seq 0 $((${#report[@]} - 1))); do
+		echo "*** ${report[$j]} ***"
+	done
+else
+	echo "*** [REPORT] No action required ***"
+fi
+printf "${COLOR_RESET}"
+
+cd ${CURRDIR}
+
+echo ""
+
