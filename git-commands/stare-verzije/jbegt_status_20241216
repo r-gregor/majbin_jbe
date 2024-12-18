@@ -1,27 +1,21 @@
 #! /usr/bin/env bash
-# filename: jbegt_status
-# 20241216: store output of cmd into array instead of external file
-# 20241218: read output of cmd directly into array, no more need to run cmd twice
-#           c-style for loop
-# last change: 20241218
+ #jbegt_status
+# last change: 20240823
+
 
 HST="jbe"
 COLOR_SET="\e[1;92m"
 COLOR_RESET="\e[0m"
 CURRDIR=$PWD
-
-unset msg
-unset report
-unset output
-report=(
+TRPRT=${TMP}/testing_report
+> ${TRPRT}
 
 
-get_status() {
+function get_status() {
 	cmd=$1
-	output=()
-	readarray -t -O ${#output[@]} output < <(${cmd} status)
-	echo ${output[@]} | grep -i "git push\|untracked\|modified\|deleted" > /dev/null
+	OUTPUT=$(${cmd} status)
 
+	echo $OUTPUT | grep -i "git push\|untracked\|modified\|deleted" > /dev/null
 
 	if [[ $? -ne 0 ]]; then
 		echo -n "[INFO] checking git status in ${DDD} ..."
@@ -29,15 +23,9 @@ get_status() {
 	else
 		echo "---"
 		printf "${COLOR_SET}"
-		msg=$(echo -e "[REPORT] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n")
-		echo -e "$msg"
+		printf "[REPORT] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n" | tee -a ${TRPRT}
 		printf "${COLOR_RESET}"
-
-		readarray -t -O "${#report[@]}" report < <(echo -e "$msg")
-
-		for (( i=0; i<${#output[@]}; i++ )); do
-			echo -e ">\t${output[$i]}"
-		done
+		${cmd} status
 		echo "---"
 	fi
 }
@@ -60,16 +48,16 @@ VOLWORKTREE="${HOME}/majstaf/majvolpejpers"
 get_status "/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKTREE}"
 
 printf "${COLOR_SET}"
-if [ ${#report[@]} -gt 0 ]; then
-	for (( j=0; j<${#report[@]}; j++ )); do
-		echo "*** ${report[$j]} ***"
-	done
+if [ -s ${TRPRT} ]; then
+	while read LINE; do
+		echo "*** ${LINE} ***"
+	done < ${TRPRT}
 else
 	echo "*** [REPORT] No action required ***"
 fi
 printf "${COLOR_RESET}"
 
+rm ${TRPRT} 2>/dev/null
 cd ${CURRDIR}
 
 echo ""
-

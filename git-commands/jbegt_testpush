@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
-# jbegt_testpush
-# last change: 20240823
+# filename: jbegt_testpush
+# 20241216: store output of cmd into array instead of external file
+# 20241218: c-style for loop
+# last change: 20241218
 
 # COLOR_SET="\e[1;94m"
 # COLOR_SET="\e[1;34m"
@@ -8,10 +10,11 @@ COLOR_SET="\e[1;38;5;75m"
 COLOR_RESET="\e[0m"
 HST="jbe"
 JDEST=${HOME}/majstaf/${HST}git/
-JSTTS=${TMP}/${HST}git_status
-JRPRT=${TMP}/${HST}git_report
-> ${JSTTS}
-> ${JRPRT}
+unset output
+unset report
+
+output=()
+report=()
 
 CURRDIR=$PWD
 cd ${JDEST}
@@ -21,29 +24,33 @@ echo "[INFO] running jbegt_testpush ..."
 echo "========================================"
 for DDD in $(find * -maxdepth 0 -type d); do
 	printf "${COLOR_SET}"
-	# echo "[INFO] git testpush in ${DDD} ... "
 	echo "***    git testpush in ${DDD} ... ***"
 	printf "${COLOR_RESET}"
-	cd $DDD &>/dev/null && ~/.local/bin/ghgl_testpush_${HST} | tee -a ${JSTTS}
-	grep -i 'pull' ${JSTTS} > /dev/null
-	if [[ $? -eq 0 ]]; then
-		echo "[REPORT] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE" >> ${JRPRT}
-	fi
-	# echo "---"
-	> ${JSTTS}
+	cd $DDD &>/dev/null
+	readarray -t output < <(~/.local/bin/ghgl_testpush_${HST})
+	for (( i=0; i<${#output[@]}; i++)); do
+		if [[ "${output[$i]}" =~ "pull" ]]; then
+			msg="$(echo -e "[REPORT] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE")"
+			readarray -t -O "${#report[@]}" report < <(echo -e "$msg")
+			exit
+		else
+			echo -e ${output[$i]}
+		fi
+	done
 	cd ..
 done
 
 printf "${COLOR_SET}"
 if [ -s ${JRPRT} ]; then
-	while read LINE; do
-		echo "*** ${LINE} ***"
-	done < ${JRPRT}
+	for (( j=0; j<${#report[@]}; j++)); do
+		echo "*** ${report[$j]} ***"
+	done
 else
 	echo "*** [REPORT] No action required ***"
 fi
 printf "${COLOR_RESET}"
-rm ${JRPRT} ${JSTTS} 2>/dev/null
 
 cd ${CURRDIR}
+
 echo ""
+

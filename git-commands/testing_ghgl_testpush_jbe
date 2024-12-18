@@ -1,16 +1,21 @@
 #! /usr/bin/env bash
-# testing_ghgl_testpush_jbe
-# last change: 20240603
+# filename: testing_ghgl_testpush_jbe
+# 20241216: store output of cmd into array instead of external file
+# 20241218: c-style for loop
+# last change: 20241218
+
+HST="jbe"
 
 # COLOR_SET="\e[1;94m"
 COLOR_SET="\e[1;38;5;75m"
 COLOR_RESET="\e[0m"
-HST="jbe"
 TDEST=${HOME}/majstaf/coding2/testing
-TSTTS=${TMP}/${HST}_testing_status
-TRPRT=${TMP}/${HST}_testing_report
-> ${TSTTS}
-> ${TRPRT}
+
+unset output
+unset report
+
+output=()
+report=()
 
 CURRDIR=$PWD
 cd ${TDEST}
@@ -20,28 +25,33 @@ echo "[INFO] running testing_ghgl_testpush_jbe ..."
 echo "========================================"
 for DDD in $(ls -d *); do
 	printf "${COLOR_SET}"
-	# echo "[INFO] git testpush in ${DDD} ..."
 	echo "***    git testpush in ${DDD} ... ***"
 	printf "${COLOR_RESET}"
-	cd $DDD &>/dev/null && ${HOME}/.local/bin/ghgl_testpush_${HST} | tee -a ${TSTTS}
-	grep -i 'pull' ${TSTTS} > /dev/null
-	if [[ $? -eq 0 ]]; then
-		echo "[REPORT] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE" >> ${TRPRT}
-	fi
-	> ${TSTTS}
+	cd $DDD &>/dev/null
+	readarray -t output < <(~/.local/bin/ghgl_testpush_${HST})
+	for (( i=0; i<${#output[@]}; i++)); do
+		if [[ "${output[$i]}" =~ "pull" ]]; then
+			msg="$(echo -e "[REPORT] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE")"
+			readarray -t -O "${#report[@]}" report < <(echo -e "$msg")
+			exit
+		else
+			echo -e ${output[$i]}
+		fi
+	done
 	cd ..
 done
 
 printf "${COLOR_SET}"
-if [ -s ${TRPRT} ]; then
-	while read LINE; do
-		echo "*** ${LINE} ***"
-	done < ${TRPRT}
+if [ ${#report[@]} -gt 0 ]; then
+	for (( j=0; j<${#report[@]}; j++)); do
+		echo "*** ${report[$j]} ***"
+	done
 else
 	echo "*** [REPORT] No action required ***"
 fi
 printf "${COLOR_RESET}"
-rm ${TRPRT} ${TSTTS} 2>/dev/null
 
 cd ${CURRDIR}
+
 echo ""
+

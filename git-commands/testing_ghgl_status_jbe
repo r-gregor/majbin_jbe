@@ -1,19 +1,26 @@
 #! /usr/bin/env bash
-# testing_ghgl_status_jbe
-# last change: 20240823
+# fiilename: testing_ghgl_status_jbe
+# 20241216: store output of commands into array instead of external filea
+# 20241218: read output of cmd directly into array, no more need to run cmd twice
+#           c-style for loop
+# last change: 20241218
 
 HST="jbe"
+TSTDST=${HOME}/majstaf/coding2/testing
 COLOR_SET="\e[1;92m"
 COLOR_RESET="\e[0m"
 CURRDIR=$PWD
-TRPRT=${TMP}/testing_report
-> ${TRPRT}
 
-function get_status() {
+unset msg
+unset report
+unset output
+report=()
+
+get_status() {
 	cmd=$1
-	OUTPUT=$(${cmd} status)
-
-	echo $OUTPUT | grep -i "git push\|untracked\|modifiedi\|deleted" > /dev/null
+	output=()
+	readarray -t -O ${#output[@]} output < <(${cmd} status)
+	echo ${output[@]} | grep -i "git push\|untracked\|modified\|deleted" > /dev/null
 
 	if [[ $? -ne 0 ]]; then
 		echo -n "[INFO] checking git status in ${DDD} ..."
@@ -21,9 +28,16 @@ function get_status() {
 	else
 		echo "---"
 		printf "${COLOR_SET}"
-		printf "[REPORT] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n" | tee -a ${TRPRT}
+		msg=$(echo -e "[REPORT] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n")
+		echo -e "$msg"
 		printf "${COLOR_RESET}"
-		${cmd} status
+		readarray -t -O "${#report[@]}" report < <(echo -e "$msg")
+
+		for (( i=0; i<${#output[@]}; i++ )); do
+			echo -e ">\t${output[$i]}"
+		done
+
+
 		echo "---"
 	fi
 }
@@ -31,7 +45,7 @@ function get_status() {
 echo "========================================"
 echo "[INFO] running testing_ghgl_status_jbe ..."
 echo "========================================"
-cd ~/majstaf/coding2/testing
+cd ${TSTDST}
 for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${HST}"); do
 	cd $DDD &> /dev/null
 
@@ -40,16 +54,16 @@ for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${HST}"); do
 done
 
 printf "${COLOR_SET}"
-if [ -s ${TRPRT} ]; then
-	while read LINE; do
-		echo "*** ${LINE} ***"
-	done < ${TRPRT}
+if [ ${#report[@]} -gt 0 ]; then
+	for (( j=0; j<${#report[@]}; j++ )); do
+		echo "*** ${report[$j]} ***"
+	done
 else
 	echo "*** [REPORT] No action required ***"
 fi
 printf "${COLOR_RESET}"
 
-rm ${TRPRT} 2>/dev/null
 cd ${CURRDIR}
 
 echo ""
+
