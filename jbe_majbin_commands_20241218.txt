@@ -1,0 +1,17 @@
+grep -rl function * | sort | uniq
+grep -rl function * | sort | uniq | clm
+grep -rl function * | sort | uniq | clm | xargs -ro vim -p
+
+get_mdbdiffs
+get_mdbdiffs | grep Files
+get_mdbdiffs | grep Files | cut -d' ' -f2 | grep -v / | xargs -I{} cp -vf {} ~/_MGT/majbin_mdb/
+get_mdbdiffs | grep Files | cut -d' ' -f2 | grep -v /
+get_mdbdiffs | grep Files | cut -d' ' -f2
+for FFF in $(get_mdbdiffs | grep Files | cut -d' ' -f2); do echo cp -rv ./$FFF ~/_MGT/majbin_mdb/; done
+for FFF in $(get_mdbdiffs | grep Files | cut -d' ' -f2); do echo cp -rv ./$FFF ~/_MGT/majbin_mdb/$FFF; done
+for FFF in $(get_mdbdiffs | grep Files | cut -d' ' -f2); do echo cp -riv ./$FFF ~/_MGT/majbin_mdb/$FFF; done
+for FFF in $(get_mdbdiffs | grep Files | cut -d' ' -f2); do cp -riv ./$FFF ~/_MGT/majbin_mdb/$FFF; done
+cd
+check_git_diffs_mdb 
+cd ~/_MGT/majbin_mdb/
+
