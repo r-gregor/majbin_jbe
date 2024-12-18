@@ -2,12 +2,12 @@
 
 CMD='for FFF in $(\ls -1); do echo $(echo $FFF | sed "s/\(.*\)_\([[:digit:]]\{8\}\).*/\2 /") $FFF; done | sort -nr'
 
-function run1() {
+run1() {
 	# eval $CMD | less
 	eval $CMD
 }
 
-function run2() {
+run2() {
 	gNr=$1
 	eval $CMD | head -n ${gNr}
 }

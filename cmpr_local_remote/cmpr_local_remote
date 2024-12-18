@@ -39,7 +39,7 @@ fi
 LOCAL="${local_base}/${lang_test}"
 REMOTE="${remote_base}/${lang_test}"
 
-function local_to_remote() {
+local_to_remote() {
 	for LF in $(ls ${LOCAL} | grep ${ll}[dn]_); do
 		single=0
 		for RF in $(ls ${REMOTE} | grep ${ll}[dn]_); do
@@ -53,7 +53,7 @@ function local_to_remote() {
 	done
 }
 
-function local_singles() {
+local_singles() {
 	for LF in $(ls ${LOCAL} | grep ${ll}[dn]_); do
 		single=0
 		for RF in $(ls ${REMOTE} | grep ${ll}[dn]_); do
@@ -67,7 +67,7 @@ function local_singles() {
 	done
 	echo "---"
 }
-function remote_singles() {
+remote_singles() {
 	for RF in $(ls ${REMOTE} | grep ${ll}[dn]_); do
 		single=0
 		for LF in $(ls ${LOCAL} | grep ${ll}[dn]_); do

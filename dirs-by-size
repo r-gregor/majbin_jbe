@@ -14,7 +14,7 @@
 ### 
 
 # usage
-function usage() {
+usage() {
 cat <<EOF
     Usage:
     $0 [arg]
@@ -39,13 +39,13 @@ if [ $# -ne 0 ]; then
 fi
 
 # timestamp
-function tms() {
+tms() {
     echo -n "[ $(date +%Y%m%d_%H%M%S) ] "
 }
 
 # crtice
 crtn=70
-function crtc() {
+crtc() {
 	if [ $# -ne 1 ]; then
 		echo "---"
 	else

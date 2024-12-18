@@ -11,7 +11,7 @@ TRPRT=${TMP}/testing_report
 > ${TRPRT}
 
 
-function get_status() {
+get_status() {
 	cmd=$1
 	OUTPUT=$(${cmd} status)
 

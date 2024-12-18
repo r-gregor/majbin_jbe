@@ -16,7 +16,7 @@ gTmpLst="$HOME/.tmp/list.txt"
 gDaysDiff=0
 gToday=$(date +%Y%m%d)
 
-function crtc() {
+crtc() {
     for ((i=1; i<=$1; i++)); do
         echo -n "-"
     done
@@ -24,7 +24,7 @@ function crtc() {
 }
 
 
-function usage() {
+usage() {
 cat <<EOF
 	Usage:
 	$0 [arg]
@@ -34,12 +34,12 @@ EOF
 }
 
 # timestamp
-function tms() {
+tms() {
     echo -n "[ $(date +%Y%m%d_%H%M%S) ] "
 }
 
 
-function fillDatabase() {
+fillDatabase() {
 	lpath=$1
 	for FFF in $(find ${gSrc}/* -regextype egrep -iregex ".*[^0-9][0-9]{8}\.txt"); do
 		numpart=$(echo $FFF | sed 's/\(.*\)\([[:digit:]]\{8\}\).*/\2/')

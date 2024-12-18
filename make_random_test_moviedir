@@ -3,7 +3,7 @@
 # 20240423_01_en
 
 
-function mkmvdr() {
+mkmvdr() {
 	MVD="Movie $((0 + RANDOM % 9))$((0 + RANDOM % 9)) ($((2000 + RANDOM % 24)))"
 
 	# test

@@ -10,7 +10,7 @@
 #
 
 # timestamp
-function tms() {
+tms() {
     echo -n "[ $(date +%Y%m%d_%H%M%S) ] "
 }
 

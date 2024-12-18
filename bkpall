@@ -9,12 +9,12 @@
 ### UPDATE 20181106: remove bekap2 ... (cp bckp to Dropbox)
 
 # timestamp
-function tms() {
+tms() {
     echo -n "[ $(date +%Y%m%d_%H%M%S) ] "
 }
 
 crtn=3
-function crtc() {
+crtc() {
     for ((i=1; i<=$1; i++)); do
         echo -n "-"
     done

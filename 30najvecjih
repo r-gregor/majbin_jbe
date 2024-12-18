@@ -19,7 +19,7 @@ gr_DIRSI=~/majstaf/.tmp/list-by-size.dat
 
 gr_ST_ZNAKOV=85
 
-function crtice () {
+crtice () {
 	printf "%${gr_ST_ZNAKOV}s\n" | tr " " "-"	# draw a line of "-" number-of-chars times ...
 	}
 

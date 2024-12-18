@@ -7,7 +7,7 @@
 ###
 
 # timestamp
-function tms() {
+tms() {
     echo -n "[ $(date +%Y%m%d_%H%M%S) ] "
 }
 
@@ -21,7 +21,7 @@ if [ $# -ne 1 ]; then
 fi
 
 my_URL=$1
-function mycmd() {
+mycmd() {
 	tmpf=$(mktemp)
     # ls $PWD | xargs -IS grep -s --color -Hn $my_URL S | tee $tmpf
     \ls $PWD | xargs -IS grep -s -Hn ${my_URL} S > ${tmpf}

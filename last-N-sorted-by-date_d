@@ -19,7 +19,7 @@ DRPBO_d=/home/rgregor/Dropbox/ODPRTO
 DEST1="C_and_Cpp,JAVA,PYTHON,CS-and-other-PL,GIT,VIM,DOCKER,LINUX_SYSTEM,BASH,TXT"
 DEST2="C_and_Cpp JAVA PYTHON CS-and-other-PL GIT VIM DOCKER LINUX_SYSTEM BASH TXT"
 
-function usage() {
+usage() {
 MSG=$(cat << HDOC
 
 Usage: $0 [args]

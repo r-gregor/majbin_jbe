@@ -9,7 +9,7 @@ gr_TO2="$HOME/OLDHDD/Dropbox/ODPRTO/home_username_java_d"
 
 
 # timestamp
-function tms() {
+tms() {
     echo -n "[ $(date +%Y%m%d_%H%M%S) ] "
 }
 
@@ -17,7 +17,7 @@ function tms() {
 CMDN="rsync -n -rltDv --delete --progress"
 
 # run
-function runBackups() {
+runBackups() {
     tms; echo "----------------------------------------------------------------------"
     # tms; echo "syncing ..."
     tms; echo "from: ${gr_FROM1}"
