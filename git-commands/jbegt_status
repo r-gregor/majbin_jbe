@@ -13,8 +13,7 @@ CURRDIR=$PWD
 unset msg
 unset report
 unset output
-report=(
-
+report=()
 
 get_status() {
 	cmd=$1
