@@ -1,0 +1,32 @@
+#! /usr/bin/env bash
+# v1: 20250131_en
+# v2: 20250201_d
+
+if [ $# -eq 1 ]; then
+	fname=$1
+else
+	echo "Usage: $0 <bookmarks filename>"
+	exit
+fi
+
+src=${fname}
+dest="$(basename $fname .html)_cleaned.html"
+echo -n "[INFO] cleaning ${src} into ${dest} ... "
+# sed 's/\(.*\) ADD_DATE=.*\(>.* \)/\1\2/' ${src} > ${dest} # v1
+# sed 's/\(.*HREF="[^"]*"\).*\(>.*<\/A>\)/\1\2/' ${src} > ${dest} # v2
+# sed 's/\([^"]*"[^"]*"\).*\(>.*<\/A>\)/\1\2/' ${src} > ${dest} # v2
+sed -e 's/\([^"]*"[^"]*"\).*\(>.*<\/A>\)/\1\2/' -e 's/ ADD.*">/">/' ${src} > ${dest} # v2
+
+echo "done"
+
+if [ -f $dest ]; then
+	echo "[INFO] cleaning successful ..."
+	echo "[INFO] renaming src file ..."
+
+	# cp -v ${fname} "_brisime_${fname}" # test
+	mv -v ${fname} "_brisime_${fname}"
+else
+	echo "[ERROR] cleaning unsuccessful -- aborting"
+	exit
+fi
+
