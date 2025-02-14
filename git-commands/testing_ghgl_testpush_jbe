@@ -30,10 +30,11 @@ for DDD in $(ls -d *); do
 	cd $DDD &>/dev/null
 	readarray -t output < <(~/.local/bin/ghgl_testpush_${HST})
 	for (( i=0; i<${#output[@]}; i++)); do
-		if [[ "${output[$i]}" =~ "pull" ]]; then
+		if [[ "${output[$i]}" =~ "PULL" ]]; then
 			msg="$(echo -e "[REPORT] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE")"
 			readarray -t -O "${#report[@]}" report < <(echo -e "$msg")
-			exit
+			echo -e ${output[$i]}
+			break
 		else
 			echo -e ${output[$i]}
 		fi
