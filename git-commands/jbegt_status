@@ -60,10 +60,12 @@ get_status "/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKTREE}"
 
 printf "${COLOR_SET}"
 if [ ${#report[@]} -gt 0 ]; then
+	echo
 	for (( j=0; j<${#report[@]}; j++ )); do
 		echo "*** ${report[$j]} ***"
 	done
 else
+	echo
 	echo "*** [REPORT] No action required ***"
 fi
 printf "${COLOR_RESET}"
