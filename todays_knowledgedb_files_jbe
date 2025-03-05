@@ -1,0 +1,64 @@
+#! /usr/bin/env bash
+# 20250304_d  v2
+# 20250305_en v3
+
+unset list
+list=()
+
+TODAY=$(date +"%Y%m%d")
+NOW=$(date +"%H")
+SRCDIR="${KNOWLEDGEDB:-/home/rgregor/majstaf/jbegit/knowledgedb}"
+
+if [ $# -eq 1 ]; then
+	HR=$1
+	DEJT=${TODAY}
+	if [ $((${NOW} - ${HR})) -le 0  ]; then
+		echo "[ERROR] Out of time range"
+		exit
+	fi
+elif [ $# -eq 2 ]; then
+	DEJT=$1
+	HR=$2
+	if [ $((${DEJT} - ${TODAY})) -gt 0 ]; then
+		echo "[ERROR] Wrong date"
+		exit
+	fi
+	if [ $((${TODAY} - ${DEJT})) -gt 0 ]; then
+		NOW=24
+	fi
+	if [ $((${NOW} - ${HR})) -lt 0  ]; then
+		echo "[ERROR] Out of time range"
+		exit
+	fi
+else
+	HR=8
+	DEJT=${TODAY}
+fi
+
+echo -e "\nGetting today's entries:"
+echo -e "\tin \"${SRCDIR}\""
+echo -e "\tafter: ${HR}:00:00 on ${DEJT}\n"
+read -p "Continue? [y/Y], or <enter> to confirm ... " ans
+
+if [ ! $ans == "Y" ] && [ ! $ans == "y" ]; then
+	exit
+fi
+
+readarray -t -O "${#list[@]}" list < <(find ${SRCDIR} -newermt "${DEJT} ${HR}:00:00" -type f | grep -v '\.git')
+
+if [ ${#list[@]} -le 0 ]; then
+	echo "[INFO] No files found"
+	exit
+fi
+
+fjls=$(for (( i=0; i<${#list[@]}; i++)); do
+	echo "${list[$i]}"
+done | fzf -m --reverse)
+
+if [ "x${fjls[0]}" == "x" ]; then
+	echo "[INFO] No files selected"
+	exit
+fi
+
+for FJL in $(echo ${fjls[@]}); do echo $FJL; done | xargs -ro vim -pM
+
