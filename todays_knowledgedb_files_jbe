@@ -35,6 +35,11 @@ else
 	DEJT=${TODAY}
 fi
 
+if [ $HR -lt 10 ]; then
+	HR="0${HR}"
+fi
+
+
 echo -e "\nGetting today's entries:"
 echo -e "\tin \"${SRCDIR}\""
 echo -e "\tafter: ${HR}:00:00 on ${DEJT}\n"
