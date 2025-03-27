@@ -3,5 +3,5 @@
 ### Name: majstaf/majbin/mntm
 ###
 
-mount | grep '/media/'
+mount | grep '/media/' | cut -d' ' -f1-5
 
