@@ -1,0 +1,30 @@
+#! /usr/bin/env bash
+# 20250328 v1 d
+
+CURRDIR="${HOME}/majstaf/majmedia/Seivom"
+unset dirlist
+
+if [ ! $PWD == ${CURRDIR} ]; then
+	echo "[ERROR] current dir must be: ${CURRDIR}"
+	exit
+fi
+
+dirlist=()
+# readarray -t -O "${#dirlist[@]}" dirlist < <(find * -maxdepth 0 -type d -not -name "_NOVO")
+readarray -t dirlist < <(find * -maxdepth 0 -type d -not -name "_NOVO")
+
+if [ ${#dirlist[@]} -eq 0 ]; then
+	echo "[ERROR] no directories to remove"
+	exit
+fi
+
+echo "[INFO] diractories to be removed:"
+for (( j=0; j<${#dirlist[@]}; j++)); do
+	echo "${dirlist[j]}"
+done
+
+read -p "-- OK? "
+
+for (( j=0; j<${#dirlist[@]}; j++)); do
+	rm -rv ${dirlist[j]}
+done
