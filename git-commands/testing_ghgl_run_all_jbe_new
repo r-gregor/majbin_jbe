@@ -1,8 +1,0 @@
-#! /usr/bin/env bash
-# testing_ghgl_run_all_jbe
-# last change: 20240823
-
-HST="jbe"
-
-testing_ghgl_status_${HST}_new
-testing_ghgl_testpush_${HST}_new

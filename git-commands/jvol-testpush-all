@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
-# jvol_testpush_all
-# last update: 20240827
+# filename: jvol-testpush-all
+# last update: 20250406
 
 HST="jbe"
 

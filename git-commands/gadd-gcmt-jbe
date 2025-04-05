@@ -1,9 +1,9 @@
 #! /usr/bin/env bash
-# gadd_gcmt_jbe
-# last change: 20240911
+# gadd-gcmt-jbe
+# last change: 20250406
 
 gcmd="/usr/bin/git add --verbose ."
-gcmt="${HOME}/.local/bin/gcommit_timestamp_jbe"
+gcmt="${HOME}/.local/bin/gcommit-timestamp-jbe"
 
 
 # display commands

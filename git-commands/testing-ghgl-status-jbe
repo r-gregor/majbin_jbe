@@ -1,11 +1,12 @@
 #! /usr/bin/env bash
-# filename: jbegt_status
-# 20241216: store output of cmd into array instead of external file
+# filename: testing-ghgl-status-jbe
+# 20241216: store output of commands into array instead of external filea
 # 20241218: read output of cmd directly into array, no more need to run cmd twice
 #           c-style for loop
-# last change: 20241218
+# last change: 20250406
 
 HST="jbe"
+TSTDST=${HOME}/majstaf/coding2/testing
 COLOR_SET="\e[1;92m"
 COLOR_RESET="\e[0m"
 CURRDIR=$PWD
@@ -15,12 +16,11 @@ unset report
 unset output
 report=()
 
-get_status() {
+get-status() {
 	cmd=$1
 	output=()
 	readarray -t -O ${#output[@]} output < <(${cmd} status)
 	echo ${output[@]} | grep -i "git push\|untracked\|modified\|deleted" > /dev/null
-
 
 	if [[ $? -ne 0 ]]; then
 		echo -n "[INFO] checking git status in ${DDD} ..."
@@ -31,32 +31,27 @@ get_status() {
 		msg=$(echo -e "[REPORT] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n")
 		echo -e "$msg"
 		printf "${COLOR_RESET}"
-
 		readarray -t -O "${#report[@]}" report < <(echo -e "$msg")
 
 		for (( i=0; i<${#output[@]}; i++ )); do
 			echo -e ">\t${output[$i]}"
 		done
+
+
 		echo "---"
 	fi
 }
 
 echo "========================================"
-echo "[INFO] running jbegt_status ..."
+echo "[INFO] running testing-ghgl-status-jbe ..."
 echo "========================================"
-cd ~/majstaf/${HST}git/
+cd ${TSTDST}
 for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${HST}"); do
 	cd $DDD &> /dev/null
 
-	get_status "/usr/bin/git"
+	get-status "/usr/bin/git"
 	cd ..
 done
-
-# volpejpers
-DDD="vlpprs_${HST}"
-VOLGITDIR="${HOME}/majstaf/${HST}git/vlpprs_${HST}"
-VOLWORKTREE="${HOME}/majstaf/majvolpejpers"
-get_status "/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKTREE}"
 
 printf "${COLOR_SET}"
 if [ ${#report[@]} -gt 0 ]; then

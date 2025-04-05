@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
-# gcommit_timestamp_jbe
-# 20240823
+# filename: gcommit-timestamp-jbe
+# 20250406
 
 cmd="/usr/bin/git commit"
 HST="jbe"
