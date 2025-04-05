@@ -1,0 +1,74 @@
+#! /usr/bin/env bash
+
+### updated 20220202:
+###    added ${DEST1}, and ${DEST2}
+###    changed for loop
+### -------------------------------
+###
+
+
+## CMD1=~/.local/bin/sort-files-by-end-date
+CMD1=~/.local/bin/rsort-by-enddate_g
+CMD2=~/.local/bin/rsort-by-tmstmp_c
+DRPBO_d=/home/rgregor/Dropbox/ODPRTO
+SRCDIR="/home/rgregor/majstaf/jbegit/knowledgedb"
+# DEST1="C_and_Cpp,PYTHON,JAVA,TXT,GO,GIT,VIM"
+# DEST2="C_and_Cpp PYTHON JAVA TXT GO GIT VIM"
+# DEST1="C_and_Cpp,PYTHON,JAVA,TXT,GIT,VIM,DOCKER,LINUX_SYSTEM"
+# DEST2="C_and_Cpp PYTHON JAVA TXT GIT VIM DOCKER LINUX_SYSTEM"
+
+DEST1="C_and_Cpp,JAVA,PYTHON,CS-and-other-PL,GIT,VIM,DOCKER,LINUX_SYSTEM,BASH,TXT"
+DEST2="C_and_Cpp JAVA PYTHON CS-and-other-PL GIT VIM DOCKER LINUX_SYSTEM BASH TXT"
+
+usage() {
+MSG=$(cat << HDOC
+
+Usage: $0 [args]
+	args:	-h ... help
+		-n ... number of last files by date
+
+		If no args, then last 10
+
+
+HDOC
+)
+	echo "${MSG}"
+}
+
+noargs="true"
+
+while getopts "hn:" arg; do
+	case ${arg} in
+		h)
+			usage
+		;;
+
+		n)
+			num=${OPTARG}
+			for PTH in ${DEST2}; do
+				echo "--- ${DRPBO_d}/_${PTH} ---"
+				cd ${DRPBO_d}/_${PTH} && ${CMD2} | head -n ${num}; done
+		;;
+
+		*)
+			echo "Displaying last 10 files from ${DRPBO_d}/_{"${DEST1}"}"
+			echo "For more options/usage run with -h!"
+			echo ""
+			for PTH in ${DEST2}; do
+				echo "--- ${DRPBO_d}/_${PTH} ---"
+				cd ${DRPBO_d}/_${PTH} && ${CMD2} | head -n10; done
+		;;
+	esac
+	noargs="false"
+done
+
+
+if [[ ${noargs} == "true" ]]; then
+	echo "Displaying last 10 files from ${DRPBO_d}/_{"${DEST1}"}"
+	echo "For more options/usage run with -h!"
+	echo ""
+	for PTH in ${DEST2}; do
+		echo "--- ${DRPBO_d}/_${PTH} ---"
+		cd ${DRPBO_d}/_${PTH} && ${CMD2} | head -n10; done
+fi
+

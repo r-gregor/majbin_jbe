@@ -1,0 +1,24 @@
+#! /bin/bash
+
+ARG="$@"
+
+if [ "x${ARG}" = "x" ]; then
+	echo "[ERROR] -- no dirname as argument"
+	exit
+else
+	DNAME="$ARG"
+fi
+
+if [ ! -d ${DNAME} ]; then
+	echo "[ERROR] -- no such directory"
+	exit
+fi
+
+NEW_DNAME=$(echo ${DNAME} | sed 's/ \././' | tr '_' '-')
+echo "[INFO] -- renaming ${DNAME} into ${NEW_DNAME} ..."
+read -p "OK?"
+
+mv -v ${DNAME} ${NEW_DNAME}
+
+echo "[INFO] done"
+

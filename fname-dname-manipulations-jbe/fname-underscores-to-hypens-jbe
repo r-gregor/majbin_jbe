@@ -1,0 +1,24 @@
+#! /bin/bash
+
+ARG="$@"
+
+if [ "x${ARG}" = "x" ]; then
+	echo "[ERROR] -- no filename as argument"
+	exit
+else
+	FNAME="$ARG"
+fi
+
+if [ ! -f ${FNAME} ]; then
+	echo "[ERROR] -- no such file"
+	exit
+fi
+
+NEW_FNAME=$(echo ${FNAME} | sed 's/ \././' | tr '_' '-')
+echo "[INFO] -- renaming ${FNAME} into ${NEW_FNAME} ..."
+read -p "OK?"
+
+mv -v ${FNAME} ${NEW_FNAME}
+
+echo "[INFO] done"
+
