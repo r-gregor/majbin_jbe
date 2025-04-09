@@ -8,14 +8,14 @@ clear
 gr_dejt=$(date +%Y%m%d)
 
 if [ $# -ne 2 ]; then
-	echo 'USAGE: <scriptmname> [web-URL] [filename]' 	
+	echo 'USAGE: <scriptmname> [web-URL] [filename-with-dashes]'
 	echo
 	exit
 fi
 
 gr_weburl="$1"
 gr_fjl="$2"
-gr_flnm="${gr_fjl}_${gr_dejt}.txt"
+gr_flnm="${gr_fjl}-${gr_dejt}.txt"
 
 # echo "Web URL: ${gr_weburl}"
 # echo "filename: ${gr_flnm}"
