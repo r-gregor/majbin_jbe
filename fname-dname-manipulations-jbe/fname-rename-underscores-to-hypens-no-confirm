@@ -17,3 +17,4 @@ fi
 NEW_FNAME=$(echo ${FNAME} | sed 's/ \././' | tr '_' '-')
 mv -v ${FNAME} ${NEW_FNAME}
 
+
