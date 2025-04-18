@@ -1,4 +1,4 @@
 #! /usr/bin/env bash
 
-grep export ~/majstaf/majrcs/bashrc_jbez0rg
+grep export ~/majstaf/majrcs/bashrc-jbez0rg
 
