@@ -1,16 +1,30 @@
 #! /usr/bin/env bash
 # 20241106_01 -- en
 # 20241106_02 -- jbe
+# 20250418_03 -- d
 
 HST="jbe"
+src_path=${HOME}/majstaf
+dst_path=${HOME}/majstaf/${HST}git
 
 if [ $# -eq 1 ]; then
-	majfjls_src="${HOME}/majstaf/$1"
-	majfjls_dst="${HOME}/majstaf/${HST}git/${1}_${HST}"
+	src=${1}
+	dst=${1}_${HST}
+elif [ $# -eq 2 ]; then
+	src=$1
+	dst=$2
 else
-	majfjls_src="${HOME}/majstaf/majbin"
-	majfjls_dst="${HOME}/majstaf/${HST}git/majbin_${HST}"
+	src="majbin"
+	dst="majbin_${HST}"
 fi
+
+export majfjls_src=${src_path}/${src}
+export majfjls_dst=${dst_path}/${dst}
+
+# test
+echo "majfjls_src: ${majfjls_src}"
+echo "majfjls_dst: ${majfjls_dst}"
+read -p "Continue?"
 
 if [ ! -d ${majfjls_src} ] || [ ! -d ${majfjls_dst} ]; then
 	echo "[ERROR] No such directories found"
