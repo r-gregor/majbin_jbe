@@ -1,12 +1,8 @@
 #! /usr/bin/python3
-### (PYTHON3 !!)
 
-### CHANGELOG:
-### -----------------------------------------------------------------------------
-### 20170220 ---
-### added test if URL neds with '/' -- remove (no need to watch for URL ending
-### when entering the URL
-### -----------------------------------------------------------------------------
+# send-1url-yh
+# 20250426
+# --------------------------
 
 
 # importing python modules:
@@ -25,7 +21,7 @@ def tms():
     return dt.datetime.now().strftime("%Y%m%d_%H%M%S")
 
 # get ext config data
-import send_config_d as scd
+import send_config_yh as scd
 
 '''
 gFrom = scd.gFrom
@@ -105,5 +101,4 @@ server.quit()
 
 
 print("[ {} ] DONE!".format(tms()))
-
 

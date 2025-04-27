@@ -1,12 +1,8 @@
 #! /usr/bin/env bash
 
-### sndf-d_mailx.sh
-### 20171001
-### send file to energetika:
-###
-### TO BE USED AS A SINGLE FILE:
-### ~/majfajls/coding/send_mail/sndf-d_mailx.sh "Filename with spaces"
-### _____________________________________________________________
+# sendf2-mailx-gg
+# 20250426
+# _____________________________________________________________
 
 # sourcing external config file:
 source ~/majstaf/majbin/send_mail/send_config_gg.sh

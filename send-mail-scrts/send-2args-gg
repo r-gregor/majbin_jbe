@@ -1,5 +1,8 @@
 #! /usr/bin/env python3
-### (PYTHON3 !!)
+
+# send-2args-gg
+# 20240526
+# -----------------------
 
 # importing python modules:
 import smtplib

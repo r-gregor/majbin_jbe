@@ -1,15 +1,8 @@
 #! /usr/bin/env python3
 
 """
-filename:       sendf-d.py
-description:    script that sends e-mail with attachemnets
-
-rearranged by:  RgregoR
-date:           20171004
-UPDATED 20171011: send files from current dir --> os.getcwd()!!
-UPDATED 20171011: function that checks if path is relative or absolute
-                  end creates absolute path
-UPDATED 20180329: add custom message to body
+filename:       sendf1-gg
+date:           20250426
 """
 
 # import ext data from send_config_d
