@@ -1,7 +1,8 @@
 #! /usr/bin/env bash
 # 20241106_01 -- en
 # 20241106_02 -- jbe
-# 20250418_03 -- d
+# 20241106_03 -- mdb
+# 20250417_04 -- mdb
 
 HST="jbe"
 src_path=${HOME}/majstaf
@@ -22,8 +23,8 @@ export majfjls_src=${src_path}/${src}
 export majfjls_dst=${dst_path}/${dst}
 
 # test
-echo "majfjls_src: ${majfjls_src}"
-echo "majfjls_dst: ${majfjls_dst}"
+echo "[INFO] majfjls_src: ${majfjls_src}"
+echo "[INFO] majfjls_dst: ${majfjls_dst}"
 read -p "Continue?"
 
 if [ ! -d ${majfjls_src} ] || [ ! -d ${majfjls_dst} ]; then
@@ -46,7 +47,8 @@ check=($(diff -qr ${majfjls_src} ${majfjls_dst} \
 	| sed -e 's/\/: /\//' -e 's/: /\//'))
 
 if [ "x${check[0]}" == "x" ]; then
-	echo "No files found"
+	echo "[INFO] No files found"
+	echo "---"
 	exit
 fi
 
@@ -54,14 +56,15 @@ fjls=$(for FFF in $(echo ${check[@]}); do echo $FFF; done | fzf -m --reverse)
 
 
 if [ "x${fjls[0]}" == "x" ]; then
-	echo "No files found/selected"
+	echo "[INFO] No files found/selected"
+	echo "---"
 	exit
 fi
 
 SRC=$(echo ${majfjls_src} | sed "s:${HOME}/majstaf/::")
 DST=$(echo ${majfjls_dst} | sed "s:${HOME}/majstaf/::")
 
-echo -e "Files to be copied from [${SRC}] to [${DST}]:"
+echo -e "[INFO] Files to be copied from [${SRC}] to [${DST}]:"
 i=0
 for FJL in ${fjls[@]}; do
 	let i=$i+1
@@ -75,12 +78,15 @@ echo ""
 
 read -p "[y/Y] to procede [Any other key to quit] " choice
 
-if [ $choice == "y" ] || [ $choice == "Y" ]; then
+if [ $choice = "y" ] || [ $choice = "Y" ]; then
 	for FJL in ${fjls[@]}; do
 		cp -irv ${FJL} $(echo ${majfjls_dst} | sed 's/\/$//')/$(echo ${FJL} | sed "s:${majfjls_src}::" | sed "s:^/::")
 	done
+	echo "[INFO] done"
+	echo "---"
 else
-	echo "quit"
+	echo "[INFO] quit"
+	echo "---"
 	exit
 fi
 
