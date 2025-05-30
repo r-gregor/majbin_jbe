@@ -78,7 +78,7 @@ tms; echo "Source file:      ./${FJL_fnm}"
 tms; echo "PS file:          ./${FJL_fnm}.ps"
 tms; echo "Destination file: ./${FJL_fnm}.pdf"
 tms; echo "Converting ..."
-enscript -v -f "Iosevka8" -F "Iosevka8" --header='$n||Page $% of $=' -p ${FJLPS} ${FJL} 2> info2
+enscript -v -T 4 -f "Iosevka8" -F "Iosevka8" --header='$n||Page $% of $=' -p ${FJLPS} ${FJL} 2> info2
 # enscript -v -f "Consolas8" -F "Consolas8" --header='$n||Page $% of $=' -p ${FJLPS} ${FJL} 2> info2
 while read -r INFOL; do echo $INFOL | sed "s/.*/[ $(date +%Y%m%d_%H%M%S) ] &/"; done <info2
 ps2pdf ${FJLPS} ${FJLPDF}
