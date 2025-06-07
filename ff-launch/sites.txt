@@ -1,0 +1,27 @@
+https://nullprogram.com/                                  -- c programming: blog
+https://justcode.me/category/c/                           -- c programming: blog
+https://c-for-dummies.com/blog/                           -- c programming: blog
+https://codeforwin.org/                                   -- c programming: blog
+https://medium.com/tag/c-programming                      -- c programming: blog
+https://gustedt.wordpress.com/                            -- c programming: blog
+http://www.robertgamble.net/                              -- c programming: blog (old)
+https://begriffs.com/                                     -- c programming: blog (old)
+---
+https://sillycodes.com/category/c/                        -- c programming: portal
+https://cprogrampracticals.blogspot.com/p/home-page.html  -- c programmiing: tutorial
+https://blog.jyotiprakash.org/c-programming               -- c programmiing: tutorial
+---
+https://pedropark99.github.io/zig-book/                   -- Zig manual
+https://lemire.me/blog/                                   -- programming
+https://www.rfleury.com/                                  -- programming
+https://dotat.at/@/                                       -- programming
+https://blog.reverberate.org/                             -- programming (old)
+https://nrk.neocities.org/                                -- programming: portal
+---
+https://newatlas.com/                                     -- tech news
+https://linuxiac.com/                                     -- linux stuf
+https://vimhelp.org/usr_toc.txt.html                      -- vim users manual (txt)
+https://learnbyexample.github.io/                         -- programming stuf
+https://eli.thegreenplace.net/                            -- programming stuf
+https://johnnysswlab.com/                                 -- programming stuf
+https://biriukov.dev/                                     -- linux/system stuf
