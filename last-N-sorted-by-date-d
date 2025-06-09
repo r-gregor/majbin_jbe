@@ -8,8 +8,8 @@
 ### -------------------------------
 
 
-CMD1=~/.local/bin/rsort_by_enddate_g
-CMD2=~/.local/bin/rsort_by_tmstmp_c
+CMD1=~/.local/bin/rsort-by-enddate-g
+CMD2=~/.local/bin/rsort-by-tmstmp-c
 SRCDIR="/home/rgregor/majstaf/jbegit/knowledgedb"
 
 DEST1="C_and_Cpp,JAVA,PYTHON,CS_and_other_PL,GIT,VIM,DOCKER,LINUX_SYSTEM,BASH,TXT,ZIG"
