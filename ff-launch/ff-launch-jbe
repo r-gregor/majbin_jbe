@@ -7,7 +7,7 @@ CMD='/usr/bin/firefox'
 SRC="$(dirname $(realpath ${BASH_SOURCE[0]}))/sites.txt"
 
 readarray -t URLS < <(cat ${SRC})
-selection=$(for URL in "${URLS[@]}"; do echo "$URL"; done | fzf --reverse --height 50% --border rounded)
+selection=$(for URL in "${URLS[@]}"; do echo "$URL"; done | fzf -e --reverse --height 50% --border rounded)
 
 if [ "x${selection}" == "x" ]; then
 	echo "[ERROR] nothing selected"
