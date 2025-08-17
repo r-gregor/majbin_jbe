@@ -24,7 +24,8 @@ my_URL=$1
 mycmd() {
 	tmpf=$(mktemp)
     # ls $PWD | xargs -IS grep -s --color -Hn $my_URL S | tee $tmpf
-    \ls $PWD | xargs -IS grep -s -Hn ${my_URL} S > ${tmpf}
+    # \ls $PWD | xargs -IS grep -s -Hn ${my_URL} S > ${tmpf}
+	find $PWD -type f -iname "*.txt" | xargs -I{} grep -s -Hn $my_URL {} > $tmpf
 	num=$(cat ${tmpf} | wc -l)
 	if [ ${num} -eq 0 ]; then
 		tms; echo "No files with that URL found!"
