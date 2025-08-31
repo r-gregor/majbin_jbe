@@ -2,7 +2,7 @@
 # filename: jbegt-testpush
 # 20241216: store output of cmd into array instead of external file
 # 20241218: c-style for loop
-# last change: 20250406
+# last change: 20250831
 
 # COLOR_SET="\e[1;94m"
 # COLOR_SET="\e[1;34m"
@@ -15,6 +15,7 @@ unset report
 
 output=()
 report=()
+> $TESTING_TPUSH_REPORTS
 
 CURRDIR=$PWD
 cd ${JDEST}
@@ -45,7 +46,8 @@ printf "${COLOR_SET}"
 if [ ${#report[@]} -gt 0 ]; then
 	echo
 	for (( j=0; j<${#report[@]}; j++)); do
-		echo "*** ${report[$j]} ***"
+		# echo "*** ${report[$j]} ***"
+		echo "*** ${report[$j]} ***" | tee -a $TESTING_TPUSH_REPORTS
 	done
 else
 	echo

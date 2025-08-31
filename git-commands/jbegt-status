@@ -3,7 +3,7 @@
 # 20241216: store output of cmd into array instead of external file
 # 20241218: read output of cmd directly into array, no more need to run cmd twice
 #           c-style for loop
-# last change: 20250406
+# last change: 2025831
 
 HST="jbe"
 COLOR_SET="\e[1;92m"
@@ -14,6 +14,7 @@ unset msg
 unset report
 unset output
 report=()
+> $JBEGIT_STATUS_REPORTS
 
 get_status() {
 	cmd=$1
@@ -62,7 +63,9 @@ printf "${COLOR_SET}"
 if [ ${#report[@]} -gt 0 ]; then
 	echo
 	for (( j=0; j<${#report[@]}; j++ )); do
-		echo "*** ${report[$j]} ***"
+		# echo "*** ${report[$j]} ***"
+		echo "*** ${report[$j]} ***" | tee -a $JBEGIT_STATUS_REPORTS
+
 	done
 else
 	echo

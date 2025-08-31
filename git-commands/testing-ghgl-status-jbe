@@ -3,7 +3,7 @@
 # 20241216: store output of commands into array instead of external filea
 # 20241218: read output of cmd directly into array, no more need to run cmd twice
 #           c-style for loop
-# last change: 20250406
+# last change: 202500831
 
 HST="jbe"
 TSTDST=${HOME}/majstaf/coding2/testing
@@ -15,6 +15,7 @@ unset msg
 unset report
 unset output
 report=()
+> $TESTING_STATUS_REPORTS
 
 get-status() {
 	cmd=$1
@@ -57,7 +58,8 @@ printf "${COLOR_SET}"
 if [ ${#report[@]} -gt 0 ]; then
 	echo
 	for (( j=0; j<${#report[@]}; j++ )); do
-		echo "*** ${report[$j]} ***"
+		# echo "*** ${report[$j]} ***"
+		echo "*** ${report[$j]} ***" | tee -a $TESTING_STATUS_REPORTS
 	done
 else
 	echo
