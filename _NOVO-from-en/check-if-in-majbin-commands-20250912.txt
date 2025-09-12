@@ -1,0 +1,2 @@
+for FFF in *; do if [ -f ../${FFF} ]; then echo "$FFF ARLREADY in majbin"; fi; done
+
