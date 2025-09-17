@@ -1,0 +1,69 @@
+#! /usr/bin/env bash
+# filename: majapps-launch
+# 20250917 (d)
+# last: 20250917 (d)
+
+declare -A apps=(["Firefox"]="/usr/bin/firefox" \
+                 ["Google Chrome"]="/usr/bin/google-chrome" \
+                 ["Mate calculator"]="/usr/bin/mate-calculator" \
+                 ["Mousepad"]="/usr/bin/mousepad" \
+                 ["Thunar FM"]="/usr/bin/thunar" \
+                 # ["Double Commander"]="/usr/bin/doublecmd" \
+                 ["Transmission"]="/usr/bin/transmission-gtk" \
+                 ["VLC"]="/usr/bin/vlc")
+
+# TEST
+# echo "apps values only: ${apps[@]}"
+# echo "apps keys only:   ${!apps[@]}"
+# echo "apps length:      ${#apps[@]}"
+
+selection=$(for app in "${!apps[@]}"; do echo "$app"; done | fzf --reverse +c --info=hidden --prompt="launch: ")
+
+# TEST 2
+# echo "selection: $selection"
+# echo "app: ${apps["${selection}"]}"
+
+# RUN
+# eval "${apps["${selection}"]} &"
+eval "nohup ${apps["${selection}"]} >&/dev/null &"
+
+#############################################
+# TODO
+# gr_verzija=" [ verzija-en - last update: 202401119 ] "
+# gr_izbira=""
+# gr_novapot="/c/users/gregor.redelonghi/majstaf_en/r.gregor.en/orodjarna/ukazi/podukazi"
+# gr_OFPOT='/c/Program Files/Microsoft Office/root/Office16'
+# gr_GGL="/c/Users/gregor.redelonghi/AppData/Local/Google/Chrome/Application/chrome.exe"
+# gr_IE=/c/Program\ Files/Internet\ Explorer/iexplore.exe
+# gr_FF=/c/Users/gregor.redelonghi/majstaf_en/majprogs_en/FireFox_63.0.1/FirefoxPortable.exe
+# gr_MSE=/c/Program\ Files\ \(x86\)/Microsoft/Edge/Application/msedge.exe
+#
+# cygstart "${gr_OFPOT}/EXCEL.EXE"
+# cygstart "${gr_OFPOT}/WINWORD.EXE"
+# cygstart "${gr_OFPOT}/POWERPNT.EXE"
+# cygstart "${gr_OFPOT}/OUTLOOK.EXE"
+# cygstart /c/Windows/System32/calc.exe
+# cygstart /c/Program\ Files\ \(x86\)/Adobe/Acrobat\ Reader\ DC/Reader/AcroRd32.exe
+# ${gr_novapot}/clc.bat
+# cygstart "C:\Program Files\Autodesk\AutoCAD 2024\acad.exe"  /product ACAD /language "en-US"
+# cygstart "C:\Program Files\Autodesk\AutoCAD 2024\acad.exe" /b "C:\Program Files\SL-King\Sewer+\Sewer+Load.scr"
+# cygstart /c/Users/gregor.redelonghi/majstaf_en/majprogs_en/OneCommander/OneCommander.exe
+# cygstart /c/Users/gregor.redelonghi/majstaf_en/majprogs_en/Explorerpp/Explorer++.exe
+# cygstart /c/Windows/System32/\notepad.exe
+# cygstart /c/Users/gregor.redelonghi/majstaf_en/majprogs_en/Notepad++/notepad++.exe
+# cygstart explorer /E,"$(cygpath -w /c/users/gregor.redelonghi/${CURRYR})"
+# cygstart /c/Users/gregor.redelonghi/majstaf_en/majprogs_en/MultiCommander_X64/MultiCommander.exe
+# cygstart "$gr_IE"
+# cygstart "${gr_MSE}" www.google.com
+# cygstart /c/WINDOWS/system32/ssmypics.scr /s
+# cygstart $gr_FF "http://jpe-nukleus.jhl.si/PassAuth/AutoAuth.aspx?ReturnUrl=/nukleus/profile.aspx?id=Energetika@Ljubljana"
+# cygstart '/c/Program Files/Google Chrome Portable/GoogleChromePortable.exe'
+# cygstart $gr_FF
+# cygstart explorer /E, $(cygpath -w /c/users/gregor.redelonghi/${CURRYR})
+# cygstart /c/users/gregor.redelonghi/majstaf_en/majprogs_en/cygwin64/bin/mintty.exe -p 40,40 -s 200,50 -
+# cygstart /c/Users/gregor.redelonghi/majstaf_en/majprogs_en/CodeBlocks/codeblocks.exe
+# cygstart /c/Program\ Files/Google/Drive/googledrivesync.exe
+# cygstart /c/Program\ Files/Skype/Phone/Skype.exe
+# cygstart "$(cygpath -w "/c/Users/Public/below average/Super Launcher/SuperLauncher.exe")"
+# cygstart /c/WINDOWS/System32/rundll32.exe user32.dll LockWorkStation
+# cygstart /c/WINDOWS/System32/rundll32.exe  shell32.dll,Control_RunDLL hotplug.dll
