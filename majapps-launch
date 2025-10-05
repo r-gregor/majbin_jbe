@@ -25,6 +25,11 @@ selection=$(for app in "${!apps[@]}"; do echo "$app"; done | fzf --reverse +c --
 
 # RUN
 # eval "${apps["${selection}"]} &"
+
+if [ "x${selection}" == "x" ]; then
+	exit
+fi
+
 eval "nohup ${apps["${selection}"]} >&/dev/null &"
 
 #############################################
