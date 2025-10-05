@@ -10,6 +10,7 @@ declare -A apps=(["Firefox"]="/usr/bin/firefox" \
                  ["Thunar FM"]="/usr/bin/thunar" \
                  # ["Double Commander"]="/usr/bin/doublecmd" \
                  ["Transmission"]="/usr/bin/transmission-gtk" \
+                 ["ArandR"]="/usr/bin/arandr" \
                  ["VLC"]="/usr/bin/vlc")
 
 # TEST
