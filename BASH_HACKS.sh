@@ -35,11 +35,44 @@ echo "Read output of command into array:"
 echo 'cmd=$1'
 echo 'output=()'
 echo 'readarray -t -O ${#output[@]} output < <(cmd)'
+
+cat << EOF1
+
+	***
+	Description:
+	readarray [-d delimiter] [-n count] [-O origin] [-s count] [-t] [-u fd] myArr
+	
+	   where,
+	-d delimiter: Specifies a delimiter character to use instead of the newline character.
+	-n: Copy at most the specified number of lines. All the lines are copied if the count is set to 0.
+	-O: Assigning to the array at index origin. By default the index kept 0.
+	-s: Let go of the first count lines read.
+	-t: Remove a trailing delimiter from each line read. The default value is a newline.
+	-u: Read lines from file descriptor fd instead of the standard input.
+	myArr: Name of the array to be declared.
+	***
+
+EOF1
+
 echo ""
 echo "Read contents of an array:"
 echo 'for (( i=0; i<${#output[@]}; i++ )); do'
 echo '	echo -e ">\t${output[$i]}"'
 echo 'done'
 
+cat <<EOF2
+
+---
+single-line example:
+$> readarray -t dirs < <(ls -dA *)
+$> for ((i=0;i<${#dirs[@]};i++)); do printf "dir %02d: %s\n" $[i+1] ${dirs[$i]}; done
+dir 01: _NERAZPOREJENO
+dir 02: coding2
+dir 03: dev
+.
+.
+.
+
+EOF2
 echo "---"
 
