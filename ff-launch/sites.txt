@@ -1,4 +1,7 @@
 --- 20250721-1459-en ---
+--- 20250808-1333-en ---
+--- 20251007-1349-en ---
+--- 20251015-1422-en ---
 https://nullprogram.com/                                  -- c programming: blog (5+)
 https://justcode.me/category/c/                           -- c programming: blog
 https://c-for-dummies.com/blog/                           -- c programming: blog (5+)
@@ -33,7 +36,7 @@ https://www.youtube.com/@TheCodingTrain                   -- ytb channel
 https://www.youtube.com/@dr-Jonas-Birch                   -- ytb channel
 https://www.youtube.com/@CasualCoder                      -- ytb channel
 https://www.youtube.com/@JacobSorber                      -- ytb channel
-https://www.youtube.com/@LowLevelLearning                 -- ytb channel
+https://www.youtube.com/@LowLevelTV                       -- ytb channel
 https://www.youtube.com/@PortfolioCourses                 -- ytb channel
 https://www.youtube.com/c/Programiz-studios               -- ytb channel
 https://www.youtube.com/@anthonygg_                       -- ytb channel
@@ -54,6 +57,9 @@ https://www.youtube.com/@bootdotdev                       -- ytb channel
 https://www.youtube.com/@JustAGuyLinux                    -- ytb channel
 https://www.youtube.com/@AlexTheRealDev                   -- ytb channel (c mostly)
 https://www.youtube.com/@eom-dev                          -- ytb channel (Eric O Meehan)
+https://www.youtube.com/@aliawan6245                      -- ytb channel (c mostly, 5+)
+https://www.youtube.com/@yousuckatprogramming             -- ytb channel (BASH mostly, 5+)
+https://www.youtube.com/@johannes4gnu_linux96             -- ytb channel (linux drivers/qemu/ ...)
 ---
 https://www.youtube.com/playlist?list=PL98qAXLA6aftD9ZlnjpLhdQAOFI8xIB6e     -- C Programming for Beginners
 https://www.youtube.com/playlist?list=PL2B6OzTsMUrz3RBEhYGb-0wtH9SqFpcDj     -- Productive Workstation with Linux (Debian)
