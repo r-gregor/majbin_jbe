@@ -36,7 +36,7 @@ while true; do
 		--border=rounded \
 		--info=hidden \
 		--height=15 \
-		+c \
+		# +c \
 		--prompt="launch: ")
 
 
@@ -50,7 +50,7 @@ while true; do
 	# eval "${apps["${selection}"]} &"
 
 	if [ "${selection}" == "q (quit)" ]; then
-			exit
+		exit
 	fi
 	eval "nohup ${apps["${selection}"]} >&/dev/null &"
 
