@@ -2,6 +2,7 @@
 --- 20250808-1333-en ---
 --- 20251007-1349-en ---
 --- 20251015-1422-en ---
+--- 20251029-1519-en ---
 https://nullprogram.com/                                  -- c programming: blog (5+)
 https://justcode.me/category/c/                           -- c programming: blog
 https://c-for-dummies.com/blog/                           -- c programming: blog (5+)
@@ -60,6 +61,7 @@ https://www.youtube.com/@eom-dev                          -- ytb channel (Eric O
 https://www.youtube.com/@aliawan6245                      -- ytb channel (c mostly, 5+)
 https://www.youtube.com/@yousuckatprogramming             -- ytb channel (BASH mostly, 5+)
 https://www.youtube.com/@johannes4gnu_linux96             -- ytb channel (linux drivers/qemu/ ...)
+https://www.youtube.com/@HirschDaniel                     -- ytb channel (c -> low level 5+)
 ---
 https://www.youtube.com/playlist?list=PL98qAXLA6aftD9ZlnjpLhdQAOFI8xIB6e     -- C Programming for Beginners
 https://www.youtube.com/playlist?list=PL2B6OzTsMUrz3RBEhYGb-0wtH9SqFpcDj     -- Productive Workstation with Linux (Debian)
