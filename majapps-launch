@@ -36,7 +36,6 @@ while true; do
 		--border=rounded \
 		--info=hidden \
 		--height=15 \
-		# +c \
 		--prompt="launch: ")
 
 
