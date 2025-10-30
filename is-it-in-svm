@@ -4,7 +4,7 @@ PTH="/home/rgregor/majstaf/majmedia/_DSVM.txt"
 
 
 if [ $# -ne 1 ]; then
-	echo "[ERROR] must supply a part of movie name"
+	echo -e "[ERROR] must supply a part of movie name\n"
 	exit
 else
 	PTRN=$1

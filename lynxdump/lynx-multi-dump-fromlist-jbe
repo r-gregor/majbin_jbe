@@ -10,13 +10,13 @@ if [ $# -eq 1 ]; then
 	gr_seznam=$1
 	gr_name="default-fname"
 	if [ ! -f $gr_seznam ]; then
-		echo "[ERROR] no such file: ${gr_seznam}"
+		echo -e "[ERROR] no such file: ${gr_seznam}\n"
 		exit
 	fi
 elif [ $# -eq 2 ]; then
 	gr_seznam=$1
 	if [ ! -f $gr_seznam ]; then
-		echo "[ERROR] no such file: ${gr_seznam}"
+		echo -e "[ERROR] no such file: ${gr_seznam}\n"
 		exit
 	fi
 	gr_name=$2
@@ -48,6 +48,5 @@ for FFF in $(cat ${gr_seznam}); do echo "inserting $FFF into ${gr_filename}"; do
 for FFF in $(cat ${gr_seznam}); do echo -e "$FFF\n" >> ${gr_filename}; lynx -dump -width=110 $FFF >> ${gr_filename}; echo -e "\n\n\n---" >> ${gr_filename}; done
 
 echo
-echo 'DONE!'
-echo
+echo -e "DONE!\n"
 

@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 if [ $# -ne 1 ]; then
-	echo "[ERROR] must supply a git repository dirname"
+	echo -e "[ERROR] must supply a git repository dirname\n"
 	exit
 else
 	read_gitdirname=$1
@@ -14,12 +14,12 @@ GLPTH="https://gitlab.com/r-gregor/${gitdirname}.git"
 GTMP="${gitdirname}_backup"
 
 if [ ! -d ${gitdirname} ]; then
-	echo "[ERROR] NO such directory: ${gitdirname}"
+	echo -e "[ERROR] NO such directory: ${gitdirname}\n"
 	exit
 fi
 
 if [ ! -d ${gitdirname}/.git ]; then
-	echo "[ERROR] NOT a git repository"
+	echo -e "[ERROR] NOT a git repository\n"
 	exit
 fi
 
@@ -89,5 +89,5 @@ echo "[INFO] removing autocreated remote 'origin' ..."
 echo "git remote rm origin"
 git remote rm origin
 
-echo "[INFO] done"
+echo -e "[INFO] done\n"
 

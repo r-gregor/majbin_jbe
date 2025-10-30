@@ -1,9 +1,9 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 ARG="$@"
 
 if [ "x${ARG}" = "x" ]; then
-	echo "[ERROR] -- no string as argument"
+	echo -e "[ERROR] -- no string as argument\n"
 	exit
 else
 	FNAME=$ARG

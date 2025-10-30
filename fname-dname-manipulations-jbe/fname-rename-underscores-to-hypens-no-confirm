@@ -1,16 +1,16 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 ARG="$@"
 
 if [ "x${ARG}" = "x" ]; then
-	echo "[ERROR] -- no filename as argument"
+	echo -e "[ERROR] -- no filename as argument\n"
 	exit
 else
 	FNAME="$ARG"
 fi
 
 if [ ! -f ${FNAME} ]; then
-	echo "[ERROR] -- no such file"
+	echo -e "[ERROR] -- no such file\n"
 	exit
 fi
 

@@ -2,14 +2,14 @@
 #  renamedir-to-BRISI.sh
 
 if [ $# -ne 1 ]; then
-	echo "Usage: $0 <dirname>"
+	echo -e "Usage: $0 <dirname>\n"
 	exit
 else
 	dname1=$1
 fi
 
 if [ ! -d ${dname1} ]; then
-	echo "[ERROR]: There is NO ${dname1} directory"
+	echo -e "[ERROR]: There is NO ${dname1} directory\n"
 	exit
 fi
 
@@ -18,7 +18,7 @@ dname2=_BRISI_${dname1}
 
 if [ "${dname1}" == "${dname2}" ]; then
 	echo "[INFO]: Old and New dirname are the same"
-	echo "[INFO]: NO renaming"
+	echo -e "[INFO]: NO renaming\n"
 	exit
 fi
 

@@ -3,7 +3,7 @@
 if [ $# -eq 1 ]; then
 	fname=$1
 else
-	echo "Usage: $0 <bookmarks filename>"
+	echo -e "Usage: $0 <bookmarks filename>\n"
 	exit
 fi
 
@@ -18,7 +18,7 @@ if [ -f $dest ]; then
 	echo "[INFO] renaming src file ..."
 	mv -v $fname "_brisime_${fname}"
 else
-	echo "[ERROR] cleaning unsuccessful -- aborting"
+	echo -e "[ERROR] cleaning unsuccessful -- aborting\n"
 	exit
 fi
 

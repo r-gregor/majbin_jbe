@@ -7,7 +7,7 @@ usbs=()
 readarray -t usbs < <(lsblk | grep -E 'sd.[0-9]' | grep -v 'sda' | sed 's/.*\(sd.[0-9]\).*/\1/')
 
 if [ ${#usbs[@]} -eq 0 ]; then
-	echo "[ERROR] No externa USB-s plugged"
+	echo -e "[ERROR] No externa USB-s plugged\n"
 	exit
 fi
 

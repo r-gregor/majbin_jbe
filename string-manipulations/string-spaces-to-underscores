@@ -1,11 +1,11 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # echo "<filename>" | tr ' ' '_'
 
 ARG="$@"
 
 if [ "x${ARG}" = "x" ]; then
-	echo "[ERROR] -- no string as argument"
+	echo -e "[ERROR] -- no string as argument\n"
 	exit
 else
 	STRNG=$ARG

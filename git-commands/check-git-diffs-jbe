@@ -28,7 +28,7 @@ echo "[INFO] majfjls_dst: ${majfjls_dst}"
 read -p "Continue?"
 
 if [ ! -d ${majfjls_src} ] || [ ! -d ${majfjls_dst} ]; then
-	echo "[ERROR] No such directories found"
+	echo -e "[ERROR] No such directories found\n"
 	exit
 fi
 
@@ -86,7 +86,7 @@ if [ $choice = "y" ] || [ $choice = "Y" ]; then
 	echo "---"
 else
 	echo "[INFO] quit"
-	echo "---"
+	echo -e "---\n"
 	exit
 fi
 

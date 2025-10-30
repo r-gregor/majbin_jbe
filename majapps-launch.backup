@@ -1,9 +1,7 @@
 #! /usr/bin/env bash
 # filename: majapps-launch
 # 20250917 (d)
-# 20251017 (d) -- run inside infinite loop and added 'q' to quit
-#              -- keys in separate index-ed array to keep display order
-# last: 20251017 (d)
+# last: 20250917 (d)
 
 declare -A apps=(["Firefox"]="/usr/bin/firefox" \
                  ["Google Chrome"]="/usr/bin/google-chrome" \
@@ -15,46 +13,25 @@ declare -A apps=(["Firefox"]="/usr/bin/firefox" \
                  ["ArandR"]="/usr/bin/arandr" \
                  ["VLC"]="/usr/bin/vlc")
 
-declare -a keys=("Firefox" \
-                 "Google Chrome" \
-                 "Mate calculator" \
-                 "Mousepad" \
-                 "Thunar FM" \
-                 # "Double Commander" \
-                 "Transmission" \
-                 "ArandR" \
-                 "VLC" \
-                 "q (quit)")
+# TEST
+# echo "apps values only: ${apps[@]}"
+# echo "apps keys only:   ${!apps[@]}"
+# echo "apps length:      ${#apps[@]}"
 
-while true; do
-	# selection=$(for key in "${!keys[@]}"; do echo "${keys[$key]}"; done | fzf -e --reverse +c -i --prompt="launch: ")
+selection=$(for app in "${!apps[@]}"; do echo "$app"; done | fzf --reverse +c --info=hidden --prompt="launch: ")
 
-	# selection=$(for key in "${!keys[@]}"; do echo "${keys[$key]}"; done | fzf --reverse +c --info=hidden --prompt="launch: ")
-	selection=$(for key in "${!keys[@]}"; do echo "${keys[$key]}"; done | \
-		fzf \
-		--reverse \
-		--border=rounded \
-		--info=hidden \
-		--height=15 \
-		# +c \
-		--prompt="launch: ")
+# TEST 2
+# echo "selection: $selection"
+# echo "app: ${apps["${selection}"]}"
 
+if [ "x${selection}" == "x" ]; then
+	echo -e "[ERROR] no selection\n"
+	exit
+fi
 
-
-	if [ "x${selection}" == "x" ]; then
-		echo -e "[ERROR] no selection\n"
-		exit
-	fi
-
-	# RUN
-	# eval "${apps["${selection}"]} &"
-
-	if [ "${selection}" == "q (quit)" ]; then
-		exit
-	fi
-	eval "nohup ${apps["${selection}"]} >&/dev/null &"
-
-done
+# RUN
+# eval "${apps["${selection}"]} &"
+eval "nohup ${apps["${selection}"]} >&/dev/null &"
 
 #############################################
 # TODO

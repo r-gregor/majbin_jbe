@@ -30,8 +30,8 @@ case $NUMARGS in
 esac
 
 if [ ! $fname ]; then
-	echo "[ERROR] $fname: No such file"
-	exir
+	echo -e "[ERROR] $fname: No such file\n"
+	exit
 fi
 
 echo -n "Command: "

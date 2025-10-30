@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# jbegit-multiple-repos-setup
+# jbegit-multiple-repos-setup.sh
 # 20250430
 # -------------------
 
@@ -40,7 +40,7 @@ single_repo_setup() {
 	cd ../
 }
 
-for repo in majbin majrcs metsys dotfiles; do
+for repo in majbin majrcs metsys; do
 	single_repo_setup ${repo}
 done
 
