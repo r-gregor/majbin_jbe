@@ -10,7 +10,7 @@
 
 
 if [ $# -eq 0 ]; then
-    echo "Usage $0 + [filename]"
+    echo -e "Usage $0 + [filename]\n"
     exit 1
 fi
 

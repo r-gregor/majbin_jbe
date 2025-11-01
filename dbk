@@ -12,7 +12,7 @@
 gr_DBPN=$(ps aux | grep dropbox | grep -v grep | head -n1 | awk '{print $2}')
 
 if [ x${gr_DBPN} == x ]; then
-	echo "There is no active Dropbox process ..."
+	echo -e "There is no active Dropbox process ...\n"
 	exit 1
 fi
 

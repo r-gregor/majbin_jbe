@@ -1,7 +1,7 @@
 #! /bin/bash
 
 if [ $# -ne 2 ]; then
-    echo "Must supply existing *.srt  and [movie] filename"
+    echo -e "Must supply existing *.srt  and [movie] filename\n"
     exit 1
 else
     old_srt_fname=$1
@@ -9,7 +9,7 @@ else
 fi
 
 if [ ! -f $fname ]; then
-    echo "Must supply existing *.srt  and [movie] filename"
+    echo -e "Must supply existing *.srt  and [movie] filename\n"
     exit 1
 fi
 

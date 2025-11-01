@@ -6,7 +6,7 @@
 
 
 if [ $# -ne 1 ]; then
-	echo "Must supply year or 'all' as argument"
+	echo -e "Must supply year or 'all' as argument\n"
 	exit
 else
 	YR=$1
@@ -14,7 +14,7 @@ fi
 
 
 if [ ! -d "${PWD}/Movies" ] || [ ! -d "${PWD}/Seivom" ]; then
-	echo "There is no 'Movies' or 'Seivom' directories!"
+	echo -e "There is no 'Movies' or 'Seivom' directories!\n"
 	exit
 fi
 
@@ -32,7 +32,7 @@ elif [ $YR == "all" ]; then
 	# test
 	# echo "fname: $fname"
 else
-	echo "No suitable parameter"
+	echo -e "No suitable parameter\n"
 	exit
 fi
 

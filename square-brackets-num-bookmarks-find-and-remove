@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 if [ $# -ne 1 ]; then
-    echo "Must suply a filename!"
+    echo -e "Must suply a filename!\n"
     exit 1
 fi
 

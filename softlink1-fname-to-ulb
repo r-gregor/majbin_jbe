@@ -8,8 +8,7 @@
 # test if filename supplied as argument
 if [ ! $# -eq 1 ]; then
     echo "Usage:"
-    echo "$0 [scriptname]"
-    echo
+    echo -e "$0 [scriptname]\n"
     exit
 fi
 
@@ -31,7 +30,7 @@ ext=${fname_full##*.}
 
 # test if filename exists
 if [ ! -e ${source_path}/${fname_full} ]; then
-    echo "file: ${fname_full} NOT found!"
+    echo -e "file: ${fname_full} NOT found!\n"
     exit
 fi
 

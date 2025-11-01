@@ -25,6 +25,7 @@ case $NUMARGS in
 		echo "           fname: file name"
 		echo "           n:     number of parts to split fname into"
 		echo "                  if only <filename> supplied: n = 2"
+		echo ""
 		exit
 	;;
 esac

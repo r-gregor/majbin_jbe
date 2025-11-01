@@ -17,7 +17,7 @@
 
 if [ $# -ne 1 ]; then
 	echo -e "\nThere should be one and only one argumanet: filename.pdf!"
-	echo "Try again!"
+	echo -e "Try again!\n"
 	exit 1
 fi
 

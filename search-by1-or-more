@@ -4,7 +4,7 @@
 if [ $# -lt 1 ]; then
     echo -e "\nUsage: $0 <search param1> <search patam2:\n"
     echo -e "\t<search param1> = 1st pattern --> list of files."
-    echo -e "\t<search param2> = 2nd pattern search in list of files."
+    echo -e "\t<search param2> = 2nd pattern search in list of files.\n"
     exit
 fi
 

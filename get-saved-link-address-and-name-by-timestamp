@@ -6,7 +6,7 @@ if [ ! -p /dev/stdin ] || [ $# -ne 1 ]; then
 	echo "  Usage: cli command | <get_saved_link_address_and_name_by_timestamp.sh> <datestamp>"
 	echo "		- cli command: cat, or any file stream display command"
 	echo "		- datestamp in format: yyyymmdd"
-	echo "  "
+	echo ""
 	exit
 else
 	dtsmmp=$1

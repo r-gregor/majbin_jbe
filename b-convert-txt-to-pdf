@@ -20,8 +20,7 @@ tms; echo "Starting $0"
 # test if filename supplied as argument
 if [ ! $# -eq 1 ]; then
     echo -e "\n\tUsage:"
-    echo -e "\t$0 [filename]"
-    echo
+    echo -e "\t$0 [filename]\n"
     exit
 fi
 
@@ -37,7 +36,7 @@ if [ -e ${FJLPDF} ]; then
     tms; echo "*** File .0_converted_to_PDF/${FJL_fnm}.pdf already exists! ***"
     tms; echo "No conversion done."
     # tms; echo -e "---\n"
-    echo "---"
+    echo -e "---\n"
     exit
 fi
 
@@ -51,7 +50,7 @@ if [ "$(/usr/bin/file ${FJL_fnm} | /usr/bin/grep "ASCII\|UTF-8")" == "" ]; then
     tms; echo "*** ${FJL_fnm} is NOT ASCII or UTF-8 file! ***"
     tms; echo "No conversion done."
     # tms; echo -e "---\n"
-    echo "---"
+    echo -e "---\n"
     exit
 else
     tms; echo "${FJL_fnm} is ASCII file. It is safe to continue."
@@ -70,7 +69,7 @@ fi
 if [ ! -e ${FJL} ]; then
     tms; echo "${FJL_fnm} NOT found!"
     # tms; echo -e "---\n"
-    echo "---"
+    echo -e "---\n"
     exit
 fi
 

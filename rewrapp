@@ -14,8 +14,7 @@ clear
 
 if [ ! ${1} ]; then
 	echo
-	echo "Usage: $0 [filename]   ..exiting!"
-	echo
+	echo -e "Usage: $0 [filename]   ..exiting!\n"
 	exit 1
 fi
 

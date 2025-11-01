@@ -47,7 +47,7 @@ gr_FJLHN=checkout_weblinks_${gr_CURD}.html
 if [ ! -f ${gr_SZN}/${gr_FJLTN} ]; then
 	echo
 	echo "There is NO ${gr_SZN}/${gr_FJLTN}."	
-	echo "Aborting ..."
+	echo -e "Aborting ...\n"
 	exit
 fi
 

@@ -9,7 +9,7 @@ source ~/majstaf/majbin/send_mail/send_config_yh.sh
 
 if [ $# -ne 1 ]; then
 	echo -e "\nThere should be one and only one argument: filename!"
-	echo "Try again!"
+	echo -e "Try again!\n"
 	exit 1
 fi
 
@@ -17,7 +17,7 @@ gAttf="$1"
 
 echo -ne "\nChecking if file exists ... "
 if [ ! -f "${gAttf}" ]; then
- 	echo -e "\nThere is no ${gAttf}"
+ 	echo -e "\nThere is no ${gAttf}\n"
 	exit 1
 else
 	echo "OK"

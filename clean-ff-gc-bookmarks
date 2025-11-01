@@ -5,7 +5,7 @@
 if [ $# -eq 1 ]; then
 	fname=$1
 else
-	echo "Usage: $0 <bookmarks filename>"
+	echo -e "Usage: $0 <bookmarks filename>\n"
 	exit
 fi
 

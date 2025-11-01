@@ -30,7 +30,7 @@ find -iname "*${gr_WRD}*" 2>/dev/null | grep --color "\b${gr_WRD}"
 if [ $? -eq 0 ]; then
 	echo -e "\nDone."
 else
-	echo "Something went wrong, or search pattern was not found ..."
+	echo -e "Something went wrong, or search pattern was not found ...\n"
 	exit 1
 fi
 

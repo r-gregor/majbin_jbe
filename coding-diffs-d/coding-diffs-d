@@ -14,7 +14,7 @@ echo -e "Usage:\n\
 \t $0 -[l] [num]
 
 \t\t-[l]    ... -c (C), -j (JAVA), -p (PYTHON), -r (RUST)\n\
-\t\t [num]  ... cd_108_* = cd_num_; num=108"
+\t\t [num]  ... cd_108_* = cd_num_; num=108\n"
 	exit
 fi
 
@@ -37,7 +37,7 @@ elif [ "$L" = "-r" ]; then
 	lang_test="RUST_*/rust_*_testing"
 	ll="r"
 else
-	echo "Something went wrong!"
+	echo -e "Something went wrong!\n"
 	exit
 fi
 

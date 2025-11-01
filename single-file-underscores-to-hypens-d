@@ -2,7 +2,7 @@
 ### script that replaces spaces with hypens in filenames ...
 
 if [ $# -ne 1 ]; then
-    echo "Usage: $0 [single-filename-with-underscors]"
+    echo -e "Usage: $0 [single-filename-with-underscors]\n"
     exit
 fi
 

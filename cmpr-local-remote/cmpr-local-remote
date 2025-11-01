@@ -10,7 +10,7 @@ if [ $# -ne 1 ]; then
 echo -e "Usage:\n\
 \t $0 -[l]
 
-\t\t-[l]    ... -c (C), -j (JAVA), -p (PYTHON), -r (RUST)"
+\t\t-[l]    ... -c (C), -j (JAVA), -p (PYTHON), -r (RUST)\n"
 	exit
 fi
 
@@ -32,7 +32,7 @@ elif [ "$L" = "-r" ]; then
 	lang_test="RUST_*/rust_*_testing"
 	ll="r"
 else
-	echo "Something went wrong!"
+	echo -e "Something went wrong!\n"
 	exit
 fi
 

@@ -64,7 +64,6 @@ RG_PPADEC=$(echo "scale=3; ${RG_PADEC}*100" | bc -l)
 # print 'padec' in [%] and replace .NUM with 0.NUM ...
 printf "%-15s%s\n" "Padec:" "$(echo "${RG_PPADEC} [%]" | sed 's/\./0./')"
 
-
 echo
 exit
 

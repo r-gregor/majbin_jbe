@@ -43,13 +43,13 @@ case "${GR_ANSWER}" in
 	;;
 
 	"0" )
-	echo 'Bye!'
+	echo -e "Bye!\n"
 	exit
 	;;
 
 	* )
 	echo
-	echo "Enter 1, 2, 3 or 0."
+	echo -e "Enter 1, 2, 3 or 0.\n"
 	exit 1
 	;;
 

@@ -9,6 +9,6 @@ if [ $# -eq 1 ]; then
 elif [ $# -eq 0 ]; then
     $cmd &
 else
-    echo "Too many arguments!"
+    echo -e "Too many arguments!\n"
     exit 1
 fi

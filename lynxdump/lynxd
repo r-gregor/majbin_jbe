@@ -4,8 +4,7 @@ clear
 gr_dejt=$(date +%Y%m%d)
 
 if [ $# -ne 2 ]; then
-	echo 'USAGE: <scriptmname> [web-URL] [filename-with-dashes]'
-	echo
+	echo -e "USAGE: <scriptmname> [web-URL] [filename-with-dashes]\n"
 	exit
 fi
 
@@ -24,6 +23,5 @@ lynx -dump -width=110 ${gr_weburl} >> ${gr_flnm}
 echo -e "\n\n---\n" >> ${gr_flnm}
 
 echo
-echo 'DONE!'
-echo
+echo -e "DONE!\n"
 
