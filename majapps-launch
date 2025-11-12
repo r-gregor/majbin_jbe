@@ -17,6 +17,7 @@ declare -A apps=(["Firefox"]="/usr/bin/firefox" \
                  ["Google Chrome"]="/usr/bin/google-chrome" \
                  ["Gparted"]="/usr/sbin/gparted" \
                  ["Kitty"]="/usr/bin/kitty" \
+                 ["Urxvt"]="/usr/bin/urxvt" \
                  ["KODI"]="/usr/bin/kodi" \
                  ["LxAppearance"]="/usr/bin/lxappearance" \
                  ["LxTask"]="/usr/bin/lxtask" \
@@ -40,6 +41,7 @@ declare -a keys=("Firefox" \
                  "Google Chrome" \
                  "Gparted" \
                  "Kitty" \
+                 "Urxvt" \
                  "KODI" \
                  "LxAppearance" \
                  "LxTask" \
