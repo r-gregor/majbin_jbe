@@ -1,0 +1,74 @@
+#! /usr/bin/env bash
+# filrname: nested-ff-launch.sh
+# 20251117 v1 en
+# last: 20251117
+
+clear
+
+# globals
+FFCMD=/c/Users/gregor.redelonghi/majstaf_en/majprogs_en/FireFox_63.0.1/FirefoxPortable.exe
+SRCDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
+
+ff_launch() {
+	local site=$1
+	local SRC="$(dirname $(realpath ${BASH_SOURCE[0]}))/${site}"
+
+	local URLs
+	readarray -t URLS < <(cat ${SRC})
+	local selection=$(for URL in "${URLS[@]}"; do echo "$URL"; done | fzf -e --reverse)
+
+	if [ "x${selection}" == "x" ]; then
+		echo -e "[ERROR] nothing selected\n"
+		exit
+	fi
+
+	local path=$(echo "${selection}" | cut -d ' ' -f1)
+	cygstart ${FFCMD} "${path}"
+}
+
+directions=("c programming" "programming portals" "ytb channels" "ytb playlists" "linux stuff" "tech news" "ALL")
+
+selected=$(for WAY in "${directions[@]}"; do echo $WAY; done | fzf +c --reverse)
+
+case ${selected} in
+	# cprogramming.txt
+	"c programming")
+		ff_launch "cprogramming.txt"
+		;;
+
+	# programmingportals.txt
+	"programming portals")
+		ff_launch "programmingportals.txt"
+		;;
+
+	# ytbchannels.txt
+	"ytb channels")
+		ff_launch "ytbchannels.txt"
+		;;
+
+	# ytbplaylists.txt
+	"ytb playlists")
+		ff_launch "ytbplaylists.txt"
+		;;
+
+	# linuxstuff.txt
+	"linux stuff")
+		ff_launch "linuxstuff.txt"
+		;;
+
+	# technews.txt
+	"tech news")
+		ff_launch "technews.txt"
+		;;
+
+	# sites.txt
+	"ALL")
+		ff_launch "all.txt"
+		;;
+
+	"*")
+		echo "No selection"
+		exit 1
+		;;
+esac
+

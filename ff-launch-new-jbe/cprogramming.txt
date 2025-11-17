@@ -1,0 +1,14 @@
+--- 20251029-1519-en ---
+https://nullprogram.com/                                  -- c programming: blog (5+)
+https://justcode.me/category/c/                           -- c programming: blog
+https://c-for-dummies.com/blog/                           -- c programming: blog (5+)
+https://codeforwin.org/                                   -- c programming: blog
+https://medium.com/tag/c-programming                      -- c programming: blog
+https://gustedt.wordpress.com/                            -- c programming: blog (5+)
+http://www.robertgamble.net/                              -- c programming: blog (old)
+https://begriffs.com/                                     -- c programming: blog (old)
+---
+https://sillycodes.com/category/c/                        -- c programming: portal
+https://cprogrampracticals.blogspot.com/p/home-page.html  -- c programmiing: tutorial
+https://blog.jyotiprakash.org/c-programming               -- c programmiing: tutorial
+

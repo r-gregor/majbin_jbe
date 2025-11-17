@@ -1,0 +1,70 @@
+#! /usr/bin/env bash
+# filrname: nested-ff-launch.sh
+# 20251117 v1 en
+# 20251117 v2 en:    associative array --> no case statement needed
+# 20251117 v3 en:    ALL --> cat all txt files into process subst ...
+#                    no 'all.txt' needed
+# last: 20251117
+
+clear
+
+# globals
+FFCMD='/usr/bin/firefox'
+SRCDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
+FZFCMD="fzf -e --reverse --height 50% --border rounded"
+
+ff_launch() {
+	if [ "$1" == "all" ]; then
+		SRC="${SRCDIR}/*.txt"
+	else
+		site=$1
+		SRC="${SRCDIR}/${site}"
+	fi
+
+	readarray -t URLS < <(cat ${SRC})
+	selection=$(for URL in "${URLS[@]}"; do echo "$URL"; done 2>/dev/null | ${FZFCMD})
+
+	if [ "x${selection}" == "x" ]; then
+		echo -e "[INFO] nothing selected\n"
+		exit
+	fi
+
+	if [[ ${selection} =~ ^(---) ]]; then
+		echo -e "[INFO] nothing selected\n"
+		exit
+	fi
+
+	path=$(echo "${selection}" | cut -d ' ' -f1)
+	nohup ${FFCMD} "${path}" >&/dev/null &
+}
+
+# numers so it is sorted
+declare -A directions=(["01 - c programming"]="cprogramming.txt" \
+                       ["02 - programming portals"]="programmingportals.txt" \
+                       ["03 - ytb channels"]="ytbchannels.txt" \
+                       ["04 - ytb playlists"]="ytbplaylists.txt" \
+                       ["05 - linux stuff"]="linuxstuff.txt"\
+                       ["06 - technews.txt"]="technews.txt" \
+                       ["07 - ALL"]=""
+                       ["08 - q (quit)"]="")
+
+selected=$(for WAY in "${!directions[@]}"; do echo $WAY; done | sort | ${FZFCMD})
+
+if [ "x${selected}" == "x" ]; then
+	echo -e "[INFO] nothing selected\n"
+	exit
+fi
+
+if [ "${selected}" == "08 - q (quit)" ]; then
+	exit
+fi
+
+if [ "${selected}" == "07 - ALL" ]; then
+	dest="all"
+else
+	dest="${directions[${selected}]}"
+fi
+
+# ff_launch ${directions[${selected}]}
+ff_launch ${dest}
+

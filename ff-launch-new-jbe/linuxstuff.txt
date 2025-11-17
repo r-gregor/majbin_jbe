@@ -1,0 +1,6 @@
+--- 20251029-1519-en ---
+https://linuxiac.com/                                     -- linux stuf
+https://vimhelp.org/usr_toc.txt.html                      -- vim users manual (txt)
+https://biriukov.dev/                                     -- linux/system stuf
+https://linuxhandbook.com/                                -- linux/system: tutorials
+

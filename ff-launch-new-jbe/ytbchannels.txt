@@ -1,0 +1,32 @@
+--- 20251029-1519-en ---
+https://www.youtube.com/c/TsodingDaily                    -- ytb channel
+https://www.youtube.com/@TheCodingTrain                   -- ytb channel
+https://www.youtube.com/@dr-Jonas-Birch                   -- ytb channel
+https://www.youtube.com/@CasualCoder                      -- ytb channel
+https://www.youtube.com/@JacobSorber                      -- ytb channel
+https://www.youtube.com/@LowLevelTV                       -- ytb channel
+https://www.youtube.com/@PortfolioCourses                 -- ytb channel
+https://www.youtube.com/c/Programiz-studios               -- ytb channel
+https://www.youtube.com/@anthonygg_                       -- ytb channel
+https://www.youtube.com/@profbbrown                       -- ytb channel
+https://www.youtube.com/@CodeVault                        -- ytb channel
+https://www.youtube.com/@WhatsACreel                      -- ytb channel
+https://www.youtube.com/@GreggInkCodes/videos             -- ytb channel
+https://www.youtube.com/c/JacobSorber                     -- ytb channel
+https://www.youtube.com/@KrisJordan                       -- ytb channel
+https://www.youtube.com/@Log2Base2/videos                 -- ytb channel
+https://www.youtube.com/@mycodeschool                     -- ytb channel
+https://www.youtube.com/@nirlichtman                      -- ytb channel
+https://www.youtube.com/c/PortfolioCourses                -- ytb channel
+https://www.youtube.com/c/ThePrimeagen                    -- ytb channel
+https://www.youtube.com/@theteachr/videos                 -- ytb channel
+https://www.youtube.com/@typecraft_dev/videos             -- ytb channel
+https://www.youtube.com/@bootdotdev                       -- ytb channel
+https://www.youtube.com/@JustAGuyLinux                    -- ytb channel
+https://www.youtube.com/@AlexTheRealDev                   -- ytb channel (c mostly)
+https://www.youtube.com/@eom-dev                          -- ytb channel (Eric O Meehan)
+https://www.youtube.com/@aliawan6245                      -- ytb channel (c mostly, 5+)
+https://www.youtube.com/@yousuckatprogramming             -- ytb channel (BASH mostly, 5+)
+https://www.youtube.com/@johannes4gnu_linux96             -- ytb channel (linux drivers/qemu/ ...)
+https://www.youtube.com/@HirschDaniel                     -- ytb channel (c -> low level 5+)
+

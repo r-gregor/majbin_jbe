@@ -1,0 +1,12 @@
+--- 20251029-1519-en ---
+https://pedropark99.github.io/zig-book/                   -- Zig manual
+https://lemire.me/blog/                                   -- programming
+https://www.rfleury.com/                                  -- programming
+https://dotat.at/@/                                       -- programming
+https://blog.reverberate.org/                             -- programming (old)
+https://nrk.neocities.org/                                -- programming: portal
+---
+https://learnbyexample.github.io/                         -- programming stuf
+https://eli.thegreenplace.net/                            -- programming stuf
+https://johnnysswlab.com/                                 -- programming stuf
+
