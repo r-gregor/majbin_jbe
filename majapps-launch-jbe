@@ -1,11 +1,9 @@
 #! /usr/bin/env bash
-# filename: majapps-launch
-# 20250917  d
-# 20251020  d -- run inside infinite loop and added 'q' to quit
-#             -- keys in separate index-ed array to keep display order
-# 20251102  d -- added new aps, chabged fzf to return exact matches, sorted apps names
-#             -- added clear screen command
-# last: 20251102 d
+# filename: majapps-launch-jbe
+# 20250917 (d)
+# 20251020 (d) -- run inside infinite loop and added 'q' to quit
+#              -- keys in separate index-ed array to keep display order
+# last: 20251020 (d)
 
 # clear the screen:
 printf "\033[H\033[2J"
@@ -32,6 +30,7 @@ declare -A apps=(["Firefox"]="/usr/bin/firefox" \
                  ["Ulauncher"]="/usr/bin/ulauncher" \
                  ["VLC"]="/usr/bin/vlc" \
                  ["Xsane"]="/usr/bin/xsane" \
+                 ["Double Commander"]="/usr/bin/doublecmd" \
                  ["q (quit)"]="")
 
 declare -a keys=("Firefox" \
@@ -56,6 +55,7 @@ declare -a keys=("Firefox" \
                  "Ulauncher" \
                  "VLC" \
                  "Xsane" \
+                 "Double Commander" \
                  "q (quit)")
 
 while true; do
