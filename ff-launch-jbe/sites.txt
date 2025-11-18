@@ -1,8 +1,7 @@
---- 20250721-1459-en ---
---- 20250808-1333-en ---
---- 20251007-1349-en ---
---- 20251015-1422-en ---
---- 20251029-1519-en ---
+--- 2025118-0950-en ---
+--- 2025118-1048-en ---
+
+[c programming]
 https://nullprogram.com/                                  -- c programming: blog (5+)
 https://justcode.me/category/c/                           -- c programming: blog
 https://c-for-dummies.com/blog/                           -- c programming: blog (5+)
@@ -15,7 +14,15 @@ https://begriffs.com/                                     -- c programming: blog
 https://sillycodes.com/category/c/                        -- c programming: portal
 https://cprogrampracticals.blogspot.com/p/home-page.html  -- c programmiing: tutorial
 https://blog.jyotiprakash.org/c-programming               -- c programmiing: tutorial
----
+
+[linux stuff]
+https://linuxiac.com/                                     -- linux stuf
+https://vimhelp.org/usr_toc.txt.html                      -- vim users manual (txt)
+https://biriukov.dev/                                     -- linux/system stuf
+https://linuxhandbook.com/                                -- linux/system: tutorials
+https://distrowatch.com/                                  -- linux distros rating/info
+
+[programming portals]
 https://pedropark99.github.io/zig-book/                   -- Zig manual
 https://lemire.me/blog/                                   -- programming
 https://www.rfleury.com/                                  -- programming
@@ -23,15 +30,18 @@ https://dotat.at/@/                                       -- programming
 https://blog.reverberate.org/                             -- programming (old)
 https://nrk.neocities.org/                                -- programming: portal
 ---
-https://newatlas.com/                                     -- tech news
-https://linuxiac.com/                                     -- linux stuf
-https://vimhelp.org/usr_toc.txt.html                      -- vim users manual (txt)
 https://learnbyexample.github.io/                         -- programming stuf
 https://eli.thegreenplace.net/                            -- programming stuf
 https://johnnysswlab.com/                                 -- programming stuf
-https://biriukov.dev/                                     -- linux/system stuf
-https://linuxhandbook.com/                                -- linux/system: tutorials
----
+
+[tech news]
+https://newatlas.com/                                     -- tech news
+https://arstechnica.com/                                  -- tech news
+https://www.cnet.com/                                     -- tech news
+https://www.zdnet.com/                                    -- tech news
+https://www.techradar.com/                                -- tech news
+
+[ytb channels]
 https://www.youtube.com/c/TsodingDaily                    -- ytb channel
 https://www.youtube.com/@TheCodingTrain                   -- ytb channel
 https://www.youtube.com/@dr-Jonas-Birch                   -- ytb channel
@@ -62,7 +72,8 @@ https://www.youtube.com/@aliawan6245                      -- ytb channel (c most
 https://www.youtube.com/@yousuckatprogramming             -- ytb channel (BASH mostly, 5+)
 https://www.youtube.com/@johannes4gnu_linux96             -- ytb channel (linux drivers/qemu/ ...)
 https://www.youtube.com/@HirschDaniel                     -- ytb channel (c -> low level 5+)
----
+
+[ytb playlists]
 https://www.youtube.com/playlist?list=PL98qAXLA6aftD9ZlnjpLhdQAOFI8xIB6e     -- C Programming for Beginners
 https://www.youtube.com/playlist?list=PL2B6OzTsMUrz3RBEhYGb-0wtH9SqFpcDj     -- Productive Workstation with Linux (Debian)
 https://www.youtube.com/playlist?list=PLamzFoFxwoNjw4EpaVZzP-8lqWA9hOmnD     -- Arrays
