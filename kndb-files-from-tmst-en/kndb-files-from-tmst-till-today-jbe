@@ -1,0 +1,88 @@
+#! /usr/bin/env bash
+# filename: kndb-files-from-tmst-till-today-jbe
+# 20251125
+# last: 20251125
+# ---
+
+curryr=$(date +"%Y")
+currmn=$(date +"%m")
+currdy=$(date +"%d")
+
+scrpt=$(basename $0)
+SRCDIR=${KNOWLEDGEDB:-/home/rgregor/majstaf/jbegit/knowledgedb}
+
+months=("" "January" "February" "March" "April" "May" "June" "July" "Avgust" "September" "October" "November" "December")
+month_days=(0 31 29 31 30 31 30 31 31 30 31 30 31)
+
+usage() {
+cat << EOF
+	Usage: ${scrpt} <month_num> <day_num>
+	
+EOF
+}
+
+if [ $# -ne 2 ]; then
+	echo "Must supply exactly two parameters:"
+	usage
+	exit
+else
+	mnth=$1
+	day=$2
+fi
+
+if [ ${mnth} -lt 1 ] || [ ${mnth} -gt 12 ]; then
+	echo "Month out of range (1 - 12)"
+	exit
+elif
+	[ ${day} -lt 1 ] || [ ${day} -gt 31 ]; then
+	echo "Day of month out of range (1 - 31)"
+	exit
+fi
+
+unset DAYS
+declare -a DAYS
+
+if [ ${mnth} -lt ${currmn} ]; then
+	for selectd1 in $(seq ${day} ${month_days[${mnth}]}); do
+		DAYS+=($( printf "%d%02d%02d" ${curryr} ${mnth} ${selectd1}))
+	done
+
+	let mnth+=1
+
+	while [ ${mnth} -lt ${currmn} ]; do
+		for selectd2 in $(seq 1 ${month_days[${mnth}]}); do
+			DAYS+=($( printf "%d%02d%02d" ${curryr} ${mnth} ${selectd2}))
+		done
+		let mnth+=1
+	done
+
+	for selectd3 in $(seq 1 ${currdy}); do
+		DAYS+=($( printf "%d%02d%02d" ${curryr} ${currmn} ${selectd3}))
+	done
+else 
+	for selectd3 in $(seq ${day} ${currdy}); do
+		DAYS+=($( printf "%d%02d%02d" ${curryr} ${currmn} ${selectd3}))
+	done
+fi
+
+# echo ${DAYS[@]}
+# exit
+
+unset RESULT
+readarray -t RESULT < <(for DYS in ${DAYS[@]}; do find ${SRCDIR} -iname "*${DYS}.txt"; done)
+
+if [ "x${RESULT[0]}" == "x" ]; then
+	echo -e "[INFO] No files found\n"
+	exit
+fi
+
+unset fljs
+readarray -t fjls < <(for FJL in $(echo ${RESULT[@]}); do echo "$FJL"; done | fzf -m -e --reverse)
+
+if [ "x${fjls[0]}" == "x" ]; then
+	echo -e "[INFO] No files selected\n"
+	exit
+fi
+
+for FJL in $(echo ${fjls[@]}); do echo $FJL; done | xargs -ro vim -pM
+
