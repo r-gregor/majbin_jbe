@@ -1,0 +1,98 @@
+#! /usr/bin/env bash
+# filename: kndb-files-from-yr-tmst-till-today-jbe
+# 20260104
+# last: 20260104
+# ---
+
+curryr=$(date +"%Y")
+currmn=$(date +"%m")
+currdy=$(date +"%d")
+currdt=$(date +"%Y%m%d")
+
+scrpt=$(basename $0)
+SRCDIR=${KNOWLEDGEDB:-/home/rgregor/majstaf/jbegit/knowledgedb}
+
+months=("" "January" "February" "March" "April" "May" "June" "July" "Avgust" "September" "October" "November" "December")
+month_days=(0 31 29 31 30 31 30 31 31 30 31 30 31)
+
+usage() {
+cat << EOF
+    Usage: ${scrpt} + 3 parameters:
+                      <year>
+                      <month_num>
+                      <day_num>
+
+       or: ${scrpt} + 2 parameters:
+                      <month_num>
+                      <day_num>
+                      (year is current year)
+
+EOF
+}
+
+if [ $# -eq 2 ]; then
+	slctd_yr=$(date +%Y)
+	slctd_mt=$1
+	slctd_dy=$2
+elif [ $# -eq 3 ]; then
+	slctd_yr=$1
+	slctd_mt=$2
+	slctd_dy=$3
+else
+	usage
+	exit
+fi
+
+if [ ${slctd_mt} -lt 1 ] || [ ${slctd_mt} -gt 12 ]; then
+	echo "Month out of range (1 - 12)"
+	exit
+elif
+	[ ${slctd_dy} -lt 1 ] || [ ${slctd_dy} -gt ${month_days[${slctd_mt}]} ]; then
+	echo "Day of month out of range (1 - ${month_days[${slctd_mt}]})"
+	exit
+fi
+
+unset DAYS
+declare -a DAYS
+
+dtnum=(${slctd_yr} ${slctd_mt} ${slctd_dy})
+startdt="$(printf "%d%02d%02d" ${dtnum[0]} ${dtnum[1]} ${dtnum[2]})"
+
+newdt="${startdt}"
+while [ ${newdt} -lt ${currdt} ]; do
+	new_y=${newdt:0:4}
+	new_m=${newdt:4:2}
+	new_d=${newdt:6:2}
+
+	# ${var#0} --> remove leading zero so number is not formated as octal at '08'
+	if [ ${new_m#0} -gt 0 ] && [ ${new_m#0} -le 12 ] && [ ${new_d#0} -gt 0 ] && [ ${new_d#0} -le ${month_days[${new_m#0}]} ]; then
+		DAYS+=( "${newdt}" )
+		let newdt+=1
+	else
+		let newdt+=1
+		continue
+	fi
+done
+
+# test
+# echo ${DAYS[@]}
+# exit
+
+unset RESULT
+readarray -t RESULT < <(for DYS in ${DAYS[@]}; do find ${SRCDIR} -iname "*${DYS}.txt"; done)
+
+if [ "x${RESULT[0]}" == "x" ]; then
+	echo -e "[INFO] No files found\n"
+	exit
+fi
+
+unset fljs
+readarray -t fjls < <(for FJL in $(echo ${RESULT[@]}); do echo "$FJL"; done | fzf -m -e --reverse)
+
+if [ "x${fjls[0]}" == "x" ]; then
+	echo -e "[INFO] No files selected\n"
+	exit
+fi
+
+for FJL in $(echo ${fjls[@]}); do echo $FJL; done | xargs -ro vim -pM
+
