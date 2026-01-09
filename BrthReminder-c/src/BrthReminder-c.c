@@ -1,5 +1,5 @@
 /*
- * BrthReminder-c.c
+ * BrthReminder_c.c
  * v22: remove function wcstok() for tokenizing, because mingW could not compile
  *      into win native executable. Running in cmd still not showing "čšž" properly
  *      Go version works well (go for win)
@@ -140,19 +140,19 @@ int main(int argc, char **argv) {
 		displayPersonsDiff100(persons);
 	}
 
-
-
-	release_ptr(line);
-	release_ptr(g_curr_date);
 	fclose(fp);
 
-	// v27
-	for (int i=1; i < g_nLines; i++) {
-		release_ptr(persons_unsorted[i]->name);
-		release_ptr(persons_unsorted[i]);
-	}
 
-	release_ptr(persons_unsorted);    // v27
+	/* v27 cleanup */
+	release_ptr(line);
+	release_ptr(g_curr_date);
+
+	for (int i=0; i < g_nLines; i++) {
+		freePerson(persons_unsorted[i]);
+	}
+	release_ptr(persons_unsorted);
+	release_ptr(persons);
+
 
 	return 0;
 } /* end main */
@@ -190,8 +190,8 @@ Person_t *makePersonFromLine(wchar_t *line) {
 	Person_t *person = malloc(sizeof(Person_t));
 	person->name = malloc(sizeof(wchar_t) * (pos + 1));
 
-	wchar_t* ptr;
-	wchar_t * pEnd;
+	wchar_t *ptr;
+	wchar_t *pEnd;
 	wcscpy(person->name, wcstok(line, L",", &ptr));
 	person->bd_date.d = wcstol(wcstok(NULL, L".", &ptr), &pEnd, 10);
 	person->bd_date.m = wcstol(wcstok(NULL, L".", &ptr), &pEnd, 10);
