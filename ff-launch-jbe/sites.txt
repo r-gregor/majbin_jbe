@@ -1,6 +1,7 @@
 --- 20251118-0950-en ---
 --- 20251118-1048-en ---
 --- 20251125-1332-en ---
+--- 20260121-1038-en ---
 
 [c programming]
 https://nullprogram.com/                                  -- c programming: blog (5+)
@@ -76,6 +77,7 @@ https://www.youtube.com/@HirschDaniel                     -- ytb channel (c -> l
 https://www.youtube.com/@EzeeLinux                        -- ytb channel (Linux computing)
 https://www.youtube.com/@alexhyettdev                     -- ytb channel (Idea. Build. Launch -- CS)
 https://www.youtube.com/@gotbletu                         -- ytb channel (commandline / shell scripts / tui)
+https://www.youtube.com/@iTzAdam5X                        -- ytb channel (c mostly, 5+)
 
 [ytb playlists]
 https://www.youtube.com/playlist?list=PL98qAXLA6aftD9ZlnjpLhdQAOFI8xIB6e     -- C Programming for Beginners
