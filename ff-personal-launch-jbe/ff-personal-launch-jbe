@@ -1,0 +1,38 @@
+#! /usr/bin/env bash
+# filename: ff-personal-launch-jbe
+# 20260212 jbe
+# from ff-launch-jbe
+# last: 20260212
+#---
+
+clear
+unset URLS
+
+# globals
+FFCMD='/usr/bin/firefox'
+SRCDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
+FZFCMD="fzf -e --reverse --height 50% --border rounded"
+
+declare -A URLS=(
+	["Moj račun Energetika Ljubljana"]="https://mojracun.energetika-lj.si/login"
+	["ELEKTRO-LJUBLJANA -- Prijava v portal Moja energija"]="https://me.elektro-energija.si/Prijava"
+	["Moj Petrol - elektrika (Valvasorjeva 5)"]="https://www.petrol.si/moj-petrol/"
+	["ZD za študente: dr. Darja Marija ŽNIDARŠIČ"]="https://zdstudenti.si/doctor/darja-marija-znidarsic/"
+	["Prijava | doZdravnika.si"]="https://dozdravnika.si/#!/auth/login"
+	["eAsistent - Špela"]="https://www.easistent.com/stran/"
+	["T-2: login"]="https://login.t-2.net/"
+	["TRIGLAV Zavarovalnica: login"]="https://login.triglav.si"
+	["moja POŠTA.si: login"]="https://auth.posta.si/realms/mojaposta/protocol/openid-connect/auth?client_id=mojaposta-webclient&redirect_uri=https%3A%2F%2Fmoja.posta.si%2Fauth-redirect&response_type=code&scope=openid&state=1becfe48a3ff4cf084d1fa8ec739c90d&code_challenge=O3B_Oqn7GCWDDZsPHDXgKhpFL_DIDLU8gACctKlEoJg&code_challenge_method=S256&ui_locales=sl-SI"
+	["T-2 tv2go: login"]="https://tv2go.t-2.net"
+	["URBANA JHL: login"]="https://urbana.jhl.si"
+	["eInženir IZS.si: login"]="https://einzenir.izs.si/m_login.cfm"
+	)
+
+
+ff_personallaunch() {
+	selection=$(for URL in "${!URLS[@]}"; do echo "$URL"; done 2>/dev/null | ${FZFCMD})
+	nohup ${FFCMD} "${URLS["${selection}"]}" >&/dev/null &
+}
+
+ff_personallaunch
+
