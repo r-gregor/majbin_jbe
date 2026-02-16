@@ -1,0 +1,63 @@
+#! /usr/bin/env bash
+# filename: get-fb-mails-jbe
+# 20260216 jbe v1
+# last: 20260216
+# ---
+
+# globals
+FFCMD='/usr/bin/firefox'
+SRCDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
+FZFCMD="fzf -e --reverse --height 50% --border rounded"
+fb_files_list="${SRCDIR}/fb_files_list.txt"
+
+unset fb_files
+declare -A fb_files=()
+
+update_fb_files_list() {
+	> ${fb_files_list}
+	for FFF in ./messages/*; do
+		local fb_url=$(grep '^https://www.facebook.com/share' "$FFF")
+		fb_url=$(echo ${fb_url// /})
+		if [ x"${fb_url}" == "x" ]; then
+			continue
+		else
+			local fb_fname="$(echo "${FFF##*/}")"
+			fb_fname="$(echo "${fb_fname//.txt/}")"
+			printf "%s;%s\n" "${fb_url}" "${fb_fname}" >> "${fb_files_list}"
+		fi
+	done
+}
+
+fill_fb_files() {
+	echo "[INFO] getting fb links ..."
+	while IFS= read -r LINE; do
+		local fb_url="$(echo "${LINE%;*}")"
+		local fb_fname="$(echo "${LINE#*;}")"
+		fb_files+=(["${fb_fname}"]="${fb_url}")
+	done < ${fb_files_list}
+}
+
+if [ $# -eq 1 ]; then
+	if [ "$1" == "-u" ] || [ "$1" == "--update" ]; then
+		echo "[INFO] updating ${fb_files_list} ..."
+		update_fb_files_list
+	fi
+	fill_fb_files
+else
+	fill_fb_files
+fi
+
+fb_launch() {
+	selection=$(for EL in "${!fb_files[@]}"; do echo "${EL}"; done | ${FZFCMD})
+
+	if [ "x${selection}" == "x" ]; then
+		echo -e "[INFO] nothing selected\n"
+		exit 0
+	fi
+
+	echo "[INFO] selected: ${selection} <${fb_files["${selection}"]}>"
+	nohup ${FFCMD} "${fb_files["${selection}"]}" >&/dev/null &
+}
+
+fb_launch
+

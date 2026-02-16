@@ -1,0 +1,4 @@
+while read LINE; do rm -v "$LINE"; done < <(ls -1 ./messages/* | grep -i 'AKRON')
+while read LINE; do rm -v "$LINE"; done < <(ls -1 ./messages/* | grep -i 'Fwd')
+while read LINE; do rm -v "$LINE"; done < <(ls -1 ./messages/* | grep -i 're_')
+
