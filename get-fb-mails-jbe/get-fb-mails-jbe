@@ -35,6 +35,7 @@ fill_fb_files() {
 		local fb_fname="$(echo "${LINE#*;}")"
 		fb_files+=(["${fb_fname}"]="${fb_url}")
 	done < ${fb_files_list}
+	fb_files+=(["Quit"]="Quit")
 }
 
 if [ $# -eq 1 ]; then
@@ -55,9 +56,15 @@ fb_launch() {
 		exit 0
 	fi
 
+	if [ "${selection}" == "Quit" ]; then
+		exit 0
+	fi
+
 	echo "[INFO] selected: ${selection} <${fb_files["${selection}"]}>"
 	nohup ${FFCMD} "${fb_files["${selection}"]}" >&/dev/null &
 }
 
-fb_launch
+while true; do
+	fb_launch
+done
 
