@@ -13,7 +13,7 @@ fb_files_list="${SRCDIR}/fb_files_list.txt"
 unset fb_files
 declare -A fb_files=()
 
-update_fb_files_list() {
+fb_files_list_update() {
 	> ${fb_files_list}
 	for FFF in ./messages/*; do
 		local fb_url=$(grep '^https://www.facebook.com/share' "$FFF")
@@ -28,8 +28,8 @@ update_fb_files_list() {
 	done
 }
 
-fill_fb_files() {
-	echo "[INFO] getting fb links ..."
+fb_files_load() {
+	echo "[INFO] loading messages ..."
 	while IFS= read -r LINE; do
 		local fb_url="$(echo "${LINE%;*}")"
 		local fb_fname="$(echo "${LINE#*;}")"
@@ -41,11 +41,11 @@ fill_fb_files() {
 if [ $# -eq 1 ]; then
 	if [ "$1" == "-u" ] || [ "$1" == "--update" ]; then
 		echo "[INFO] updating ${fb_files_list} ..."
-		update_fb_files_list
+		fb_files_li_updatest
 	fi
-	fill_fb_files
+	fb_files_load
 else
-	fill_fb_files
+	fb_files_load
 fi
 
 fb_launch() {
