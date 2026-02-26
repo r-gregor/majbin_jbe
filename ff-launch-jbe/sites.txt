@@ -127,4 +127,5 @@ https://www.youtube.com/playlist?list=PLtB7CL7EG7pCw7Xy1SQC53Gl8pI7aDg9t     -- 
 https://www.youtube.com/playlist?list=PLRnI_2_ZWhtDPfMXetMFtU3i1k37Ka8sx     -- cano
 https://www.youtube.com/playlist?list=PLDbRgZ0OOEpUkWDGqp91ODn0dk7LPBAUL     -- Rust Programming Tutorial
 https://www.youtube.com/playlist?list=PLai5B987bZ9CoVR-QEIN9foz4QCJ0H2Y8     -- The Rust Lang Book
+https://www.youtube.com/playlist?list=PL9IEJIKnBJjFZxuqyJ9JqVYmuFZHr7CFM     -- Programming with Threads (c - Jackob Sorber)
 ---
