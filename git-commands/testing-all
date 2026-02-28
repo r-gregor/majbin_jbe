@@ -4,5 +4,5 @@
 
 HST="jbe"
 
-testing-ghgl-status-${HST}
-testing-ghgl-testpush-${HST}
+testing-status-${HST}
+testing-testpush-${HST}
