@@ -1,8 +1,11 @@
 #! /usr/bin/env bash
 # filename: ff-personal-launch-jbe
 # 20260212 jbe
+# 20260228 jbe: add info what was selected
+#               change the fzf display to full height
+#               inside infinite while loop --> Quit to quit
 # from ff-launch-jbe
-# last: 20260212
+# last: 20260228
 #---
 
 clear
@@ -11,7 +14,8 @@ unset URLS
 # globals
 FFCMD='/usr/bin/firefox'
 SRCDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
-FZFCMD="fzf -e --reverse --height 50% --border rounded"
+# FZFCMD="fzf -e --reverse --height 50% --border rounded"
+FZFCMD="fzf -e --reverse --border rounded"
 
 declare -A URLS=(
 	["Moj račun Energetika Ljubljana"]="https://mojracun.energetika-lj.si/login"
@@ -28,6 +32,8 @@ declare -A URLS=(
 	["eInženir IZS.si: login"]="https://einzenir.izs.si/m_login.cfm"
 	)
 
+URLS+=(["Quit"]="Quit")
+
 
 ff_personallaunch() {
 	selection=$(for URL in "${!URLS[@]}"; do echo "$URL"; done 2>/dev/null | ${FZFCMD})
@@ -37,8 +43,15 @@ ff_personallaunch() {
 		exit
 	fi
 
+	if [ "${selection}" == "Quit" ]; then
+		exit 0
+	fi
+
+	echo "[INFO] selected: ${URLS["${selection}"]}"
 	nohup ${FFCMD} "${URLS["${selection}"]}" >&/dev/null &
 }
 
-ff_personallaunch
+while true; do
+	ff_personallaunch
+done
 
