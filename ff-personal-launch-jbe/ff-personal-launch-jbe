@@ -78,7 +78,7 @@ get_longest() {
 }
 
 ff_personallaunch() {
-	local selection="$((for KEY in "${KEYS[@]}"; do echo "$KEY"; done | sort; echo "${delline}" ; echo "Quit") | fzf --reverse)"
+	local selection=$((for KEY in "${KEYS[@]}"; do echo "$KEY"; done | sort; echo "${delline}" ; echo "Quit") | fzf --reverse)
 
 	if [ "x${selection}" == "x" ]; then
 		echo -e "[INFO] nothing selected\n"
