@@ -14,7 +14,8 @@ clear
 FFCMD='/usr/bin/firefox'
 SRCDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
 SITES="${SRCDIR}/sites.txt"
-FZFCMD="fzf -e --reverse --height 50% --border rounded"
+# FZFCMD="fzf -e --reverse --height 50% --border rounded"
+FZFCMD="fzf -e --reverse --border rounded"
 
 ff_launch() {
 	if [ "$1" == "all" ]; then
