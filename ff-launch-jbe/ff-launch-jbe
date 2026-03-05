@@ -6,7 +6,9 @@
 #                 no 'all.txt' needed
 # 20251118 v4 en: single "sites.txt" with "[section name]" headers parsing
 # 20251118 v5 en: get 'categories' from 'sites.txt' file directly
-# last: 20251118 en
+# 20260305 v6 en: put main into infinite while loop
+#                 output selected to stdot
+# last: 20260305
 
 clear
 
@@ -45,6 +47,7 @@ ff_launch() {
 	fi
 
 	path=$(echo "${selection}" | cut -d ' ' -f1)
+	echo "[INFO] selected: ${path}"
 	nohup ${FFCMD} "${path}" >&/dev/null &
 }
 
@@ -53,22 +56,23 @@ readarray -t categories < <(sed -n "/\[.*\]/p" "${SITES}" | sed -e 's/\[//' -e '
 categories+=("ALL")
 categories+=("q (quit)")
 
-selected=$(for WAY in "${categories[@]}"; do echo $WAY; done | fzf +c --reverse)
+while true; do
+	selected=$(for WAY in "${categories[@]}"; do echo $WAY; done | fzf +c --reverse)
 
-if [ "x${selected}" == "x" ]; then
-	echo -e "[INFO] nothing selected\n"
-	exit
-fi
+	if [ "x${selected}" == "x" ]; then
+		echo -e "[INFO] nothing selected\n"
+		exit
+	fi
 
-if [ "${selected}" == "q (quit)" ]; then
-	exit
-fi
+	if [ "${selected}" == "q (quit)" ]; then
+		exit
+	fi
 
-if [ "${selected}" == "ALL" ]; then
-	dest="all"
-else
-	dest="${selected}"
-fi
+	if [ "${selected}" == "ALL" ]; then
+		dest="all"
+	else
+		dest="${selected}"
+	fi
 
-ff_launch "${dest}"
-
+	ff_launch "${dest}"
+done
