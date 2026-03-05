@@ -75,7 +75,7 @@ ff_personallaunch() {
 	fi
 
 	if [ "${selection}" == "Quit" ]; then
-		echo -e "[INFO] leaving\n"
+		# echo -e "[INFO] leaving\n"
 		exit 0
 	fi
 
