@@ -1,8 +1,11 @@
 #! /usr/bin/env bash
-# 20241106_01 -- en
-# 20241106_02 -- jbe
-# 20241106_03 -- mdb
-# 20250417_04 -- mdb
+# filename: check-git-diffs-jbe
+# 20241106 v2 jbe
+# 20241106 v3 mdb
+# 20250417 v4 mdb
+# 20260305 v5 mdb
+# last: 20260305
+# ---
 
 HST="jbe"
 src_path=${HOME}/majstaf
@@ -48,7 +51,7 @@ check=($(diff -qr ${majfjls_src} ${majfjls_dst} \
 
 if [ "x${check[0]}" == "x" ]; then
 	echo "[INFO] No files found"
-	echo "---"
+	echo -e "---\n"
 	exit
 fi
 
@@ -57,7 +60,7 @@ fjls=$(for FFF in $(echo ${check[@]}); do echo $FFF; done | fzf -m --reverse)
 
 if [ "x${fjls[0]}" == "x" ]; then
 	echo "[INFO] No files found/selected"
-	echo "---"
+	echo -e "---\n"
 	exit
 fi
 
@@ -67,12 +70,8 @@ DST=$(echo ${majfjls_dst} | sed "s:${HOME}/majstaf/::")
 echo -e "[INFO] Files to be copied from [${SRC}] to [${DST}]:"
 i=0
 for FJL in ${fjls[@]}; do
-	let i=$i+1
-	if [ $i -lt 10 ]; then
-		i="0${i}"
-	fi
-	# echo -e "\t${i} - $(basename ${FJL})"
-	echo -e "\t${i} - $(echo ${FJL} | sed -e "s:${majfjls_src}::" | sed "s:^/::")"
+	((i++))
+	printf "\t%2d - %s\n" ${i} "$(echo ${FJL} | sed -e "s:${majfjls_src}::" | sed "s:^/::")"
 done
 echo ""
 
