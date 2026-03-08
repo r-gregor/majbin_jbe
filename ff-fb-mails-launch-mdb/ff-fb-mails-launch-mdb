@@ -1,13 +1,17 @@
 #! /usr/bin/env bash
 # filename: get-fb-mails-jbe
 # 20260216 jbe v1
-# last: 20260216
+# 20260223 en v2
+# 20260306 en v3: add 'sort -nr' in 'selection=...' to sort by datestamp
+#                 rename directory and filename from get-fb-mails-en to: ff-fb-mails-launch-en
+# last: 20260306
 # ---
 
 # globals
 FFCMD='/usr/bin/firefox'
 SRCDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
-FZFCMD="fzf -e --reverse --height 50% --border rounded"
+# FZFCMD="fzf -e --reverse --height 50% --border rounded"
+FZFCMD="fzf -e --reverse --border rounded"
 fb_files_list="${SRCDIR}/fb_files_list.txt"
 
 unset fb_files
@@ -49,7 +53,8 @@ else
 fi
 
 fb_launch() {
-	selection=$(for EL in "${!fb_files[@]}"; do echo "${EL}"; done | ${FZFCMD})
+	# selection=$(for EL in "${!fb_files[@]}"; do echo "${EL}"; done | ${FZFCMD})           #v3
+	selection=$(for EL in "${!fb_files[@]}"; do echo "${EL}"; done | sort -nr | ${FZFCMD})  # SORT BY TIMESTAMP
 
 	if [ "x${selection}" == "x" ]; then
 		echo -e "[INFO] nothing selected\n"
