@@ -94,5 +94,7 @@ if [ "x${fjls[0]}" == "x" ]; then
 	exit
 fi
 
-for FJL in $(echo ${fjls[@]}); do echo $FJL; done | xargs -ro vim -pM
+echo "Selected:"
+for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done
+for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done | xargs -ro vim -pM
 
