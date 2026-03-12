@@ -1,0 +1,34 @@
+# fname: commands-en-20260312.txt
+# 20260312  en
+# last: 20260312
+# ---
+grepc -Er "[[:alpha:]]'[[:alpha:]] " * | less
+grep -Erl "[[:alpha:]]'[[:alpha:]] " * | sort | uniq |wc -l
+sed "s/\([[:alpha:]]\)'\([[:alpha:]] \)/\1´\2/g" < zsh-install-on-linux-mint-22-20250514.txt | less
+sed "s/\([[:alpha:]]\)'\([[:alpha:]] \)/\1´\2/g" < zsh-install-on-linux-mint-22-20250514.txt | grepc -E "[[:alpha:]]´[[:alpha:]] "
+# ---
+for FFF in *.txt; do
+	sed -i "s/\([[:alpha:]]\)'\([[:alpha:]]\{1,2\} \)/\1´\2/g" $FFF
+	sed -i "s/\([[:alpha:]]\)'\([[:alpha:]]\{1,2\}$\)/\1´\2/g" $FFF
+	sed -i "s/\([[:alpha:]]\)'\([[:alpha:]]\{1,2\}[,.:]$\)/\1´\2/g" $FFF
+done
+# ---
+sed -n "/[[:alpha:]]'[[:alpha:]] /p" zsh-install-on-linux-mint-22-20250514.txt
+sed "s/\([[:alpha:]]\)'\([[:alpha:]] \)/\1´\2/g" < zsh-install-on-linux-mint-22-20250514.txt |less
+sed "s/\([[:alpha:]]\)'\([[:alpha:]] \)/\1´\2/g" < zsh-install-on-linux-mint-22-20250514.txt | grepc -E "[[:alpha:]]´[[:alpha:]] "
+
+grep -Erl "[[:alpha:]]'[[:alpha:]] " * | less
+grep -Erl "[[:alpha:]]'[[:alpha:]] " * | sort | uniq
+grep -Erl "[[:alpha:]]'[[:alpha:]] " * | sort | uniq |wc -l
+
+for FFF in *.txt; do sed "s/\([[:alpha:]]\)'\([[:alpha:]]\{1,2\} \)/\1´\2/g" $FFF; done
+
+grepc -Er "[[:alpha:]]'[[:alpha:]] " * | less
+grepc -Erl "[[:alpha:]]'[[:alpha:]] " *
+grepc -Er "[[:alpha:]]´[[:alpha:]]," *
+grepc -Er "[[:alpha:]]´[[:alpha:]],$" *
+grepc -Er "[[:alpha:]]´[[:alpha:]]{2} " *
+grepc -Er "[[:alpha:]]´[[:alpha:]]{2}" *
+grepc -Er "[[:alpha:]]´[[:alpha:]]{2}$" *
+# ---
+
