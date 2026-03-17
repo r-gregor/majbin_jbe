@@ -1,0 +1,92 @@
+#! /usr/bin/env bash
+# filename: majapps-launch-jbe
+# 20250917 (d)
+# 20251020 (d) -- run inside infinite loop and added 'q' to quit
+#              -- keys in separate index-ed array to keep display order
+# last: 20251020 (d)
+
+# clear the screen:
+printf "\033[H\033[2J"
+
+declare -A apps=(["Firefox"]="/usr/bin/firefox" \
+                 ["ArandR"]="/usr/bin/arandr" \
+                 ["Atril"]="/usr/bin/atril" \
+                 ["Gimp"]="/usr/bin/gimp" \
+                 ["Google Chrome"]="/usr/bin/google-chrome" \
+                 ["Gparted"]="/usr/sbin/gparted" \
+                 ["Kitty"]="/usr/bin/kitty" \
+                 ["Urxvt"]="/usr/bin/urxvt" \
+                 ["KODI"]="/usr/bin/kodi" \
+                 ["LxAppearance"]="/usr/bin/lxappearance" \
+                 ["LxTask"]="/usr/bin/lxtask" \
+                 ["Mate calculator"]="/usr/bin/mate-calculator" \
+                 ["Mousepad"]="/usr/bin/mousepad" \
+                 ["Nitrogen"]="/usr/bin/nitrogen" \
+                 ["PavucControl"]="/usr/bin/pavucontrol" \
+                 ["PCmanFM"]="/usr/bin/pcmanfm" \
+                 ["Pinta"]="/usr/bin/pinta" \
+                 ["Thunar FM"]="/usr/bin/thunar" \
+                 ["Transmission"]="/usr/bin/transmission-gtk" \
+                 ["Ulauncher"]="/usr/bin/ulauncher" \
+                 ["VLC"]="/usr/bin/vlc" \
+                 ["Xsane"]="/usr/bin/xsane" \
+                 ["Double Commander"]="/usr/bin/doublecmd")
+
+# array of keys from apps
+keys=("${!apps[@]}")
+
+# functions
+get_longest() {
+	if [ ! $# -eq 1 ]; then
+		echo "[ERROR1] must supply array of sentences as parameter"
+		exit 1
+	fi
+
+	local len=0
+	local longest
+	local -n lines2=$1 # new way: must call array as < array_name >
+
+	for line in "${lines2[@]}"; do
+		llen="${#line}"
+		if [ "${llen}" -gt "${len}" ]; then
+			len="${llen}"
+			longest="${line}"
+		else
+			continue
+		fi
+	done
+
+	echo "${longest}"
+}
+
+# MAIN
+longest_l=$(get_longest keys)                                         # v3
+delline=$(for((i = 0; i < ${#longest_l}; i++)); do printf "-"; done)  # v3
+
+while true; do
+
+	# add +c option to reverse highlight
+	# selection=$( for key in "${!keys[@]}"; do echo "${keys[$key]}"; done | \
+	selection=$((for key in "${!keys[@]}"; do echo "${keys[$key]}"; done | sort; echo "${delline}"; echo "Quit") | \
+				fzf -e \
+				--reverse \
+				--border=rounded \
+				--info=hidden \
+				--prompt="launch: ")
+
+	if [ "x${selection}" == "x" ]; then
+		echo -e "[INFO] no selection\n"
+		exit
+	fi
+
+	if [ "${selection}" == "${delline}" ]; then #v3
+		continue
+	fi
+
+	if [ "${selection}" == "Quit" ]; then
+		exit
+	fi
+		eval "nohup ${apps["${selection}"]} >&/dev/null &"
+
+done
+
