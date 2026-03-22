@@ -29,7 +29,7 @@ declare -A URLS=(
 	["ELEKTRO-LJUBLJANA -- Prijava v portal Moja energija"]="https://me.elektro-energija.si/Prijava"
 	["Moj Petrol - elektrika (Valvasorjeva 5)"]="https://www.petrol.si/moj-petrol/"
 	["ZD za študente: dr. Darja Marija ŽNIDARŠIČ"]="https://zdstudenti.si/doctor/darja-marija-znidarsic/"
-	["Prijava | doZdravnika.si"]="https://dozdravnika.si/#!/auth/login"
+	["doZdravnika.si - Prijava"]="https://dozdravnika.si/#!/auth/login"
 	["Špela - eAsistent"]="https://www.easistent.com/stran/"
 	["Špela - MATURANC"]="https://cmt-travel.my.salesforce-sites.com/matura?maturantska=a3UQx000000EWhZ&code=xWxVN6V0"
 	["T-2: login"]="https://login.t-2.net/"
@@ -38,6 +38,7 @@ declare -A URLS=(
 	["T-2 tv2go: login"]="https://tv2go.t-2.net"
 	["URBANA JHL: login"]="https://urbana.jhl.si"
 	["eInženir IZS.si: login"]="https://einzenir.izs.si/m_login.cfm"
+	["Evinjeta (DARS)"]="https://evinjeta.dars.si/selfcare/sl"
 )
 
 # array of keys from URLS
