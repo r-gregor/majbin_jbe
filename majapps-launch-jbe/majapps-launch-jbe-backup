@@ -3,9 +3,7 @@
 # 20250917 (d)
 # 20251020 (d) -- run inside infinite loop and added 'q' to quit
 #              -- keys in separate index-ed array to keep display order
-# 20260325 (d) --  case statement instead of 'if/elif/then' block
-# last: 20260325
-# ---
+# last: 20251020 (d)
 
 # clear the screen:
 printf "\033[H\033[2J"
@@ -61,10 +59,6 @@ get_longest() {
 	echo "${longest}"
 }
 
-selection_info() {
-	printf "[INFO] selected: $1\n"
-}
-
 # MAIN
 longest_l=$(get_longest keys)                                         # v3
 delline=$(for((i = 0; i < ${#longest_l}; i++)); do printf "-"; done)  # v3
@@ -92,8 +86,7 @@ while true; do
 	if [ "${selection}" == "Quit" ]; then
 		exit
 	fi
-	eval "nohup ${apps["${selection}"]} >&/dev/null &"
-	selection_info "${selection}"
+		eval "nohup ${apps["${selection}"]} >&/dev/null &"
 
 done
 
