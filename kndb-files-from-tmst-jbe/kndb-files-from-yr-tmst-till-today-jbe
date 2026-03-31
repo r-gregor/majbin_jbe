@@ -1,7 +1,8 @@
 #! /usr/bin/env bash
 # filename: kndb-files-from-yr-tmst-till-today-jbe
-# 20260104
-# last: 20260104
+# 20260105
+# 20260331 display from newest to oldset
+# last: 20260331
 # ---
 
 curryr=$(date +"%Y")
@@ -58,8 +59,10 @@ declare -a DAYS
 dtnum=(${slctd_yr} ${slctd_mt} ${slctd_dy})
 startdt="$(printf "%d%02d%02d" ${dtnum[0]} ${dtnum[1]} ${dtnum[2]})"
 
-newdt="${startdt}"
-while [ ${newdt} -lt ${currdt} ]; do
+# 20230331: newest to oldest ...
+# newdt="${startdt}"
+newdt="${currdt}"
+while [ ${newdt} -ge ${startdt} ]; do
 	new_y=${newdt:0:4}
 	new_m=${newdt:4:2}
 	new_d=${newdt:6:2}
@@ -67,22 +70,20 @@ while [ ${newdt} -lt ${currdt} ]; do
 	# ${var#0} --> remove leading zero so number is not formated as octal at '08'
 	if [ ${new_m#0} -gt 0 ] && [ ${new_m#0} -le 12 ] && [ ${new_d#0} -gt 0 ] && [ ${new_d#0} -le ${month_days[${new_m#0}]} ]; then
 		DAYS+=( "${newdt}" )
-		let newdt+=1
+		# let newdt+=1
+		let newdt-=1
 	else
-		let newdt+=1
+		# let newdt+=1
+		let newdt-=1
 		continue
 	fi
 done
-
-# test
-# echo ${DAYS[@]}
-# exit
 
 unset RESULT
 readarray -t RESULT < <(for DYS in ${DAYS[@]}; do find ${SRCDIR} -iname "*${DYS}.txt"; done)
 
 if [ "x${RESULT[0]}" == "x" ]; then
-	echo -e "[INFO] No files found\n"
+	printf "[INFO] No files found\n"
 	exit
 fi
 
@@ -90,11 +91,11 @@ unset fljs
 readarray -t fjls < <(for FJL in $(echo ${RESULT[@]}); do echo "$FJL"; done | fzf -m -e --reverse)
 
 if [ "x${fjls[0]}" == "x" ]; then
-	echo -e "[INFO] No files selected\n"
+	printf "[INFO] No files selected\n"
 	exit
 fi
 
-echo "Selected:"
+printf "[INFO] Selected:\n"
 for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done
 for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done | xargs -ro vim -pM
 

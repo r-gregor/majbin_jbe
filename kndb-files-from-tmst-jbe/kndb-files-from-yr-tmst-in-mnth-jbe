@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 # filename: kndb-files-from-yr-tmst-in-mnth-jbe
-# 20260104
-# last: 20260104
+# 20260331 display from newest to oldst: $(seq start end) --> $(seq end -1 start)
+# last: 20260331
 # ---
 
 curryr=$(date +"%Y")
@@ -66,11 +66,12 @@ fi
 
 unset RESULT
 # readarray -t RESULT < <(for DYS in $(seq ${day} ${month_days[${mnth}]}); do find ${SRCDIR} -iname "*${curryr}${mnth}${DYS}.txt"; done)
-readarray -t RESULT < <(for DYS in $(seq ${day} ${month_days[${mnth}]}); do find ${SRCDIR} \
+# readarray -t RESULT < <(for DYS in $(seq ${day} ${month_days[${mnth}]}); do find ${SRCDIR} \
+readarray -t RESULT < <(for DYS in $(seq ${month_days[${mnth}]} -1 ${day}); do find ${SRCDIR} \
 	-iname $(printf "*%d%02d%02d.txt" ${curryr} ${mnth} ${DYS}); done)
 
 if [ "x${RESULT[0]}" == "x" ]; then
-	echo -e "[INFO] No files found\n"
+	printf "[INFO] No files found\n"
 	exit
 fi
 
@@ -78,11 +79,11 @@ unset fjls
 readarray -t fjls < <(for FJL in $(echo ${RESULT[@]}); do echo "$FJL"; done | fzf -m -e --reverse)
 
 if [ "x${fjls[0]}" == "x" ]; then
-	echo -e "[INFO] No files selected\n"
+	printf "[INFO] No files selected\n"
 	exit
 fi
 
-echo "Selected:"
+printf "[INFO] Selected:\n"
 for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done
 for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done | xargs -ro vim -pM
 
