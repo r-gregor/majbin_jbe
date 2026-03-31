@@ -1,0 +1,127 @@
+$> ll
+total 0
+-rw-rw-r--+ 1 0 2024-10-02 13:57 'fahl 2.jpg'
+-rw-rw-r--+ 1 0 2024-10-02 14:27 'My new Fname 1.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:27 'My new Fname 2.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:27 'My new Fname 3.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:27 'My new Fname 4.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:27 'My new Fname 5.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:27 'My new Fname 6.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:27 'My new Fname 7.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:27 'My new Fname 8.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:27 'My new Fname 9.txt'
+-rw-rw-r--+ 1 0 2024-10-02 13:57 'ojla bre.dat'
+
+# OK
+$> find -name "*.txt" | while read LINE; do mv "$LINE" $(spaces-to-underscores "$LINE"); done
+renamed './My new Fname 1.txt' -> './My_new_Fname_1.txt'
+renamed './My new Fname 2.txt' -> './My_new_Fname_2.txt'
+renamed './My new Fname 3.txt' -> './My_new_Fname_3.txt'
+renamed './My new Fname 4.txt' -> './My_new_Fname_4.txt'
+renamed './My new Fname 5.txt' -> './My_new_Fname_5.txt'
+renamed './My new Fname 6.txt' -> './My_new_Fname_6.txt'
+renamed './My new Fname 7.txt' -> './My_new_Fname_7.txt'
+renamed './My new Fname 8.txt' -> './My_new_Fname_8.txt'
+renamed './My new Fname 9.txt' -> './My_new_Fname_9.txt'
+
+$> ll
+total 0
+-rw-rw-r--+ 1 0 2024-10-02 13:57 'fahl 2.jpg'
+-rw-rw-r--+ 1 0 2024-10-02 14:27  My_new_Fname_1.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:27  My_new_Fname_2.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:27  My_new_Fname_3.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:27  My_new_Fname_4.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:27  My_new_Fname_5.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:27  My_new_Fname_6.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:27  My_new_Fname_7.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:27  My_new_Fname_8.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:27  My_new_Fname_9.txt
+-rw-rw-r--+ 1 0 2024-10-02 13:57 'ojla bre.dat'
+
+=====================================================
+$> ll
+total 0
+-rw-rw-r--+ 1 0 2024-10-02 13:57 'fahl 2.jpg'
+-rw-rw-r--+ 1 0 2024-10-02 14:31 'My new Fname 1.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:31 'My new Fname 2.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:31 'My new Fname 3.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:31 'My new Fname 4.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:31 'My new Fname 5.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:31 'My new Fname 6.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:31 'My new Fname 7.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:31 'My new Fname 8.txt'
+-rw-rw-r--+ 1 0 2024-10-02 14:31 'My new Fname 9.txt'
+-rw-rw-r--+ 1 0 2024-10-02 13:57 'ojla bre.dat'
+
+$> find . -name "*.txt"
+./My new Fname 1.txt
+./My new Fname 2.txt
+./My new Fname 3.txt
+./My new Fname 4.txt
+./My new Fname 5.txt
+./My new Fname 6.txt
+./My new Fname 7.txt
+./My new Fname 8.txt
+./My new Fname 9.txt
+
+# NOT OK: FJL must be between ""!
+$> find . -name "*.txt" | while read FJL; do echo $(spaces-to-underscores $FJL); done
+[ERROR] -- no string as argument
+[ERROR] -- no string as argument
+[ERROR] -- no string as argument
+[ERROR] -- no string as argument
+[ERROR] -- no string as argument
+[ERROR] -- no string as argument
+[ERROR] -- no string as argument
+[ERROR] -- no string as argument
+[ERROR] -- no string as argument
+
+=========================================================================================
+$> find . -name "*.txt" | while read FJL; do echo $(spaces-to-underscores "$FJL"); done
+./My_new_Fname_1.txt
+./My_new_Fname_2.txt
+./My_new_Fname_3.txt
+./My_new_Fname_4.txt
+./My_new_Fname_5.txt
+./My_new_Fname_6.txt
+./My_new_Fname_7.txt
+./My_new_Fname_8.txt
+./My_new_Fname_9.txt
+
+$> find . -name "*.txt" | while read FJL; do mv $FJL $(spaces-to-underscores "$FJL"); done
+mv: target './My_new_Fname_1.txt' is not a directory
+mv: target './My_new_Fname_2.txt' is not a directory
+mv: target './My_new_Fname_3.txt' is not a directory
+mv: target './My_new_Fname_4.txt' is not a directory
+mv: target './My_new_Fname_5.txt' is not a directory
+mv: target './My_new_Fname_6.txt' is not a directory
+mv: target './My_new_Fname_7.txt' is not a directory
+mv: target './My_new_Fname_8.txt' is not a directory
+mv: target './My_new_Fname_9.txt' is not a directory
+
+# OK
+$> find . -name "*.txt" | while read FJL; do mv "$FJL" $(spaces-to-underscores "$FJL"); done
+renamed './My new Fname 1.txt' -> './My_new_Fname_1.txt'
+renamed './My new Fname 2.txt' -> './My_new_Fname_2.txt'
+renamed './My new Fname 3.txt' -> './My_new_Fname_3.txt'
+renamed './My new Fname 4.txt' -> './My_new_Fname_4.txt'
+renamed './My new Fname 5.txt' -> './My_new_Fname_5.txt'
+renamed './My new Fname 6.txt' -> './My_new_Fname_6.txt'
+renamed './My new Fname 7.txt' -> './My_new_Fname_7.txt'
+renamed './My new Fname 8.txt' -> './My_new_Fname_8.txt'
+renamed './My new Fname 9.txt' -> './My_new_Fname_9.txt'
+
+$> ll
+total 0
+-rw-rw-r--+ 1 0 2024-10-02 13:57 'fahl 2.jpg'
+-rw-rw-r--+ 1 0 2024-10-02 14:31  My_new_Fname_1.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:31  My_new_Fname_2.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:31  My_new_Fname_3.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:31  My_new_Fname_4.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:31  My_new_Fname_5.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:31  My_new_Fname_6.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:31  My_new_Fname_7.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:31  My_new_Fname_8.txt
+-rw-rw-r--+ 1 0 2024-10-02 14:31  My_new_Fname_9.txt
+-rw-rw-r--+ 1 0 2024-10-02 13:57 'ojla bre.dat'
+

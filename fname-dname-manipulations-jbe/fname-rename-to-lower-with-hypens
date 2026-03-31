@@ -1,24 +1,24 @@
 #! /usr/bin/env bash
-# fname: fname-rename-underscores-to-hypens
-# 20226031
+# fname: fname-rename-to-lower-with-hypens
+# 20260331
 # last: 20260331
 # ---
 
 ARG="$@"
 
 if [ "x${ARG}" = "x" ]; then
-	printf "[ERROR] -- no filename as argument\n"
+	printf "[ERROR] no filename as argument\n"
 	exit
 else
-	FNAME="$ARG"
+	FNAME=$ARG
 fi
 
 if [ ! -f "${FNAME}" ]; then
-	printf "[ERROR] -- no such file\n"
+	printf "[ERROR] no such file\n"
 	exit
 fi
 
-NEW_FNAME=$(echo "${FNAME}" | sed 's/ \././' | tr '_' '-')
+NEW_FNAME=$(echo "${FNAME}" |  tr '[:upper:]' '[:lower:]' | sed -e 's/: */_/g' -e 's/,//g' -e 's/ \././g' -e 's/(//' -e 's/)//' | tr ' ' '-')
 printf "[INFO] renaming:\n'${FNAME}' ... to\n'${NEW_FNAME}'\n"
 read -p "[INPUT] OK?"
 printf "[INFO] "

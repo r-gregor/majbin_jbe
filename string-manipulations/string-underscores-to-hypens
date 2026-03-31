@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-# fname: string-spaces-to-hypens
+# fname: string-underscores-to-hypens
 # 20260331
 # last: 20260331
 # ---
@@ -13,6 +13,6 @@ else
 	STRNG="$ARG"
 fi
 
-OUTPUT=$(echo "${STRNG}" | sed 's/ \././' | tr ' ' '-')
+OUTPUT=$(echo "${STRNG}" | sed 's/ \././' | tr '_' '-')
 echo "${OUTPUT}" | sed 's/"//g'
 
