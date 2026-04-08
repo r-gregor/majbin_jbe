@@ -1,7 +1,8 @@
 #! /usr/bin/env bash
 # fname: gupdate-file-jbe
 # 20260313 v1 jbe
-# last: 20260313
+# 20260408 v2 jbe: added 'OK?' check into update_file_to_git() function
+# last: 20260408
 # ---
 
 HST="jbe"
@@ -36,6 +37,7 @@ update_file_to_git() {
 		"from: ${SRCF}" \
 		"to:   ${DSTF}" \
 		"---"
+	read -p "OK?"
 	cp -iv "${SRCF}" "${DSTF}"
 }
 
@@ -43,3 +45,4 @@ update_file_to_git() {
 update_file_to_git
 
 printf "\n"
+
