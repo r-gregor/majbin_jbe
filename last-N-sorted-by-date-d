@@ -1,19 +1,23 @@
 #! /usr/bin/env bash
+# fname: last-N-sorted-by-date-d
+# 20220202: added ${DEST1}, and ${DEST2}
+#           changed for loop
+# 20260407: DEST1, DEST2 ==> readarray 'ls -1' command into CATEGORIES
+#           DRPBO --> KNWLGDB
+# last: 20260407
+#---
 
-### updated 20220202:
-###    added ${DEST1}, and ${DEST2}
-###    changed for loop
-### -------------------------------
-### update 20250305: new SRCDIR
-### -------------------------------
+CMD1=${HOME}/.local/bin/rsort-by-enddate-g
+CMD2=${HOME}/.local/bin/rsort-by-tmstmp-c
+KNWLGDB="/home/rgregor/majstaf/jbegit/knowledgedb"
 
+# 20260407
+unset CATEGORIES
+readarray -t CATEGORIES < <(ls -1 "${KNWLGDB}")
 
-CMD1=~/.local/bin/rsort-by-enddate-g
-CMD2=~/.local/bin/rsort-by-tmstmp-c
-SRCDIR="/home/rgregor/majstaf/jbegit/knowledgedb"
-
-DEST1="C_and_Cpp,JAVA,PYTHON,CS_and_other_PL,GIT,VIM,DOCKER,LINUX_SYSTEM,BASH,TXT,ZIG"
-DEST2="C_and_Cpp JAVA PYTHON CS_and_other_PL GIT VIM DOCKER LINUX_SYSTEM BASH TXT ZIG"
+### # TEST
+### for CAT in "${CATEGORIES[@]}"; do printf "category: ${CAT}\n"; done
+### read -p "OK?"
 
 usage() {
 MSG=$(cat << HDOC
@@ -40,18 +44,18 @@ while getopts "hn:" arg; do
 
 		n)
 			num=${OPTARG}
-			for PTH in ${DEST2}; do
-				echo "--- ${SRCDIR}/_${PTH} ---"
-				cd ${SRCDIR}/_${PTH} && ${CMD2} | head -n ${num}; done
+			for PTH in "${CATEGORIES[@]}"; do
+				echo "--- ${KNWLGDB}/${PTH} ---"
+				cd ${KNWLGDB}/${PTH} && ${CMD2} | head -n ${num}; done
 		;;
 
 		*)
-			echo "Displaying last 10 files from ${SRCDIR}/_{"${DEST1}"}"
+			echo "Displaying last 10 files from all categories in: ${KNWLGDB}"
 			echo "For more options/usage run with -h!"
 			echo ""
-			for PTH in ${DEST2}; do
-				echo "--- ${SRCDIR}/_${PTH} ---"
-				cd ${SRCDIR}/_${PTH} && ${CMD2} | head -n10; done
+			for PTH in "${CATEGORIES[@]}"; do
+				echo "--- ${KNWLGDB}/${PTH} ---"
+				cd ${KNWLGDB}/${PTH} && ${CMD2} | head -n10; done
 		;;
 	esac
 	noargs="false"
@@ -59,11 +63,11 @@ done
 
 
 if [[ ${noargs} == "true" ]]; then
-	echo "Displaying last 10 files from ${SRCDIR}/_{"${DEST1}"}"
+	echo "Displaying last 10 files from all categories in: ${KNWLGDB}"
 	echo "For more options/usage run with -h!"
 	echo ""
-	for PTH in ${DEST2}; do
-		echo "--- ${SRCDIR}/_${PTH} ---"
-		cd ${SRCDIR}/_${PTH} && ${CMD2} | head -n10; done
+	for PTH in "${CATEGORIES[@]}"; do
+		echo "--- ${KNWLGDB}/${PTH} ---"
+		cd ${KNWLGDB}/${PTH} && ${CMD2} | head -n10; done
 fi
 
