@@ -1,8 +1,9 @@
 #! /usr/bin/env bash
 # filename: kndb-files-from-tmst-in-mnth-jbe
 # 20251125
-# 20260331 display from newest to oldst: $(seq start end) --> $(seq end -1 start)
-# last: 20260331
+# 20260331 v1 display from newest to oldst: $(seq start end) --> $(seq end -1 start)
+# 20260415 v2 final printout to stdout and into xargs in one line with 'tee /dev/tty' comand
+# last: 20260415
 # ---
 
 curryr=$(date +"%Y")
@@ -62,6 +63,6 @@ if [ "x${fjls[0]}" == "x" ]; then
 fi
 
 printf "[INFO] Selected:\n"
-for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done
-for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done | xargs -ro vim -pM
-
+# for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done
+# for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done | xargs -ro vim -pM
+for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done | tee /dev/tty | xargs -ro vim -pM
