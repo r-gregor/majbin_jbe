@@ -9,7 +9,10 @@
 #                 extract KEYS from URLS
 # 20260423 jbe v3 put all RUN statemnets into majaps_run() function and add option to select input as parameter
 # 20260423 jbe v4 selected input as parameter into array, if multiple option to redefine parameter
-# last: 20260423
+# 20260507 jbe v5 move selection var with fzf into get_selection_jbe() function
+# last: 20260507
+# ---
+
 # clear the screen:
 printf "\033[H\033[2J"
 
@@ -87,6 +90,29 @@ majaps_run() {
 	selection_info "${selection}"
 }
 
+# v5
+get_selection_jbe() {
+	# add +c option to reverse highlight
+	# selection=$( for key in "${!keys[@]}"; do echo "${keys[$key]}"; done | \
+	selection=$((for key in "${!keys[@]}"; do echo "${keys[$key]}"; done | sort; echo "${delline}"; echo "Quit") | \
+				fzf -e \
+				--reverse \
+				--border=rounded \
+				--info=hidden \
+				--prompt="launch: ")
+}
+
+# v5
+# for testing in Cygwin:
+get_selection_en() {
+	selection=$((for key in "${!keys[@]}"; do echo "${keys[$key]}"; done | sort; echo "${delline}"; echo "Quit") | \
+		fzf \
+		-e \
+		--reverse \
+		-i \
+		--prompt="launch: ")
+}
+
 # MAIN (v3)
 longest_l=$(get_longest keys)                                         # v3
 delline=$(for((i = 0; i < ${#longest_l}; i++)); do printf "-"; done)  # v3
@@ -122,17 +148,11 @@ fi
 
 
 
+# v5
 while true; do
-
-	# add +c option to reverse highlight
-	# selection=$( for key in "${!keys[@]}"; do echo "${keys[$key]}"; done | \
-	selection=$((for key in "${!keys[@]}"; do echo "${keys[$key]}"; done | sort; echo "${delline}"; echo "Quit") | \
-				fzf -e \
-				--reverse \
-				--border=rounded \
-				--info=hidden \
-				--prompt="launch: ")
-
+	# for testing in Cygwin:
+	# get_selection_en
+	get_selection_jbe
 	majaps_run
 done
 
