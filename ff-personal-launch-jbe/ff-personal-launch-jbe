@@ -1,16 +1,18 @@
 #! /usr/bin/env bash
 # filename: ff-personal-launch-jbe
 # from ff-launch-en
-# 20260216 en
-# 20260229 jbe v2: add info what was selected
-#                  change the fzf display to full height
-#                  inside infinite while loop --> Quit to quit
-# 20260229 jbe v3: keys in separate array for arranged order with 'Quit' as last option
-# 20260303 mdb v4: added $delline
-# 20260304 jbe v5: $delline calculated from longest KEY line with get_longest function
-#                  sorted output to fzf command
-# 20260305  en v6: extract KEYS from URLS
-# last: 20260305
+# 20260216
+# 20260229 v2: add info what was selected
+#              change the fzf display to full height
+#              inside infinite while loop --> Quit to quit
+# 20260229 v3: keys in separate array for arranged order with 'Quit' as last option
+# 20260303 v4: added $delline
+# 20260304 v5: $delline calculated from longest KEY line with get_longest function
+#              sorted output to fzf command
+# 20260305 v6: extract KEYS from URLS
+# 20260508 v7: move links to external (csv format with ';' delimiter) file and add load_links_into_array()
+#              function to load links from file into associative array
+# last: 20260508
 #---
 
 clear
@@ -20,31 +22,23 @@ unset KEYS
 # globals
 FFCMD='/usr/bin/firefox'
 SRCDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
+# FZFCMD_EN="fzf -e --reverse"   # cygwin version does not support --width option
 # FZFCMD="fzf -e --reverse --height 50% --border rounded"
 FZFCMD='fzf -e --reverse --border rounded'
+FNAME="personal_links_list_jbe" # v7
+FPTH=${SRCDIR}/${FNAME}         # v7
 
 # assoc array
-declare -A URLS=(
-	["Moj račun Energetika Ljubljana"]="https://mojracun.energetika-lj.si/login"
-	["ELEKTRO-LJUBLJANA -- Prijava v portal Moja energija"]="https://me.elektro-energija.si/Prijava"
-	["Moj Petrol - elektrika (Valvasorjeva 5)"]="https://www.petrol.si/moj-petrol/"
-	["ZD za študente: dr. Darja Marija ŽNIDARŠIČ"]="https://zdstudenti.si/doctor/darja-marija-znidarsic/"
-	["doZdravnika.si - Prijava"]="https://dozdravnika.si/#!/auth/login"
-	["Špela - eAsistent"]="https://www.easistent.com/stran/"
-	["Špela - MATURANC"]="https://cmt-travel.my.salesforce-sites.com/matura?maturantska=a3UQx000000EWhZ&code=xWxVN6V0"
-	["T-2: login"]="https://login.t-2.net/"
-	["TRIGLAV Zavarovalnica: login"]="https://login.triglav.si"
-	["moja POŠTA.si: login"]="https://auth.posta.si/realms/mojaposta/protocol/openid-connect/auth?client_id=mojaposta-webclient&redirect_uri=https%3A%2F%2Fmoja.posta.si%2Fauth-redirect&response_type=code&scope=openid&state=1becfe48a3ff4cf084d1fa8ec739c90d&code_challenge=O3B_Oqn7GCWDDZsPHDXgKhpFL_DIDLU8gACctKlEoJg&code_challenge_method=S256&ui_locales=sl-SI"
-	["T-2 tv2go: login"]="https://tv2go.t-2.net"
-	["URBANA JHL: login"]="https://urbana.jhl.si"
-	["eInženir IZS.si: login"]="https://einzenir.izs.si/m_login.cfm"
-	["Evinjeta (DARS)"]="https://evinjeta.dars.si/selfcare/sl"
-)
-
-# array of keys from URLS
-KEYS=("${!URLS[@]}")
+declare -A URLS
 
 # functions
+# v7
+load_links_into_array() {
+	while IFS=';' read key value; do
+		URLS["${key}"]="${value}"
+	done < "${FPTH}"
+}
+
 get_longest() {
 	if [ ! $# -eq 1 ]; then
 		echo "[ERROR1] must supply array of sentences as parameter"
@@ -88,6 +82,11 @@ ff_personallaunch() {
 }
 
 # MAIN
+load_links_into_array # v7
+
+# array of keys from URLS
+KEYS=("${!URLS[@]}")
+
 longest_l=$(get_longest KEYS)
 delline=$(for((i = 0; i < ${#longest_l}; i++)); do printf "-"; done)
 
