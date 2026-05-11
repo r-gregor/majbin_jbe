@@ -7,34 +7,43 @@
 #             $delline calculated from longest KEY line with get_longest function
 #             sorted output to fzf command
 #             extract KEYS from URLS
-# 20260423 v3 put all RUN statemnets into majapps_run() function and add option to select input as parameter
+# 20260423 v3 put all RUN statemnets into majaps_run() function and add option to select input as parameter
 # 20260423 v4 selected input as parameter into array, if multiple option to redefine parameter
 # 20260507 v5 move selection var with fzf into get_selection_jbe() function
-# 20260511 v6 move links to external (csv format with ';' delimiter) file and add load_links_into_array()
-#             function to load links from file into associative array
-# last: 20260511
+# last: 20260507
 # ---
 
 # clear the screen:
 printf "\033[H\033[2J"
 
-# globals
-SRCDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
-FNAME="majapps_links_list_jbe" # v7
-FPTH=${SRCDIR}/${FNAME}         # v7
+declare -A apps=(["Firefox"]="/usr/bin/firefox" \
+                 ["ArandR"]="/usr/bin/arandr" \
+                 ["Atril"]="/usr/bin/atril" \
+                 ["Gimp"]="/usr/bin/gimp" \
+                 ["Google Chrome"]="/usr/bin/google-chrome" \
+                 ["Gparted"]="/usr/sbin/gparted" \
+                 ["Kitty"]="/usr/bin/kitty" \
+                 ["Urxvt"]="/usr/bin/urxvt" \
+                 ["KODI"]="/usr/bin/kodi" \
+                 ["LxAppearance"]="/usr/bin/lxappearance" \
+                 ["LxTask"]="/usr/bin/lxtask" \
+                 ["Mate calculator"]="/usr/bin/mate-calculator" \
+                 ["Mousepad"]="/usr/bin/mousepad" \
+                 ["Nitrogen"]="/usr/bin/nitrogen" \
+                 ["PavucControl"]="/usr/bin/pavucontrol" \
+                 ["PCmanFM"]="/usr/bin/pcmanfm" \
+                 ["Pinta"]="/usr/bin/pinta" \
+                 ["Thunar FM"]="/usr/bin/thunar" \
+                 ["Transmission"]="/usr/bin/transmission-gtk" \
+                 ["Ulauncher"]="/usr/bin/ulauncher" \
+                 ["VLC"]="/usr/bin/vlc" \
+                 ["Xsane"]="/usr/bin/xsane" \
+                 ["Double Commander"]="/usr/bin/doublecmd")
 
-# assoc array
-declare -A majapps
-
+# array of keys from apps
+keys=("${!apps[@]}")
 
 # functions
-# v6
-load_links_into_array() {
-	while IFS=';' read key value; do
-		majapps["${key}"]="${value}"
-	done < "${FPTH}"
-}
-
 get_longest() {
 	if [ ! $# -eq 1 ]; then
 		echo "[ERROR1] must supply array of sentences as parameter"
@@ -63,7 +72,7 @@ selection_info() {
 }
 
 # v3
-majapps_run() {
+majaps_run() {
 	if [ "x${selection}" == "x" ]; then
 		echo -e "[INFO] no selection\n"
 		exit
@@ -77,7 +86,7 @@ majapps_run() {
 		exit
 	fi
 
-	eval "nohup ${majapps["${selection}"]} >&/dev/null &"
+	eval "nohup ${apps["${selection}"]} >&/dev/null &"
 	selection_info "${selection}"
 }
 
@@ -105,11 +114,6 @@ get_selection_en() {
 }
 
 # MAIN (v3)
-load_links_into_array # v6
-
-# array of keys from majapps
-keys=("${!majapps[@]}")
-
 longest_l=$(get_longest keys)                                         # v3
 delline=$(for((i = 0; i < ${#longest_l}; i++)); do printf "-"; done)  # v3
 
@@ -138,7 +142,7 @@ if [ $# -eq 1 ]; then
 	fi
 
 	read -p "[INFO] launch: ${selection} ... OK?"
-	majapps_run
+	majaps_run
 	exit
 fi
 
@@ -149,6 +153,6 @@ while true; do
 	# for testing in Cygwin:
 	# get_selection_en
 	get_selection_jbe
-	majapps_run
+	majaps_run
 done
 

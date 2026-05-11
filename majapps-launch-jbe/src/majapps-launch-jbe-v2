@@ -1,9 +1,10 @@
 #! /usr/bin/env bash
 # filename: majapps-launch-jbe
-# 20250917 (d)
-# 20251020 (d) -- run inside infinite loop and added 'q' to quit
-#              -- keys in separate index-ed array to keep display order
-# last: 20251020 (d)
+# 20250917 v1
+# 20251020 v2 -- run inside infinite loop and added 'q' to quit
+#             -- keys in separate index-ed array to keep display order
+# last: 20251020
+# ---
 
 # clear the screen:
 printf "\033[H\033[2J"
