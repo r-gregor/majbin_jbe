@@ -1,7 +1,8 @@
 #! /bin/bash
-
-# filename:     softlink1_fname_to_ulb.sh
-# version:      V1 -- 20190131
+# filename: softlink1_fname_to_ulb.sh
+# 20190131 v1
+# 20260512 v2 lin to original name with .sh extension
+# last: 20260512
 #
 
 
@@ -16,8 +17,8 @@ source_path=$(dirname $1)
 dest_path="$HOME/.local/bin"
 
 fname_full=$(basename $1)
-fname=${fname_full%%.*}
-ext=${fname_full##*.}
+# fname=${fname_full%%.*}
+# ext=${fname_full##*.}
 
 
 # tests
@@ -36,4 +37,5 @@ fi
 
 # execute
 echo "Soft-linking ${fname_full} to ~/.local/bin/ ..."
-sudo ln -sv $(realpath ${source_path}/${fname_full}) ${dest_path}/${fname}
+sudo ln -sv $(realpath ${source_path}/${fname_full}) ${dest_path}/${fname_full}
+

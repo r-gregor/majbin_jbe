@@ -1,5 +1,5 @@
-# clean_and_replace_fname_02
 #! /usr/bin/env bash
+# clean_and_replace_fname_02
 
 if [ $# -ne 1 ]; then
 	echo "usage: clean_and_replace_fname [fname]"

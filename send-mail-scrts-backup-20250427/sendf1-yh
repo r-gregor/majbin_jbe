@@ -1,0 +1,144 @@
+#! /usr/bin/env python3
+
+"""
+filename:       sendf-yh.py
+description:    script that sends e-mail with attachemnets
+
+date:           20250426
+"""
+
+import send_config_yh as scd
+
+gFrom = scd.gFrom
+gTo = scd.gTo
+# gTo = ['gredelonghi@gmail.com']
+gUnm = scd.gUnm
+gPsswd = scd.gPsswd
+gSmtp = scd.gSmtp
+gPort = scd.gPort
+
+import sys
+import os
+import smtplib
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import datetime as dt
+
+# timestamp
+def tms():
+    return dt.datetime.now().strftime('%Y%m%d_%H%M%S')
+
+print("[ {} ] Starting {} ...".format(tms(), sys.argv[0]))
+
+from datetime import datetime
+gr_CURRD=datetime.now().strftime('%Y%m%d')
+gr_CURRT=datetime.now().strftime('%H%M')
+gr_CURRTL=datetime.now().strftime('%H%M%S')
+
+if len(sys.argv) < 2:
+    print("[ {} ] There should be at least one filename as argumet to {}".format(tms(), sys.argv[0]))
+    print("[ {} ] Exiting! Bye.".format(tms()))
+    sys.exit(1)
+
+# NOVO 20180405
+# Defining func to get multiline text ...
+def grf_usrinp():
+    global gr_user_input
+    gr_user_input = []
+    entry = input("[ {} ] Enter BODY text, 'done' on its own line to send:\n----------------------------------------------------------------------\n".format(tms()))
+    while entry != "done":
+        gr_user_input.append(entry)
+        entry = input("")
+    gr_user_input = '\n'.join(gr_user_input) + '\n'
+    return gr_user_input
+
+gr_UMSG = grf_usrinp()
+
+
+COMMASPACE = ', '
+
+# getting filenames ...
+gr_FILES = []
+
+def curdir(file):
+    if '/' not in file:
+        file = os.getcwd() + "/" + file
+    return file
+
+# Check if files exist (fullpath):
+for FILE in sys.argv[1:]:
+
+    # check/create current path (relative to absolute)
+    FILE = curdir(FILE)
+
+    # check if file exists
+    if not os.path.isfile(FILE):
+        print("[ {} ] There is no {}.".format(tms(), FILE))
+        print("[ {} ] Exiting. Bye.".format(tms()))
+        sys.exit(1)
+    else:
+        gr_FILES.append(FILE)
+
+# String variable to be displayed as BODY of  a message
+gr_BDYF = "Sent from doma " + gr_CURRD + "-" + gr_CURRTL + ":\n"
+gr_BDYF += gr_UMSG
+
+# add files list to string variable
+
+gr_BDYF += "\n" + "Attached files:" + "\n"
+for FAJL in gr_FILES:
+    fpot, fname = FAJL.rsplit('/', 1)
+    gr_BDYF += fname + "\n"
+
+def main():
+    sender = gFrom
+    gmail_password = gPsswd
+    recipients = gTo
+
+    # Create the enclosing (outer) message
+    outer = MIMEMultipart()
+    outer['Subject'] = "Sending from doma " + gr_CURRD + "-" + gr_CURRTL + "..."
+    outer['To'] = COMMASPACE.join(recipients)
+    outer['From'] = sender
+    outer.attach(MIMEText(gr_BDYF, 'plain'))
+    outer.preamble = 'You will not see this in a MIME-aware mail reader.\n'
+
+    # List of attachments
+    attachments = gr_FILES
+    print(attachments)
+
+    # Add the attachments to the message
+    for file in attachments:
+        try:
+            with open(file, 'rb') as fp:
+                msg = MIMEBase('application', "octet-stream")
+                msg.set_payload(fp.read())
+            encoders.encode_base64(msg)
+            msg.add_header('Content-Disposition', 'attachment', filename=os.path.basename(file))
+            outer.attach(msg)
+        except:
+            print("[ {} ] Unable to open one of the attachments. Error: ".format(tms(), sys.exc_info()[0]))
+            raise
+
+    composed = outer.as_string()
+
+    print("[ {} ] Working ...".format(tms()))
+
+    # Send the email
+    try:
+        with smtplib.SMTP(gSmtp, gPort) as s:
+            s.ehlo()
+            s.starttls()
+            s.ehlo()
+            s.login(sender, gmail_password)
+            s.sendmail(sender, recipients, composed)
+            s.close()
+        print("[ {} ] Email sent!".format(tms()))
+    except:
+        print("[ {} ] Unable to send the email. Error: ".format(tms(), sys.exc_info()[0]))
+        raise
+
+if __name__ == '__main__':
+    main()
