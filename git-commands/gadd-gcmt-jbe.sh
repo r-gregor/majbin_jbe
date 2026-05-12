@@ -3,7 +3,7 @@
 # last change: 20250406
 
 gcmd="/usr/bin/git add --verbose ."
-gcmt="${HOME}/.local/bin/gcommit-timestamp-jbe.sh"
+gcmt="${HOME}/.local/bin/gcommit-timestamp-jbe"
 
 
 # display commands
