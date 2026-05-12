@@ -12,7 +12,7 @@ while IFS=';' read link path; do
 		# printf "mv -v ${ULB}/${link} ${ULB}/${link}.sh\n"
 		#REAL DEAL
 		ln -snf "${path}.sh" "${ULB}/${link}"
-		mv -v "${ULB}/${link}" "${ULB}/${link}.sh"
+		# mv -v "${ULB}/${link}" "${ULB}/${link}.sh"
 	fi
 done < sflinks.txt
 
