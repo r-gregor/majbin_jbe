@@ -17,8 +17,8 @@ source_path=$(dirname $1)
 dest_path="$HOME/.local/bin"
 
 fname_full=$(basename $1)
-# fname=${fname_full%%.*}
-# ext=${fname_full##*.}
+fname=${fname_full%%.*}
+ext=${fname_full##*.}
 
 
 # tests
@@ -37,5 +37,5 @@ fi
 
 # execute
 echo "Soft-linking ${fname_full} to ~/.local/bin/ ..."
-sudo ln -sv $(realpath ${source_path}/${fname_full}) ${dest_path}/${fname_full}
+sudo ln -sv $(realpath ${source_path}/${fname_full}) ${dest_path}/${fname}
 
