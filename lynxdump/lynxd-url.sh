@@ -37,9 +37,9 @@ fi
 # read -p "OK?"
 
 if [[ ${prefix} == 0 ]]; then
-	fname=$(echo "${FINAL_URL##*/}" | tr '_' '-' | tr '[[:upper:]]' '[[:lower:]]' | sed 's/-in-c//g')
+	fname=$(echo "${FINAL_URL##*/}" | tr '_' '-' | tr '[[:upper:]]' '[[:lower:]]' | sed -e 's/-in-c//g' -e 's/-in-linux//g')
 else
-	fname=$(echo "${prefix}-${FINAL_URL##*/}" | tr '_' '-' | tr '[[:upper:]]' '[[:lower:]]' | sed 's/-in-c//g')
+	fname=$(echo "${prefix}-${FINAL_URL##*/}" | tr '_' '-' | tr '[[:upper:]]' '[[:lower:]]' | sed -e 's/-in-c//g' -e 's/-in-linux//g')
 fi
 
 dest="${fname}-${danes}.txt"
