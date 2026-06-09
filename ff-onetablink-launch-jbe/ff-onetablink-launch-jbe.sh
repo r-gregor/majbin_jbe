@@ -59,7 +59,8 @@ done | ${FZFCMD})"
 # run
 for URL in ${!llist[@]}; do
 	if [[ "${llist["${URL}"]}" =~ "${selection}" ]]; then
-	nohup ${FFCMD} "${URL}" >&/dev/null &
+	# nohup ${FFCMD} "${URL}" >&/dev/null &
+	(nohup ${FFCMD} "${URL}" &) > /dev/null 2>&1
 	exit
 	fi
 done

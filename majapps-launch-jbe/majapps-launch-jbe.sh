@@ -77,7 +77,8 @@ majapps_run() {
 		exit
 	fi
 
-	eval "nohup ${majapps["${selection}"]} >&/dev/null &"
+	# eval "nohup ${majapps["${selection}"]} >&/dev/null &"
+	eval '(nohup ${majapps["${selection}"]} &) > /dev/null 2>&1'
 	selection_info "${selection}"
 }
 
