@@ -6,4 +6,5 @@ if [ "$(pgrep picom)" == "" ]; then
 else
 	printf "[INFO] picom already running\n"
 fi
+printf "\n"
 

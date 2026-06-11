@@ -5,6 +5,8 @@ if [ "$(pgrep picom)" != "" ]; then
 	sudo killall picom
 else
 	printf "[INFO] picom not running \n"
+	printf "\n"
 	exit
 fi
+printf "\n"
 
