@@ -1,0 +1,18 @@
+To instantly back up your entire Gmail inbox, use Google's official Export your data from Gmail tool. It
+compiles all your emails and labels into a downloadable .zip file containing .mbox files, which you can save
+directly to your computer or upload to another service.
+
+How to use Google Takeout:
+1 - Go to Google Takeout and sign in with your account.
+2 - Click Deselect all to save time, then scroll down and check only the box for Mail.
+3 - Click All mail data included if you want to select specific folders (or leave it on default to back up
+    everything), then click OK.
+4 - Scroll to the bottom and click Next step.
+5 - Choose your delivery method (e.g., Send download link via email), frequency (one-time), file type (.zip),
+    and the maximum file size you prefer (up to 50 GB).
+6 - Click Create export.
+7 - Google will email you a download link once the file is ready. Depending on your inbox
+    size, this can take a few hours or up to 48 hours.
+
+---
+

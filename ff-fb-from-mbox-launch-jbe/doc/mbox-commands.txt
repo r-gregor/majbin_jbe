@@ -1,0 +1,6 @@
+grep -i -A 8 subject fb-messages-20260721.txt | sed -n '/Subject\|http/p' | sed 's/Subject: //'
+while read LINE; do echo "$LINE"| grep "Subject\|^http"| grep -v "="; done < fb-messages-20260721.txt  # VERY SLOW!!
+grep "Subject\|https" fb-messages-20260721.txt | grep -v "="
+grep "Subject\|https" fb-messages-20260721.txt | grep -v "=" | sed 's/Subject: \(.*\)/\1/'
+grep "Subject\|https" fb-messages-20260721.txt | grep -v "=" | sed 's/Subject: \(.*\)/\1/' > tempfile.txt
+
