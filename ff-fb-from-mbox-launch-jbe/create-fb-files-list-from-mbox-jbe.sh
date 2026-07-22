@@ -14,7 +14,7 @@ declare -A fb_messages
 declare -A monthnums=(["Jan"]=1 ["Feb"]=2 ["Mar"]=3 ["Apr"]=4 ["May"]=5 ["Jun"]=6 ["Jul"]=7 ["Aug"]=8 ["Sep"]=9 ["Oct"]=10 ["Nov"]=11 ["Dec"]=12)
 
 SRCDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
-tdj=$(date +"%Y%m%d_%H%M")
+tdy=$(date +"%Y%m%d_%H%M%S")
 
 if [ $# -ne 1 ]; then
 	printf "[ERROR] no sorce *.mbox file supplied\n"
@@ -30,7 +30,7 @@ if [ ! -f "${src}" ]; then
 fi
 
 dst_local="data/fb_files_list_from_mbox.txt"
-bkp_local="backups/backup_fb_files_list_from_mbox_${tdj}.txt"
+bkp_local="backups/backup_fb_files_list_from_mbox_${tdy}.txt"
 
 dst="${SRCDIR}/${dst_local}"
 fbf_backup="${SRCDIR}/${bkp_local}"
