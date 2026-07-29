@@ -6,7 +6,10 @@
 #             https://www.youtube.com/results?search_query=salsa+hand+toss+flip;salsa hand toss flip
 # v2_20260529 output into array
 # v3_20260529 output into associative array
-# last 20260529
+# v5 20260729 added 'Quit' and checks for false selections
+#             put everything into while loop
+#             changed 'echo -e' into 'printf'
+# last 20260729
 # ---
 
 # globals
@@ -51,19 +54,39 @@ while IFS= read LINE; do
 
 done < "${fjl}"
 
-# selection - fzf
-selection="$(for descrp in "${llist[@]}"; do
-	echo "${descrp}"
-done | ${FZFCMD})"
+#v5
+ff_onetablink_launch() {
+	# selection - fzf
+	selection=$((for descrp in "${llist[@]}"; do echo "${descrp}"; done; echo '----'; echo 'Quit') | ${FZFCMD}) #v5
 
-# run
-for URL in ${!llist[@]}; do
-	if [[ "${llist["${URL}"]}" =~ "${selection}" ]]; then
-	# nohup ${FFCMD} "${URL}" >&/dev/null &
-	(nohup ${FFCMD} "${URL}" &) > /dev/null 2>&1
-	exit
+	#v5
+	if [ "x${selection}" == "x" ]; then
+		printf "[INFO] nothing selected\n"
+		exit 0
 	fi
-done
 
+	if  [ "${selected}" == "----" ]; then
+		continue
+	fi
+
+	if [ "${selection}" == "Quit" ]; then
+		printf "\n"
+		exit 0
+	fi
+
+	# run
+	for URL in ${!llist[@]}; do
+		if [[ "${llist["${URL}"]}" =~ "${selection}" ]]; then
+			printf "[INFO] selected: ${selection}\n" #v5
+			(nohup ${FFCMD} "${URL}" &) > /dev/null 2>&1
+			# exit #v5
+		fi
+	done
+}
+
+#v5
+while true; do
+	ff_onetablink_launch
+done
 printf "\n"
 
