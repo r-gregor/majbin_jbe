@@ -1,9 +1,9 @@
 #! /usr/bin/env bash
-# filename: lynx-multi-dump-fromlist-jbe.sh
-# v1_20250925 remove option to use dumplist
-# v2 20260731 implement fname_string_adjustment() function
+# fname: w3m-multi-dump-fromlist-jbe.sh
+# 20260106 v1
+# 20260731 v2 implement fname_string_adjustment() function
 #             add prefix option
-# 20260804 v3 move 'lynx dump' command into dump_command() function
+# 20260804 v3 move 'w3m dump' command into dump_command() function
 # last: 20260804
 # ---
 
@@ -30,7 +30,7 @@ usage() {
 }
 
 dump_command() {
-	lynx -dump -width=110 "$@"
+	w3m -dump -cols 110 "$@"
 }
 
 #MAIN
