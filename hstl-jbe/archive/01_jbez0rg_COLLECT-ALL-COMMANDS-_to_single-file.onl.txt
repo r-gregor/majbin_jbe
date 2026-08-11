@@ -1,0 +1,1 @@
+gr_FJL=COMMANDS_jbez0rg_from_XXXXXXXX_till_$(date +"%Y%m%d").txt; touch ${gr_FJL}; export LC_ALL=C; cat hstl_jbez0rg_* | cut -b 28- | grep -vE "(la|ll|ydd|ls|cd|rm|opn|df|gc|dbot|vnp|skrn|vim|nano|qcks|bigge|hstl|man|METS|np|snd|zze|sendm|RSYN|cv)" | sort | uniq -c | sort -k1 >> ${gr_FJL}

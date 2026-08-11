@@ -1,0 +1,1 @@
+gr_FJL=COMMANDS_jbez0rg_from_XXXXXXXX_till_$(date +"%Y%m%d").txt; cat ${gr_FJL} | cut -b 9- > ${gr_FJL}_2.txt
