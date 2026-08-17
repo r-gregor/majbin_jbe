@@ -1,15 +1,15 @@
 #! /usr/bin/env bash
-# fname: ff-onetablink-launch-jbe.sh
+# fname: ff-onetablink-launch-mdb.sh
 # 20260529 v1 converts a line:
 #             https://www.youtube.com/results?search_query=salsa+hand+toss+flip | (7) salsa hand toss flip - YouTube
 #             ... to ...
 #             https://www.youtube.com/results?search_query=salsa+hand+toss+flip;salsa hand toss flip
 # 20260529 v2 output into array
 # 20260529 v3 output into associative array
-# 20260729 v5 added 'Quit' and checks for false selections
+# 20260729 v4 added 'Quit' and checks for false selections
 #             put everything into while loop
 #             changed 'echo -e' into 'printf'
-# 20260817 v6 remove '- Youtube' from sed remplace to include youtube videos ...
+# 20260817 v5 remove '- Youtube' from sed remplace to include youtube videos ...
 # last 20260817
 # ---
 
@@ -48,7 +48,7 @@ while IFS= read LINE; do
 	fi
 
 	# converted_line="$(echo $LINE | sed -e 's/\([^ ]\+\) | \(.*\)/\1;\2/' -e 's/([[:digit:]]\+) //' -e '/\S/!d'  -e 's/ - YouTube//')"
-	# v6
+	# v5
 	converted_line="$(echo $LINE | sed -e 's/\([^ ]\+\) | \(.*\)/\1;\2/' -e 's/([[:digit:]]\+) //' -e '/\S/!d')"
 	url=${converted_line%%;*}
 	dscr=${converted_line#*;}
@@ -57,12 +57,12 @@ while IFS= read LINE; do
 
 done < "${fjl}"
 
-#v5
+#v4
 ff_onetablink_launch() {
 	# selection - fzf
-	selection=$((for descrp in "${llist[@]}"; do echo "${descrp}"; done; echo '----'; echo 'Quit') | ${FZFCMD}) #v5
+	selection=$((for descrp in "${llist[@]}"; do echo "${descrp}"; done; echo '----'; echo 'Quit') | ${FZFCMD}) #v4
 
-	#v5
+	#v4
 	if [ "x${selection}" == "x" ]; then
 		printf "[INFO] nothing selected\n"
 		exit 0
@@ -80,14 +80,14 @@ ff_onetablink_launch() {
 	# run
 	for URL in ${!llist[@]}; do
 		if [[ "${llist["${URL}"]}" =~ "${selection}" ]]; then
-			printf "[INFO] selected: ${selection}\n" #v5
+			printf "[INFO] selected: ${selection}\n" #v4
 			(nohup ${FFCMD} "${URL}" &) > /dev/null 2>&1
-			# exit #v5
+			# exit #v4
 		fi
 	done
 }
 
-#v5
+#v4
 while true; do
 	ff_onetablink_launch
 done

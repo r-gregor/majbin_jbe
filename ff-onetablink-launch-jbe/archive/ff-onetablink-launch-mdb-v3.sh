@@ -1,10 +1,11 @@
 #! /usr/bin/env bash
-# fname: ff-onetablink-launch-jbe-v2.sh
+# fname: ff-onetablink-launch-mdb.sh
 # v1_20260529 converts a line:
 #             https://www.youtube.com/results?search_query=salsa+hand+toss+flip | (7) salsa hand toss flip - YouTube
 #             ... to ...
 #             https://www.youtube.com/results?search_query=salsa+hand+toss+flip;salsa hand toss flip
 # v2_20260529 output into array
+# v3_20260529 output into associative array
 # last 20260529
 # ---
 
@@ -14,7 +15,7 @@ FFCMD='/usr/bin/firefox'
 FZFCMD="fzf -e --reverse --border rounded"
 
 unset llist
-declare -a llist
+declare -A llist
 
 usage() {
 	cat <<"EOF"
@@ -23,6 +24,8 @@ usage() {
 EOF
 }
 
+
+# MAIN
 if [ $# -ne 1 ]; then
 	usage
 	exit
@@ -34,18 +37,33 @@ else
 	fi
 fi
 
+# load lines from file into array
 while IFS= read LINE; do
 	if [ "${#LINE}" -lt 2 ]; then
 		continue
 	fi
-	llist+=("$(echo $LINE | sed -e 's/\([^ ]\+\) | \(.*\)/\1;\2/' -e 's/([[:digit:]]\+) //' -e '/\S/!d'  -e 's/ - YouTube//')")
+
+	converted_line="$(echo $LINE | sed -e 's/\([^ ]\+\) | \(.*\)/\1;\2/' -e 's/([[:digit:]]\+) //' -e '/\S/!d'  -e 's/ - YouTube//')"
+	url=${converted_line%%;*}
+	dscr=${converted_line#*;}
+
+	llist["${url}"]="${dscr}"
+
 done < "${fjl}"
 
-selection=$(for lnk in "${llist[@]}"; do
-	echo ${lnk}
-done | ${FZFCMD})
+# selection - fzf
+selection="$(for descrp in "${llist[@]}"; do
+	echo "${descrp}"
+done | ${FZFCMD})"
 
-nohup ${FFCMD} "${selection%%;*}" >&/dev/null &
+# run
+for URL in ${!llist[@]}; do
+	if [[ "${llist["${URL}"]}" =~ "${selection}" ]]; then
+	# nohup ${FFCMD} "${URL}" >&/dev/null &
+	(nohup ${FFCMD} "${URL}" &) > /dev/null 2>&1
+	exit
+	fi
+done
 
 printf "\n"
 

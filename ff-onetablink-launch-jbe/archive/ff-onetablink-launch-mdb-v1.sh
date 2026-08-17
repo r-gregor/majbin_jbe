@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-# fname: ff-onetablink-launch-jbe-v1.sh
+# fname: ff-onetablink-launch-mdb-v1.sh
 # v1_20260529 converts a line:
 #             https://www.youtube.com/results?search_query=salsa+hand+toss+flip | (7) salsa hand toss flip - YouTube
 #             ... to ...

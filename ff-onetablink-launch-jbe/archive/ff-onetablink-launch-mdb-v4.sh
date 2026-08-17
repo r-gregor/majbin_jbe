@@ -1,16 +1,15 @@
 #! /usr/bin/env bash
-# fname: ff-onetablink-launch-jbe.sh
-# 20260529 v1 converts a line:
+# fname: ff-onetablink-launch-mdb.sh
+# v1_20260529 converts a line:
 #             https://www.youtube.com/results?search_query=salsa+hand+toss+flip | (7) salsa hand toss flip - YouTube
 #             ... to ...
 #             https://www.youtube.com/results?search_query=salsa+hand+toss+flip;salsa hand toss flip
-# 20260529 v2 output into array
-# 20260529 v3 output into associative array
-# 20260729 v4 added 'Quit' and checks for false selections
+# v2_20260529 output into array
+# v3_20260529 output into associative array
+# v4 20260729 added 'Quit' and checks for false selections
 #             put everything into while loop
 #             changed 'echo -e' into 'printf'
-# 20260817 v5 remove '- Youtube' from sed remplace to include youtube videos ...
-# last 20260817
+# last 20260729
 # ---
 
 # globals
@@ -47,9 +46,7 @@ while IFS= read LINE; do
 		continue
 	fi
 
-	# converted_line="$(echo $LINE | sed -e 's/\([^ ]\+\) | \(.*\)/\1;\2/' -e 's/([[:digit:]]\+) //' -e '/\S/!d'  -e 's/ - YouTube//')"
-	# v5
-	converted_line="$(echo $LINE | sed -e 's/\([^ ]\+\) | \(.*\)/\1;\2/' -e 's/([[:digit:]]\+) //' -e '/\S/!d')"
+	converted_line="$(echo $LINE | sed -e 's/\([^ ]\+\) | \(.*\)/\1;\2/' -e 's/([[:digit:]]\+) //' -e '/\S/!d'  -e 's/ - YouTube//')"
 	url=${converted_line%%;*}
 	dscr=${converted_line#*;}
 
