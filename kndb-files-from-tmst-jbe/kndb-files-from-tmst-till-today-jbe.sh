@@ -1,9 +1,10 @@
 #! /usr/bin/env bash
 # filename: kndb-files-from-tmst-till-today-jbe
 # 20260105
-# 20260331 v1 display from newest to oldset
-# 20260415 v2 final printout to stdout and into xargs in one line with 'tee /dev/tty' comand
-# last: 20260415
+# 20260331 v1: display from newest to oldset
+# 20260415 v2: final printout to stdout and into xargs in one line with 'tee /dev/tty' comand
+# 20260831 v3: fzf files list sorted by cathegory
+# last: 20260831
 # ---
 
 curryr=$(date +"%Y")
@@ -12,52 +13,52 @@ currdy=$(date +"%d")
 currdt=$(date +"%Y%m%d")
 
 scrpt=$(basename $0)
-SRCDIR=${KNOWLEDGEDB:-/home/rgregor/majstaf/jbegit/knowledgedb}
+SRCDIR="${KNOWLEDGEDB:-/home/rgregor/majstaf/jbegit/knowledgedb}"
 
 months=("" "January" "February" "March" "April" "May" "June" "July" "Avgust" "September" "October" "November" "December")
 month_days=(0 31 29 31 30 31 30 31 31 30 31 30 31)
 
 usage() {
 cat << EOF
-    Usage: ${scrpt} <month_num> <day_num>
+    Usage: "${scrpt}" <month_num> <day_num>
 
 EOF
 }
 
 if [ $# -eq 2 ]; then
-	slctd_yr=$(date +%Y)
-	slctd_mt=$1
-	slctd_dy=$2
+	slctd_yr=$(date +"%Y")
+	slctd_mt="$1"
+	slctd_dy="$2"
 else
 	usage
 	exit
 fi
 
-if [ ${slctd_mt} -lt 1 ] || [ ${slctd_mt} -gt 12 ]; then
+if [ "${slctd_mt}" -lt 1 ] || [ "${slctd_mt}" -gt 12 ]; then
 	echo "Month out of range (1 - 12)"
 	exit
 elif
-	[ ${slctd_dy} -lt 1 ] || [ ${slctd_dy} -gt ${month_days[${slctd_mt}]} ]; then
-	echo "Day of month out of range (1 - ${month_days[${slctd_mt}]})"
+	[ "${slctd_dy}" -lt 1 ] || [ "${slctd_dy}" -gt "${month_days["${slctd_mt}"]}" ]; then
+	echo "Day of month out of range (1 - "${month_days["${slctd_mt}"]}")"
 	exit
 fi
 
 unset DAYS
 declare -a DAYS
 
-dtnum=(${slctd_yr} ${slctd_mt} ${slctd_dy})
-startdt="$(printf "%d%02d%02d" ${dtnum[0]} ${dtnum[1]} ${dtnum[2]})"
+dtnum=("${slctd_yr}" "${slctd_mt}" "${slctd_dy}")
+startdt="$(printf "%d%02d%02d" "${dtnum[0]}" "${dtnum[1]}" "${dtnum[2]}")"
 
 # 20230331: newest to oldest ...
 # newdt="${startdt}"
 newdt="${currdt}"
-while [ ${newdt} -ge ${startdt} ]; do
-	new_y=${newdt:0:4}
-	new_m=${newdt:4:2}
-	new_d=${newdt:6:2}
+while [ "${newdt}" -ge "${startdt}" ]; do
+	new_y="${newdt:0:4}"
+	new_m="${newdt:4:2}"
+	new_d="${newdt:6:2}"
 
-	# ${var#0} --> remove leading zero so number is not formated as octal at '08'
-	if [ ${new_m#0} -gt 0 ] && [ ${new_m#0} -le 12 ] && [ ${new_d#0} -gt 0 ] && [ ${new_d#0} -le ${month_days[${new_m#0}]} ]; then
+	# "${var#0}" --> remove leading zero so number is not formated as octal at '08'
+	if [ "${new_m#0}" -gt 0 ] && [ "${new_m#0}" -le 12 ] && [ "${new_d#0}" -gt 0 ] && [ "${new_d#0}" -le "${month_days["${new_m#0}"]}" ]; then
 		DAYS+=( "${newdt}" )
 		# let newdt+=1
 		let newdt-=1
@@ -69,23 +70,27 @@ while [ ${newdt} -ge ${startdt} ]; do
 done
 
 unset RESULT
-readarray -t RESULT < <(for DYS in ${DAYS[@]}; do find ${SRCDIR} -iname "*${DYS}.txt"; done)
+readarray -t RESULT < <(for DYS in "${DAYS[@]}"; do find "${SRCDIR}" -iname "*${DYS}.txt"; done)
 
-if [ "x${RESULT[0]}" == "x" ]; then
+if [ "${RESULT[0]}" == "" ]; then
 	printf "[INFO] No files found\n"
 	exit
 fi
 
 unset fljs
-readarray -t fjls < <(for FJL in $(echo ${RESULT[@]}); do echo "$FJL"; done | fzf -m -e --reverse)
 
-if [ "x${fjls[0]}" == "x" ]; then
+# v3
+# readarray -t fjls < <(for FJL in $(echo "${RESULT[@]}"); do echo "$FJL"; done | fzf -m -e --reverse)
+readarray -t fjls < <(for FJL in $(echo "${RESULT[@]}"); do echo "$FJL"; done | sort -t'/' -k7 | fzf -m -e --reverse)
+
+
+if [ "${fjls[0]}" == "" ]; then
 	printf "[INFO] No files selected\n"
 	exit
 fi
 
 printf "[INFO] Selected:\n"
-# for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done
-# for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done | xargs -ro vim -pM
-for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done | tee /dev/tty | xargs -ro vim -pM
+# for FJL in $(echo "${fjls[@]}"); do echo "$FJL"; done
+# for FJL in $(echo "${fjls[@]}"); do echo "$FJL"; done | xargs -ro vim -pM
+for FJL in $(echo "${fjls[@]}"); do echo "{$FJL}"; done | tee /dev/tty | xargs -ro vim -pM
 
