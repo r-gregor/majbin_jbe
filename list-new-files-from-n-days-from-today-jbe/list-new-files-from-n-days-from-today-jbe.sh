@@ -5,6 +5,8 @@
 # 20260810 v3 add options to select path and days difference
 # 20260810 v4 put find command into function
 # 20260902 v5 new get_start_date_from_daysdiff() function
+# 20260902 v6 fixed value of start_date if days_diff is  lower tham or equal to zero
+#             with retruning from function
 # last 20260810
 # ---
 
@@ -26,6 +28,13 @@ list_new_files() {
 get_start_date_from_daysdiff() {
 	days_diff=0
 
+	if [ $# -ne 1 ]; then
+		printf "\tUsage: get_start_date_from_daysdiff <daysdiff [int]>\n\n"
+		exit
+	else
+		days_diff="$1"
+	fi
+
 	curryr_str=$(date +"%Y")
 	currmn_str=$(date +"%m")
 	currdy_str=$(date +"%d")
@@ -44,22 +53,19 @@ get_start_date_from_daysdiff() {
 	month_days=(0 31 28 31 30 31 30 31 31 30 31 30 31)
 
 	if [ $(( !(year % 4) && ( year % 100 || !(year % 400) ) )) ]; then
-		month_days[2]=29
 		year_days=366
+		month_days[2]=29
 	fi
 
-	if [ $# -ne 1 ]; then
-		printf "\tUsage: get_start_date_from_daysdiff <daysdiff [int]>\n\n"
-		exit
-	else
-		days_diff="$1"
-	fi
 
+	# v6
 	if [ "${days_diff}" -le 0 ]; then
 		start_date="${currdt}"
+		printf "${start_date}"
+		return
 	fi
 
-	if [ "${days_diff}" -ge 365 ]; then
+	if [ "${days_diff}" -ge ${year_days} ]; then
 		printf "[ERROR] to many days back (over a whole year)\n\n"
 		exit
 	fi
@@ -71,11 +77,10 @@ get_start_date_from_daysdiff() {
 		while [ "${month_days["${startmn}"]}" -lt "${days_diff}" ]; do
 			(( startmn-- ))
 			(( days_diff -= "${month_days["${startmn}"]}" ))
-			(( iteration++ ))
 		done
 		startdy=$(( "${month_days["${startmn}"]}" - "${days_diff}" ))
 	else
-		stardy=$(( ${currdy} - ${days_diff} ))
+		startdy=$(( ${currdy} - ${days_diff} ))
 	fi
 
 	if [ ${startdy} -eq 0 ]; then
@@ -104,8 +109,11 @@ if [ ! -d "${PTH}" ]; then
 	exit 1
 fi
 
-# newdate=$(printf "%4d%02d%02d\n" "${YR}" "${new_MN}" "${new_DY}")
 newdate="$(get_start_date_from_daysdiff ${ddiff})"
+
+# TEST
+# printf "newdate: %s\n" "${newdate}"
+# read -p "OK?"
 
 # MAIN
 list_new_files

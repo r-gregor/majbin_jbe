@@ -1,20 +1,39 @@
 #! /usr/bin/env bash
-# fname: get-date-from-days-diff.sh
-# 20260902 v1
-# 20260902 v2 fixed value of start_date if days_diff is  lower tham or equal to zero
+# fname: list-new-files-from-n-days-from-today-en.sh
+# 20260731 v1
+# 20260809 v2 refine find command to prune (not desend into unwanted drectories
+# 20260810 v3 add options to select path and days difference
+# 20260810 v4 put find command into function
+# 20260902 v5 new get_start_date_from_daysdiff() function
+# 20260902 v6 fixed value of start_date if days_diff is  lower tham or equal to zero
 #             with retruning from function
+# last 20260810
 # ---
+
+usage() {
+	printf "\n\tUsage: <scriptname> <path (optional)> <days difference to go back from today>\n"
+	printf "\n\t                    if <path> nor given --> path is current directory (\".\")\n\n"
+}
+
+list_new_files() {
+	find "${PTH}" \( \
+		-path '**/.config*' \
+		-o -path '**/mdbgit' \
+		-o -path '**/.*' \
+		-o -path '**/snap' \
+		-o -path '**/_NERAZPOREJENO' \) \
+	-prune -o -newerct "${newdate}" -type f -print
+}
+
+get_start_date_from_daysdiff() {
+	days_diff=0
 
 	if [ $# -ne 1 ]; then
 		printf "\tUsage: get_start_date_from_daysdiff <daysdiff [int]>\n\n"
 		exit
 	else
-		days_back="$1"
+		days_diff="$1"
 	fi
-
-
-get_start_date_from_daysdiff() {
-	days_diff=0
 
 	curryr_str=$(date +"%Y")
 	currmn_str=$(date +"%m")
@@ -34,21 +53,15 @@ get_start_date_from_daysdiff() {
 	month_days=(0 31 28 31 30 31 30 31 31 30 31 30 31)
 
 	if [ $(( !(year % 4) && ( year % 100 || !(year % 400) ) )) ]; then
-		month_days[2]=29
 		year_days=366
+		month_days[2]=29
 	fi
 
-	if [ $# -ne 1 ]; then
-		printf "\tUsage: get_start_date_from_daysdiff <daysdiff [int]>\n\n"
-		exit
-	else
-		days_diff="$1"
-	fi
 
-	# v2
+	# v6
 	if [ "${days_diff}" -le 0 ]; then
 		start_date="${currdt}"
-		printf "start date: %s\n" "${start_date}"
+		printf "${start_date}"
 		return
 	fi
 
@@ -76,8 +89,32 @@ get_start_date_from_daysdiff() {
 	fi
 
 	start_date=$(printf "%04d%02d%02d" "${startyr}" "${startmn}" "${startdy}")
-	printf "start date: %s\n" "${start_date}"
+	printf "${start_date}"
 }
 
-get_start_date_from_daysdiff ${days_back}
+if [ $# -eq 2 ]; then
+	PTH="${1}"
+	ddiff=${2}
+elif [ $# -eq 1 ]; then
+	PTH='.'
+	ddiff=${1}
+else
+	usage
+	printf "\n"
+	exit 1
+fi
+
+if [ ! -d "${PTH}" ]; then
+	printf "[ERROR] no such directory: '%s'\n\n" "${PTH}"
+	exit 1
+fi
+
+newdate="$(get_start_date_from_daysdiff ${ddiff})"
+
+# TEST
+# printf "newdate: %s\n" "${newdate}"
+# read -p "OK?"
+
+# MAIN
+list_new_files
 
