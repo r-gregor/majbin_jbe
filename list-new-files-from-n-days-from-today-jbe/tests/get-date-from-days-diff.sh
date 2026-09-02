@@ -1,27 +1,15 @@
 #! /usr/bin/env bash
-# fname: list-new-files-from-n-days-from-today-en.sh
-# 20260731 v1
-# 20260809 v2 refine find command to prune (not desend into unwanted drectories
-# 20260810 v3 add options to select path and days difference
-# 20260810 v4 put find command into function
-# 20260902 v5 new get_start_date_from_daysdiff() function
-# last 20260810
+# fname: get-date-from-days-diff.sh
+# 20260902 v1
 # ---
 
-usage() {
-	printf "\n\tUsage: <scriptname> <path (optional)> <days difference to go back from today>\n"
-	printf "\n\t                    if <path> nor given --> path is current directory (\".\")\n\n"
-}
+	if [ $# -ne 1 ]; then
+		printf "\tUsage: get_start_date_from_daysdiff <daysdiff [int]>\n\n"
+		exit
+	else
+		days_back="$1"
+	fi
 
-list_new_files() {
-	find "${PTH}" \( \
-		-path '**/.config*' \
-		-o -path '**/jbegit' \
-		-o -path '**/.*' \
-		-o -path '**/snap' \
-		-o -path '**/_NERAZPOREJENO' \) \
-	-prune -o -newerct "${newdate}" -type f -print
-}
 
 get_start_date_from_daysdiff() {
 	days_diff=0
@@ -73,10 +61,8 @@ get_start_date_from_daysdiff() {
 			(( days_diff -= "${month_days["${startmn}"]}" ))
 			(( iteration++ ))
 		done
-		startdy=$(( "${month_days["${startmn}"]}" - "${days_diff}" ))
-	else
-		stardy=$(( ${currdy} - ${days_diff} ))
 	fi
+	startdy=$(( "${month_days["${startmn}"]}" - "${days_diff}" ))
 
 	if [ ${startdy} -eq 0 ]; then
 		(( startmn-- ))
@@ -84,29 +70,8 @@ get_start_date_from_daysdiff() {
 	fi
 
 	start_date=$(printf "%04d%02d%02d" "${startyr}" "${startmn}" "${startdy}")
-	printf "${start_date}"
+	printf "start date: %s\n" "${start_date}"
 }
 
-if [ $# -eq 2 ]; then
-	PTH="${1}"
-	ddiff=${2}
-elif [ $# -eq 1 ]; then
-	PTH='.'
-	ddiff=${1}
-else
-	usage
-	printf "\n"
-	exit 1
-fi
-
-if [ ! -d "${PTH}" ]; then
-	printf "[ERROR] no such directory: '%s'\n\n" "${PTH}"
-	exit 1
-fi
-
-# newdate=$(printf "%4d%02d%02d\n" "${YR}" "${new_MN}" "${new_DY}")
-newdate="$(get_start_date_from_daysdiff ${ddiff})"
-
-# MAIN
-list_new_files
+get_start_date_from_daysdiff ${days_back}
 

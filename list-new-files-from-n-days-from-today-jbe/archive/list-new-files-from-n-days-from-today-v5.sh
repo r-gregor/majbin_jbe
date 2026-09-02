@@ -16,7 +16,7 @@ usage() {
 list_new_files() {
 	find "${PTH}" \( \
 		-path '**/.config*' \
-		-o -path '**/jbegit' \
+		-o -path '**/engit' \
 		-o -path '**/.*' \
 		-o -path '**/snap' \
 		-o -path '**/_NERAZPOREJENO' \) \
@@ -73,10 +73,8 @@ get_start_date_from_daysdiff() {
 			(( days_diff -= "${month_days["${startmn}"]}" ))
 			(( iteration++ ))
 		done
-		startdy=$(( "${month_days["${startmn}"]}" - "${days_diff}" ))
-	else
-		stardy=$(( ${currdy} - ${days_diff} ))
 	fi
+	startdy=$(( "${month_days["${startmn}"]}" - "${days_diff}" ))
 
 	if [ ${startdy} -eq 0 ]; then
 		(( startmn-- ))
