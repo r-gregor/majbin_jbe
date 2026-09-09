@@ -4,5 +4,5 @@
 
 HST="jbe"
 
-testing-status-${HST}
-testing-testpush-${HST}
+gtesting-status-${HST}
+gtesting-testpush-${HST}
