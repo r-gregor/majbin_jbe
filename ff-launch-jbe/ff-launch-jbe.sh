@@ -1,12 +1,13 @@
 #! /usr/bin/env bash
-# filrname: ff-launch-jbe
-# 20251117 v1 en
-# 20251117 v2 en: :associative array --> no case statement needed
-# 20251117 v3 en: ALL --> cat all txt files into process subst ...
-#                 no 'all.txt' needed
-# 20251118 v4 en: single "sites.txt" with "[section name]" headers parsing
-# 20251118 v5 en: get 'categories' from 'sites.txt' file directly
-# 20260305 v6 en: put main into infinite while loop
+# filename: ff-launch-jbe.sh
+# descpt: Launch with firefox the sites list from external file
+# 20251117 v1
+# 20251117 v2: :associative array --> no case statement needed
+# 20251117 v3: ALL --> cat all txt files into process subst ...
+#              no 'all.txt' needed
+# 20251118 v4: single "sites.txt" with "[section name]" headers parsing
+# 20251118 v5: get 'categories' from 'sites.txt' file directly
+# 20260305 v6: put main into infinite while loop
 #                 output selected to stdot
 # last: 20260305
 
@@ -14,34 +15,37 @@ clear
 
 # globals
 FFCMD='/usr/bin/firefox'
-SRCDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
+SRCDIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 SITES="${SRCDIR}/sites.txt"
 # FZFCMD="fzf -e --reverse --height 50% --border rounded"
-FZFCMD="fzf -e --reverse --border rounded"
+# FZFCMD="fzf -e --reverse --border rounded"
+FZFCMD() {
+	fzf -e --reverse --border rounded
+}
 
 ff_launch() {
 	if [ "$1" == "all" ]; then
-		readarray -t URLS < <(cat ${SITES})
+		readarray -t URLS < <(cat "${SITES}")
 	else
-		site=$1
+		site="$1"
 		# v4
 		# readarray -t URLS < <(sed -n "/\[${site}\]/,/^$/p" ${SITES} | sed -n '2,$'p)
-		readarray -t URLS < <(sed -n "/\[${site}\]/,/^$/p" ${SITES})
+		readarray -t URLS < <(sed -n "/\[${site}\]/,/^$/p" "${SITES}")
 	fi
 
-	selection=$(for URL in "${URLS[@]}"; do echo "$URL"; done 2>/dev/null | ${FZFCMD})
+	selection=$(for URL in "${URLS[@]}"; do echo "$URL"; done 2>/dev/null | FZFCMD)
 
-	if [ "x${selection}" == "x" ]; then
+	if [ "${selection}" == "" ]; then
 		echo -e "[INFO] nothing selected\n"
 		exit
 	fi
 
-	if [[ ${selection} =~ ^(---) ]]; then
+	if [[ "${selection}" =~ ^(---) ]]; then
 		echo -e "[INFO] nothing selected\n"
 		exit
 	fi
 
-	if [[ ${selection} =~ ^\[.*\] ]]; then
+	if [[ "${selection}" =~ ^\[.*\] ]]; then
 		echo -e "[INFO] nothing selected\n"
 		exit
 	fi
@@ -57,9 +61,9 @@ categories+=("ALL")
 categories+=("q (quit)")
 
 while true; do
-	selected=$(for WAY in "${categories[@]}"; do echo $WAY; done | fzf +c --reverse)
+	selected=$(for WAY in "${categories[@]}"; do echo "$WAY"; done | fzf +c --reverse)
 
-	if [ "x${selected}" == "x" ]; then
+	if [ "${selected}" == "" ]; then
 		echo -e "[INFO] nothing selected\n"
 		exit
 	fi
@@ -76,3 +80,4 @@ while true; do
 
 	ff_launch "${dest}"
 done
+

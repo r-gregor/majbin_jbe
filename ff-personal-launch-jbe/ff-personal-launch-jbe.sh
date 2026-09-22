@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
 # filename: ff-personal-launch-jbe
+# descpt: Launch in firefox personal-links from external file
 # from ff-launch-en
 # 20260216
 # 20260229 v2: add info what was selected
@@ -21,12 +22,16 @@ unset KEYS
 
 # globals
 FFCMD='/usr/bin/firefox'
-SRCDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
+SRCDIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 # FZFCMD_EN="fzf -e --reverse"   # cygwin version does not support --width option
 # FZFCMD="fzf -e --reverse --height 50% --border rounded"
-FZFCMD='fzf -e --reverse --border rounded'
+# FZFCMD='fzf -e --reverse --border rounded'
+FZFCMD() {
+	fzf -e --reverse --border rounded
+}
+
 FNAME="personal_links_list_jbe" # v7
-FPTH=${SRCDIR}/${FNAME}         # v7
+FPTH="${SRCDIR}/${FNAME}"         # v7
 
 # assoc array
 declare -A URLS
@@ -34,7 +39,7 @@ declare -A URLS
 # functions
 # v7
 load_links_into_array() {
-	while IFS=';' read key value; do
+	while IFS=';' read -r key value; do
 		URLS["${key}"]="${value}"
 	done < "${FPTH}"
 }
@@ -45,10 +50,11 @@ get_longest() {
 		exit 1
 	fi
 
-	local len=0
+	local len
 	local longest
 	local -n lines2=$1 # new way: must call array as < array_name >
 
+	len=0
 	for line in "${lines2[@]}"; do
 		llen="${#line}"
 		if [ "${llen}" -gt "${len}" ]; then
@@ -63,9 +69,11 @@ get_longest() {
 }
 
 ff_personallaunch() {
-	local selection=$((for KEY in "${KEYS[@]}"; do echo "$KEY"; done | sort; echo "${delline}" ; echo "Quit") | fzf --reverse)
+	local selection
+	# selection=$((for KEY in "${KEYS[@]}"; do echo "$KEY"; done | sort; echo "${delline}" ; echo "Quit") | fzf --reverse)
+	selection=$( (for KEY in "${KEYS[@]}"; do echo "$KEY"; done | sort; echo "${delline}" ; echo "Quit") | FZFCMD)
 
-	if [ "x${selection}" == "x" ]; then
+	if [ "${selection}" == "" ]; then
 		echo -e "[INFO] nothing selected\n"
 		exit 0
 	fi

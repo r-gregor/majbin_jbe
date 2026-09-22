@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
 # fname: ff-onetablink-launch-jbe.sh
+# descpt: Launch in firefox links from onetab file
 # 20260529 v1 converts a line:
 #             https://www.youtube.com/results?search_query=salsa+hand+toss+flip | (7) salsa hand toss flip - YouTube
 #             ... to ...
@@ -14,9 +15,12 @@
 # ---
 
 # globals
-SRCDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
+# SRCDIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 FFCMD='/usr/bin/firefox'
-FZFCMD="fzf -e --reverse --border rounded"
+# FZFCMD="fzf -e --reverse --border rounded"
+FZFCMD() {
+	fzf -e --reverse --border rounded
+}
 
 unset llist
 declare -A llist
@@ -34,7 +38,7 @@ if [ $# -ne 1 ]; then
 	usage
 	exit
 else
-	fjl=$1
+	fjl="$1"
 	if [ ! -f "${fjl}" ]; then
 		printf "%s\n\n" "[ERROR] No such file: ${fjl}"
 		exit
@@ -42,16 +46,16 @@ else
 fi
 
 # load lines from file into array
-while IFS= read LINE; do
+while IFS= read -r LINE; do
 	if [ "${#LINE}" -lt 2 ]; then
 		continue
 	fi
 
 	# converted_line="$(echo $LINE | sed -e 's/\([^ ]\+\) | \(.*\)/\1;\2/' -e 's/([[:digit:]]\+) //' -e '/\S/!d'  -e 's/ - YouTube//')"
 	# v5
-	converted_line="$(echo $LINE | sed -e 's/\([^ ]\+\) | \(.*\)/\1;\2/' -e 's/([[:digit:]]\+) //' -e '/\S/!d')"
-	url=${converted_line%%;*}
-	dscr=${converted_line#*;}
+	converted_line="$(echo "$LINE" | sed -e 's/\([^ ]\+\) | \(.*\)/\1;\2/' -e 's/([[:digit:]]\+) //' -e '/\S/!d')"
+	url="${converted_line%%;*}"
+	dscr="${converted_line#*;}"
 
 	llist["${url}"]="${dscr}"
 
@@ -60,16 +64,16 @@ done < "${fjl}"
 #v4
 ff_onetablink_launch() {
 	# selection - fzf
-	selection=$((for descrp in "${llist[@]}"; do echo "${descrp}"; done; echo '----'; echo 'Quit') | ${FZFCMD}) #v4
+	selection=$( (for descrp in "${llist[@]}"; do echo "${descrp}"; done; echo '----'; echo 'Quit') | FZFCMD) #v4
 
 	#v4
-	if [ "x${selection}" == "x" ]; then
+	if [ "${selection}" == "" ]; then
 		printf "[INFO] nothing selected\n"
 		exit 0
 	fi
 
-	if  [ "${selected}" == "----" ]; then
-		continue
+	if  [ "${selection}" == "----" ]; then
+		return
 	fi
 
 	if [ "${selection}" == "Quit" ]; then
@@ -78,9 +82,9 @@ ff_onetablink_launch() {
 	fi
 
 	# run
-	for URL in ${!llist[@]}; do
-		if [[ "${llist["${URL}"]}" =~ "${selection}" ]]; then
-			printf "[INFO] selected: ${selection}\n" #v4
+	for URL in "${!llist[@]}"; do
+		if [[ "${llist["${URL}"]}" =~ ${selection} ]]; then
+			printf "[INFO] selected: %s\n" "${selection}" #v4
 			(nohup ${FFCMD} "${URL}" &) > /dev/null 2>&1
 			# exit #v4
 		fi
