@@ -92,5 +92,5 @@ fi
 printf "[INFO] Selected:\n"
 # for FJL in $(echo "${fjls[@]}"); do echo "$FJL"; done
 # for FJL in $(echo "${fjls[@]}"); do echo "$FJL"; done | xargs -ro vim -pM
-for FJL in $(echo "${fjls[@]}"); do echo "{$FJL}"; done | tee /dev/tty | xargs -ro vim -pM
+for FJL in $(echo "${fjls[@]}"); do echo "${FJL}"; done | tee /dev/tty | xargs -ro vim -pM
 
