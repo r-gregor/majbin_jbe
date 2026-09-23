@@ -1,0 +1,5 @@
+https://github.com/radleylewis/dotfiles;radleylewis/dotfiles      -- from: Rofi Linux Tutorial: Power Menus, WiFi, Audio & More (now with Wayland!)
+https://github.com/radleylewis/dotfiles/tree/master/.config/rofi;radleylewis/dotfiles/rofi -- from: Rofi Linux Tutorial: Power Menus, WiFi, Audio & More (now with Wayland!)
+https://www.youtube.com/shorts/wHMscCjSD9A;The day Penny ruined everything
+https://www.youtube.com/watch?v=t-By0l3nFPg;Rofi Linux Tutorial: Power Menus, WiFi, Audio & More (now with Wayland!)
+
