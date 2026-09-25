@@ -1,12 +1,14 @@
 #! /usr/bin/env bash
-# fname: gupdate-file-jbe
-# 20260313 v1 jbe
-# 20260408 v2 jbe: added 'OK?' check into update_file_to_git() function
-# last: 20260408
+# fname: gt-update-file.sh
+# descpt: Update src file to git-repository
+# 20260313 v1
+# 20260408 v2: added 'OK?' check into update_file_to_git() function
+# 20260924: unified scripts for linux
+#           HST and system info from exported global variable
+# last: 20260924
 # ---
 
-HST="jbe"
-SRCDIR=$PWD
+SRCDIR="$PWD"
 
 if [[ ! "${SRCDIR}" =~ "majstaf" ]]; then
 	printf "[ERROR] not working outside ~/majstaf/\n"
@@ -30,7 +32,7 @@ if [[ ! -f ./"${fname}" ]]; then
 fi
 
 SRCF="${SRCDIR}/${fname}"
-DSTF=$(echo $SRCDIR/${fname} | sed "s/\(.*majstaf\)\/\([[:alpha:]]\+\)\/\(.*\)/\1\/${HST}git\/\2_${HST}\/\3/")
+DSTF=$(echo "$SRCDIR/${fname}" | sed "s/\(.*majstaf\)\/\([[:alpha:]]\+\)\/\(.*\)/\1\/${HST}git\/\2_${HST}\/\3/")
 
 update_file_to_git() {
 	printf "%s\n%s\n%s\n" \

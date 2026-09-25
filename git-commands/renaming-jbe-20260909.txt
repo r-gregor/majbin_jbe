@@ -1,5 +1,0 @@
-mv {,g}check-git-diffs-jbe.sh
-for NM in dwnld-gt*; do mv -v "$NM" "g${NM}"; done
-for NM in testing-*; do mv -v "$NM" "g${NM}"; done
-vim jbegt-diffs-check-all.sh gtesting-all-jbe.sh
-history > renaming-jbe-20260909.txt

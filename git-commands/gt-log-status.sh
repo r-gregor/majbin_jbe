@@ -1,6 +1,10 @@
 #! /usr/bin/env bash
-# glog-status-jbe
-# last change: 20250406
+# filename: gt-log-status.sh
+# descpt: Git-log fancy status report
+# 20260924: unified scripts for linux
+#           HST and system info from exported global variable
+# last: 20260924
+# ---
 
 # for myopt in raw numstat shortstat dirstat summary name-only name-status check; do
 # 	echo -e "*** git log --${myopt} ***"
@@ -11,7 +15,7 @@
 if [ -d .git ] || [ -f HEAD ]; then
 	/usr/bin/git log --name-status
 else
-	echo -e "NOT a git repository!!\n"
+	echo "NOT a git repository!!"
 	exit
 fi
 

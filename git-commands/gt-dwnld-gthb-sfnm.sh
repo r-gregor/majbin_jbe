@@ -1,9 +1,10 @@
 #! /usr/bin/env bash
-# filename: dwnld-gthb-sfnm
-# download single filename from https://github.com/r-gregor
-# into: github_r-regor/repo/<[dirname/]filename>
+# filename: gt-dwnld-gthb-sfnm.sh
+# descpt: Download single filename from https://github.com/r-gregor into github_r-regor/repo/<[dirname/]filename>
 # 20260421 v1
-# last: 20260421
+# 20260924: unified scripts for linux
+#           HST and system info from exported global variable
+# last: 20260924
 # ---
 
 HUB=github
@@ -14,8 +15,8 @@ if [ $# -ne 2 ]; then
 	printf "\n"
 	exit
 else
-	repo=$1
-	src=$2
+	repo="$1"
+	src="$2"
 fi
 
 dhub="${HUB}_r-gregor_$(date +'%Y%m%d')"
@@ -25,9 +26,9 @@ if [ ! -d "${dst}" ]; then
 	mkdir -pv "${dst}"
 fi
 
-if [[ ${src} =~ "/" ]]; then
+if [[ "${src}" =~ / ]]; then
 	fdir="${src%/*}"
-	fname=${src##*/}
+	fname="${src##*/}"
 	odir="${dst}/${fdir}"
 else
 	fname="${src}"
