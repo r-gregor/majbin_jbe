@@ -1,0 +1,1 @@
+﻿ cat history-en.dat_201* | cut -b 28- | grep -vE "(la|ll|ydd|ls|cd|rm|opn|df|gc|dbot|vnp|skrn|vim|nano|qcks|bigge|hstl|man|METS|np|snd|zze|sendm|RSYN|cv)" | sort | uniq -c | sort -k1 >> commands-history-list-en_by_[currdate].txt

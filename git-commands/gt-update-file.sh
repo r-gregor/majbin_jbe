@@ -1,38 +1,50 @@
 #! /usr/bin/env bash
-# fname: gt-update-file.sh
-# descpt: Update src file to git-repository
-# 20260313 v1
-# 20260408 v2: added 'OK?' check into update_file_to_git() function
-# 20260924: unified scripts for linux
-#           HST and system info from exported global variable
+# src_fname: gt-update-file-v4.sh
+# descpt: Update file from src-dir to git-repository
+# 20260301 v1
+# 20260401 v2: added 'OK?' check into update_file_to_git() function
+# 20260924 v3: can be run from anywhere for any file
+#              checks for SRC and DEST directories/files
+# 20260924 v4: unified scripts for linux
+#              HST and system info from exported global variable
 # last: 20260924
 # ---
 
-SRCDIR="$PWD"
-
-if [[ ! "${SRCDIR}" =~ "majstaf" ]]; then
-	printf "[ERROR] not working outside ~/majstaf/\n"
-	printf "\n"
-	exit
-fi
-
-if [[ $# -ne 1 ]]; then
-	cat <<EOF
-	Usage: gupdate-file ./<fname>
-
-EOF
-	exit
+if [ $# -ne 1 ]; then
+	printf "\tUsage: gupdate-file <src_fname>\n\n"
+	exit 1
 else
-	fname="$1"
+	src_fname=$(realpath "$1")
 fi
 
-if [[ ! -f ./"${fname}" ]]; then
-	echo "[ERROR] no such file"
-	exit
+if [ ! -f ${src_fname} ]; then
+	printf "[ERROR] no such source file: %s\n\n" "${src_fname}"
+	exit 1
 fi
 
-SRCF="${SRCDIR}/${fname}"
-DSTF=$(echo "$SRCDIR/${fname}" | sed "s/\(.*majstaf\)\/\([[:alpha:]]\+\)\/\(.*\)/\1\/${HST}git\/\2_${HST}\/\3/")
+SRCF="${src_fname}"
+SRCD="${SRCF%/*}"
+
+dest_fname=$(echo ${src_fname} | sed "s/\(.*majstaf\)\/\([[:alpha:]]\+\)\/\(.*\)/\1\/${HST}git\/\2_${HST}\/\3/")
+DSTF="$(realpath "${dest_fname}")"
+DSTD="${DSTF%/*}"
+
+if [ ! -d "${DSTD}" ]; then
+	printf "[ERROR] no such destination: %s\n\n" "${DSTD}"
+	exit 1
+fi
+
+ptrn="majstaf/${HST}git"
+
+if [[ ! "${DSTD}" =~ ${ptrn} ]]; then
+	printf "[ERROR] file '%s' must be copied over directly\n\n" "${SRCF}"
+	exit 1
+fi
+
+if [ ! -f "${DSTF}" ]; then
+	printf "[WARN] no such file on destination: %s\n" "${DSTF##*/}"
+	read -r -p "Continue?"
+fi
 
 update_file_to_git() {
 	printf "%s\n%s\n%s\n" \

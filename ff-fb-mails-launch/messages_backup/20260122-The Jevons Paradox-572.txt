@@ -1,0 +1,173 @@
+Subject: The Jevons Paradox
+From: Gregor Redelonghi <gredelonghi@gmail.com>
+Date: 1/22/26, 09:25
+To: Zala Redelonghi <zala.redelonghi@gmail.com>, mark.redelonghi@gmail.com, 
+Špela Redelonghi <spelcare@gmail.com>
+
+
+Več električnih vozil, cenejša elektrika ali učinkovitejša raba, v 
+nasprotju z logično domnevo, drastično
+
+povečajo skupno porabo energije - poslabšajo/povečajo skupni vpliv na 
+okolje:____
+
+__ __
+
+The Jevons Paradox____
+
+In 1865, the English economist William Stanley Jevons observed something 
+counterintuitive about coal____
+
+consumption. As steam engines became more efficient and required less 
+coal per unit of work, you’d____
+
+expect overall coal consumption to decrease. Instead it increased 
+dramatically. The improved efficiency____
+
+made coal economically viable for applications that previously couldn’t 
+justify the cost. More efficient____
+
+use of a resource leads to more total consumption of that resource, not 
+less.____
+
+__ __
+
+This pattern, now called Jevons Paradox, shows up everywhere. More fuel 
+efficient cars lead to more____
+
+driving. Faster internet leads to more bandwidth consumption ...____
+
+__ __
+
+ From Google:____
+
+Jevons Paradox states that as technology makes a resource more efficient 
+to use (like more fuel-efficient____
+
+cars), the overall consumption of that resource actually increases 
+because it becomes cheaper, leading to____
+
+more widespread and frequent use, rather than conservation. First 
+observed with coal in the 19th century,____
+
+it explains how efficiency gains in one area (e.g., steam engines) drive 
+demand for the underlying____
+
+resource (coal) through increased application, creating more overall 
+demand and consumption, a concept____
+
+now relevant to AI and energy use.____
+
+__ __
+
+How it works____
+
+   - Efficiency decreases unit cost:____
+
+     A new technology uses less of a resource per unit of output (e.g., 
+a more efficient lightbulb uses____
+
+     less electricity for the same light).____
+
+__ __
+
+   - Lower cost boosts demand:____
+
+     This efficiency makes the service cheaper, so people use it more 
+(e.g., leaving more lights on)____
+
+     or find new uses for it (e.g., powering data centers for AI).____
+
+__ __
+
+   - Total consumption rises:____
+
+     Because the resource is used so much more widely, the total amount 
+consumed goes up, even though____
+
+     each individual use is more efficient.____
+
+__ __
+
+Examples____
+
+   - Coal:____
+
+     More efficient steam engines led to more factories and broader 
+industrial use, dramatically increasing____
+
+     total coal demand.____
+
+__ __
+
+   - Computers & AI:____
+
+     Energy-efficient computers have fueled the growth of data centers 
+and widespread use of smartphones,____
+
+     leading to a massive surge in overall digital energy demand.____
+
+__ __
+
+   - Roads:____
+
+     Adding highway lanes can induce more driving, leading to the same 
+or worse congestion (traffic)____
+
+     as people switch from public transit or carpooling.____
+
+__ __
+
+Significance:____
+
+   - Policy challenge:____
+
+     It challenges the assumption that energy efficiency alone is enough 
+to address resource depletion____
+
+     or climate change, suggesting that rebound effects can negate 
+conservation efforts.____
+
+__ __
+
+   - Modern relevance:____
+
+     It's a key concept in understanding the environmental impacts of 
+new technologies like artificial____
+
+     intelligence, where efficiency gains could spur massive new usage.____
+
+__ __
+
+More on Wiki page: https://en.wikipedia.org/wiki/Jevons_paradox 
+<https://en.wikipedia.org/wiki/Jevons_paradox>____
+
+__ __
+
+__ __
+
+__ __
+
+__ __
+
+__ __
+
+__ __
+
+*Gregor Redelonghi
+*Odgovorni projektant | Služba za projektiranje | Sektor za investicije 
+in razvoj ____
+
+__ __
+
+T +386 (1) 5889 658  |  M +386 (51) 315 307 ____
+
+www.energetika.si <http://www.energetika.si>| www.bivanjudajemoutrip.si 
+<http://www.bivanjudajemoutrip.si/>____
+
+Energetika Ljubljana, d. o. o. | Verovškova ulica 62 | 1000 Ljubljana____
+
+__ __
+
+
+____

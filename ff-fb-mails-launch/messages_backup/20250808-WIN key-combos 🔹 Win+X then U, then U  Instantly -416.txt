@@ -1,0 +1,31 @@
+Subject: WIN key-combos 🔹 Win+X then U, then U Instantly shuts down your PC (No 
+confirmation dialog - closes all apps and powers off) 🔹 Win+X then U, 
+then R Restarts your PC immediately (Ideal for applying updates or 
+troubleshooting) 🔹 Win+X then U, then S Puts your PC into Sleep mode 
+(Low-power state; resumes instantly when awakened) 🔹 Win+X then U, then 
+I Signs out of your user account (Closes all apps but keeps Windows 
+running) 🔹 Win+X then A Opens Windows Terminal as Administrator 
+(Replaces Command Prompt/PowerShell; full system privileges) 🔹 Win+X 
+then E Launches File Explorer (Opens "This PC" view for quick 
+drive/network access) 🔹 Win+X then D Opens Device Manager (View/edit 
+hardware drivers, troubleshoot devices) 🔹 Win+X then V Opens Event 
+Viewer (Check system logs, errors, and security events) 🔹 Win+X then S 
+Opens Windows Settings (Jumps directly to the main Settings dashboard) 
+🔹 Win+X then K Opens Disk Management ...
+From: Gregor Redelonghi <gredelonghi@gmail.com>
+Date: 8/8/25, 07:27
+To: gredelonghi@gmail.com
+
+
+
+
+
+Gregor Redelonghi
+
+-------------------------------
+Gregor Redelonghi
+Valvasorjeva ulica 5
+1000 Ljubljana
+-------------------------------
+mobile:  040/88-55-60
+email: gredelonghi@gmail.com <mailto:gredelonghi@gmail.com>

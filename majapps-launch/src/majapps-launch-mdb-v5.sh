@@ -1,0 +1,156 @@
+#! /usr/bin/env bash
+# filename: majapps-launch-mdb
+# 20250917 mdb
+# 20251020 mdb v2 run inside infinite loop and added 'q' to quit
+#                 keys in separate index-ed array to keep display order
+#                 added slelection_info() function
+#                 $delline calculated from longest KEY line with get_longest function
+#                 sorted output to fzf command
+#                 extract KEYS from URLS
+# 20260423 mdb v3 put all RUN statemnets into majaps_run() function and add option to select input as parameter
+# 20260423 mdb v4 selected input as parameter into array, if multiple option to redefine parameter
+# 20260424 mdb v5 move selection var with fzf into get_selection_mdb() function
+# last: 20260424
+# ---
+
+# clear the screen:
+printf "\033[H\033[2J"
+
+declare -A apps=(["Firefox"]="/usr/bin/firefox" \
+                 ["ArandR"]="/usr/bin/arandr" \
+                 ["Atril"]="/usr/bin/atril" \
+                 ["Gimp"]="/usr/bin/gimp" \
+                 ["Google Chrome"]="/usr/bin/google-chrome" \
+                 ["Gparted"]="/usr/sbin/gparted" \
+                 ["Kitty"]="/usr/bin/kitty" \
+                 ["Urxvt"]="/usr/bin/urxvt" \
+                 ["xfce4-terminal"]="/usr/bin/xfce4-terminal" \
+                 ["KODI"]="/usr/bin/kodi" \
+                 ["LxAppearance"]="/usr/bin/lxappearance" \
+                 ["LxTask"]="/usr/bin/lxtask" \
+                 ["Mate calculator"]="/usr/bin/mate-calculator" \
+                 ["Mousepad"]="/usr/bin/mousepad" \
+                 ["Nitrogen"]="/usr/bin/nitrogen" \
+                 ["PavucControl"]="/usr/bin/pavucontrol" \
+                 ["PCmanFM"]="/usr/bin/pcmanfm" \
+                 ["Pinta"]="/usr/bin/pinta" \
+                 ["Thunar FM"]="/usr/bin/thunar" \
+                 ["Transmission"]="/usr/bin/transmission-gtk" \
+                 ["Ulauncher"]="/usr/bin/ulauncher" \
+                 ["VLC"]="/usr/bin/vlc" \
+                 ["Xsane"]="/usr/bin/xsane" \
+                 ["Double Commander"]="/usr/bin/doublecmd")
+
+# array of keys from apps
+keys=("${!apps[@]}")
+
+# functions
+get_longest() {
+	if [ ! $# -eq 1 ]; then
+		echo "[ERROR1] must supply array of sentences as parameter"
+		exit 1
+	fi
+
+	local len=0
+	local longest
+	local -n lines2=$1 # new way: must call array as < array_name >
+
+	for line in "${lines2[@]}"; do
+		llen="${#line}"
+		if [ "${llen}" -gt "${len}" ]; then
+			len="${llen}"
+			longest="${line}"
+		else
+			continue
+		fi
+	done
+
+	echo "${longest}"
+}
+
+selection_info() {
+	printf "[INFO] selected: $1\n"
+}
+
+# v3
+majaps_run() {
+	if [ "x${selection}" == "x" ]; then
+		echo -e "[INFO] no selection\n"
+		exit
+	fi
+
+	if [ "${selection}" == "${delline}" ]; then #v3
+		continue
+	fi
+
+	if [ "${selection}" == "Quit" ]; then
+		exit
+	fi
+
+	eval "nohup ${apps["${selection}"]} >&/dev/null &"
+	selection_info "${selection}"
+}
+
+# v5
+get_selection_mdb() {
+# add +c option to reverse highlight
+	selection=$((for key in "${!keys[@]}"; do echo "${keys[$key]}"; done | sort; echo "${delline}"; echo "Quit") | \
+		fzf -e \
+		--reverse \
+		--border=rounded \
+		--info=hidden \
+		--prompt="launch (q to quit): ")
+}
+
+# v5
+# for testing in Cygwin:
+get_selection_en() {
+	selection=$((for key in "${!keys[@]}"; do echo "${keys[$key]}"; done | sort; echo "${delline}"; echo "Quit") | \
+		fzf \
+		-e \
+		--reverse \
+		-i \
+		--prompt="launch: ")
+}
+
+# MAIN (v3)
+longest_l=$(get_longest keys)                                         # v3
+delline=$(for((i = 0; i < ${#longest_l}; i++)); do printf "-"; done)  # v3
+
+# v4
+if [ $# -eq 1 ]; then
+	declare -a options
+	# ${varname,,} -- convert string to all lowercase ...
+	for key in "${keys[@]}"; do
+		if [[ "${key,,}" =~ "${1,,}" ]]; then
+			options+=("${key}")
+		fi
+	done
+
+	if [ "${#options[@]}" -gt 1 ]; then
+		printf "[ERROR] multiple selections:\n"
+		for OPT in "${options[@]}"; do
+			printf "${OPT}\n"
+		done
+		printf "[INFO] redefine parameter\n\n"
+		exit
+	elif [ "${#options[@]}" -eq 0 ]; then
+		printf "[ERROR] no selection\n\n"
+		exit
+	else
+		selection="${options[0]}"
+	fi
+
+	read -p "[INFO] launch: ${selection} ... OK?"
+	majaps_run
+	exit
+fi
+
+# v5
+while true; do
+	# for testing in Cygwin:
+	# get_selection_en
+	get_selection_mdb # v5
+	majaps_run
+done
+
