@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-# filename: ff-checkout-mdb.sh
+# filename: ff-checkout-en.sh
 # descpt: Launch www-sites from external file in format: 'http-link;decription'
 # from: ff-fb-mails-from-mbox-launch-en.sh
 # 20260923
@@ -8,18 +8,19 @@
 
 # globals
 SRCDIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
-FFCMD='/usr/bin/firefox'
 checkout_files_list="${SRCDIR}/data/checkout-sites-list.txt"
 
 unset checkout_files
 declare -A checkout_files
 
 FZFCMD() {
-	fzf -e --reverse --border rounded
+	fzf -e --reverse
 }
 
 
+
 # MAIN
+# load lines from file into array
 
 if [ $# -eq 1 ]; then
 	checkout_files_list="$1"
@@ -34,8 +35,8 @@ while IFS= read -r LINE; do
 		continue
 	fi
 
-	url="${LINE%%;*}"
-	dscr="${LINE#*;}"
+	url=${LINE%%;*}
+	dscr=${LINE#*;}
 	checkout_files["${url}"]="${dscr}"
 
 done < "${checkout_files_list}"
@@ -59,13 +60,14 @@ ff_checkout_launch() {
 
 	# run
 	for URL in "${!checkout_files[@]}"; do
-		if [[ "${checkout_files["${URL}"]}" == "${selection}" ]]; then
-		printf "[INFO] selected: %s\n" "${selection}"
-		(nohup "${FFCMD}" "${URL}" &) >/dev/null 2>&1
+		if [[ "${checkout_files["${URL}"]}" =~ "${selection}" ]]; then
+		printf "[INFO] selected: %s\n" "${selection}" #v4
+		(nohup ${FFCMD} "${URL}" &) >/dev/null 2>&1
 		fi
 	done
 }
 
+#v4
 while true; do
 	ff_checkout_launch
 done

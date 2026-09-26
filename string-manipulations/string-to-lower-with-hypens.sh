@@ -1,12 +1,13 @@
 #! /usr/bin/env bash
-# fname: string-to-lower-with-hypens
-# 20260331
-# last: 20260331
+# fname: string-to-lower-with-hypens.sh
+# descpt: Change string to lower with hypens and store result in clipboard
+# 20260925
+# last: 20260925
 # ---
 
 ARG="$@"
 
-if [ "x${ARG}" = "x" ]; then
+if [ "${ARG}" = "" ]; then
 	echo -e "[ERROR] -- no string as argument\n"
 	exit
 else
@@ -14,6 +15,6 @@ else
 fi
 
 OUTPUT=$(echo "${STR}" |  tr '[:upper:]' '[:lower:]' | sed -e 's/: */_/g' -e 's/,//g' -e 's/ \././g' | tr ' ' '-')
-echo "${OUTPUT}" | sed 's/"//g'
-echo "${OUTPUT}" | sed 's/"//g' | xclip     # use xclip on Linux!!
+printf "%s\n\n" "${OUTPUT}" | sed 's/"//g'
+printf "%s" "${OUTPUT}" | sed 's/"//g' | ${CLPBRDMNGR}
 

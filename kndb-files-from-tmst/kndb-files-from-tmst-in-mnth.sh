@@ -1,10 +1,12 @@
 #! /usr/bin/env bash
 # filename: kndb-files-from-tmst-in-mnth-mdb
+# descpt: List files in KNOWLEDGEDB from day in month to the end of the month
 # 20251125
 # 20260331 v1: display from newest to oldst: $(seq start end) --> $(seq end -1 start)
 # 20260415 v2: final printout to stdout and into xargs in one line with 'tee /dev/tty' comand
 # 20260831 v3: fzf files list sorted by cathegory
-# last: 20260831
+# 20260925
+# last: 20260925
 # ---
 
 curryr=$(date +"%Y")
@@ -12,7 +14,8 @@ currmn=$(date +"%m")
 currdy=$(date +"%d")
 
 scrpt=$(basename $0)
-SRCDIR="${KNOWLEDGEDB:-/home/rgregor/majstaf/mdbgit/knowledgedb}"
+SRCDIR="${KNOWLEDGEDB:-${HOME}/majstaf/${HST}git/knowledgedb}"
+
 
 months=("" "January" "February" "March" "April" "May" "June" "July" "Avgust" "September" "October" "November" "December")
 month_days=(0 31 29 31 30 31 30 31 31 30 31 30 31)

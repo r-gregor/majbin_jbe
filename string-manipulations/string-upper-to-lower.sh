@@ -1,13 +1,14 @@
 #! /usr/bin/env bash
-# fname: string-upper-to-lower
-# 20260331
-# last: 20260331
+# fname: string-upper-to-lower.sh
+# descpt: Change upper to lower and store result in clpboard
+# 20260925
+# last: 20260925
 # ---
 
 arg="$@"
 
 SMALL=$(echo "$arg" | sed 's/ \././' | tr [:upper:] [:lower:])
 
-echo "$SMALL"
-echo "$SMALL" | xclip   # use xclip on Linux!!
+printf "%s\n\n" "$SMALL"
+printf "%s" "$SMALL" | ${CLPBRDMNGR}
 
