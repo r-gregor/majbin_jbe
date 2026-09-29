@@ -1,0 +1,81 @@
+#! /usr/bin/env bash
+# filename: gt-status.sh
+# descpt: git-status to all git repositories
+# 20241216: store output of cmd into array instead of external file
+# 20241218: read output of cmd directly into array, no more need to run cmd twice
+#           c-style for loop
+# 20250301: correct output messaging
+# 20260924: unified scripts for linux
+#           HST and system info from exported global variable
+# last: 20260924
+# ---
+
+COLOR_SET="\e[1;92m"
+COLOR_RESET="\e[0m"
+CURRDIR=$PWD
+
+unset msg
+unset report
+unset output
+report=()
+> $GT_STATUS_REPORTS
+
+get_status() {
+	cmd="$1"
+	output=()
+	readarray -t -O ${#output[@]} output < <(${cmd} status)
+	echo "${output[@]}" | grep -i "git push\|untracked\|modified\|deleted" > /dev/null
+
+	if [[ $? -ne 0 ]]; then
+		echo -n "[INFO] checking git status in ${DDD} ..."
+		echo " no action required"
+	else
+		echo "---"
+		printf "${COLOR_SET}"
+		msg=$(echo -e "[REPORT] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n")
+		echo -e "$msg"
+		printf "${COLOR_RESET}"
+
+		readarray -t -O "${#report[@]}" report < <(echo -e "$msg")
+
+		for (( i=0; i<${#output[@]}; i++ )); do
+			echo -e ">\t${output[$i]}"
+		done
+		echo "---"
+	fi
+}
+
+echo "========================================"
+echo "[INFO] running gt-status ..."
+echo "========================================"
+cd ~/majstaf/${HST}git/
+for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${HST}"); do
+	cd "$DDD" &> /dev/null
+
+	get_status "/usr/bin/git"
+	cd ..
+done
+
+# volpejpers
+DDD="vlpprs_${HST}"
+VOLGITDIR="${HOME}/majstaf/${HST}git/vlpprs_${HST}"
+VOLWORKTREE="${HOME}/majstaf/majvolpejpers"
+get_status "/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKTREE}"
+
+printf "${COLOR_SET}"
+if [ ${#report[@]} -gt 0 ]; then
+	echo
+	for (( j=0; j<${#report[@]}; j++ )); do
+		# echo "*** ${report[$j]} ***"
+		echo "*** ${report[$j]} ***" | tee -a $GT_STATUS_REPORTS
+	done
+else
+	echo
+	echo "*** [REPORT] No action required ***"
+fi
+printf "${COLOR_RESET}"
+
+cd "${CURRDIR}"
+
+echo ""
+
