@@ -26,12 +26,12 @@ report=()
 CURRDIR="$PWD"
 cd "${DEST}" || exit 1
 
-echo "========================================"
-echo "[INFO] running gt-majrepos-testpush ..."
-echo "========================================"
+printf "========================================\n"
+printf "[i] running gt-majrepos-testpush ...\n"
+printf "========================================\n"
 for DDD in $(find * -maxdepth 0 -type d); do
 	printf "${COLOR_SET}"
-	echo "***    git testpush in ${DDD} ... ***"
+	printf "***    git testpush in ${DDD} ... ***\n"
 	printf "${COLOR_RESET}"
 	cd "$DDD" &>/dev/null
 	# readarray -t output < <(~/.local/bin/ghgl-testpush)
@@ -51,18 +51,18 @@ done
 
 printf "${COLOR_SET}"
 if [ ${#report[@]} -gt 0 ]; then
-	echo
+	printf "\n"
 	for (( j=0; j<${#report[@]}; j++)); do
-		# echo "*** ${report[$j]} ***"
-		echo "*** ${report[$j]} ***" | tee -a $GT_TPUSH_REPORTS
+		# printf "*** ${report[$j]} ***\n"
+		printf "*** ${report[$j]} ***\n" | tee -a $GT_TPUSH_REPORTS
 	done
 else
-	echo
-	echo "*** [REPORT] No action required ***"
+	printf "\n"
+	printf "*** [REPORT] No action required ***\n"
 fi
 printf "${COLOR_RESET}"
 
 cd "${CURRDIR}" || exit 1
 
-echo ""
+printf "\n"
 

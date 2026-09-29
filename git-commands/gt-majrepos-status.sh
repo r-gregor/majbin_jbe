@@ -27,10 +27,10 @@ get_status() {
 	echo "${output[@]}" | grep -i "git push\|untracked\|modified\|deleted" > /dev/null
 
 	if [[ $? -ne 0 ]]; then
-		echo -n "[INFO] checking git status in ${DDD} ..."
-		echo " no action required"
+		printf "[i] checking git status in ${DDD} ..."
+		printf " no action required\n"
 	else
-		echo "---"
+		printf -- "---\n"
 		printf "${COLOR_SET}"
 		msg=$(echo -e "[REPORT] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n")
 		echo -e "$msg"
@@ -41,13 +41,13 @@ get_status() {
 		for (( i=0; i<${#output[@]}; i++ )); do
 			echo -e ">\t${output[$i]}"
 		done
-		echo "---"
+		printf -- "---\n"
 	fi
 }
 
-echo "========================================"
-echo "[INFO] running gt-status ..."
-echo "========================================"
+printf "========================================\n"
+printf "[i] running gt-status ...\n"
+printf "========================================\n"
 cd ~/majstaf/${HST}git/
 for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${HST}"); do
 	cd "$DDD" &> /dev/null
@@ -64,18 +64,18 @@ get_status "/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKTREE}"
 
 printf "${COLOR_SET}"
 if [ ${#report[@]} -gt 0 ]; then
-	echo
+	printf "\n"
 	for (( j=0; j<${#report[@]}; j++ )); do
-		# echo "*** ${report[$j]} ***"
-		echo "*** ${report[$j]} ***" | tee -a $GT_STATUS_REPORTS
+		# printf "*** ${report[$j]} ***\n"
+		printf "*** ${report[$j]} ***\n" | tee -a $GT_STATUS_REPORTS
 	done
 else
-	echo
-	echo "*** [REPORT] No action required ***"
+	printf "\n"
+	printf "*** [REPORT] No action required ***\n"
 fi
 printf "${COLOR_RESET}"
 
 cd "${CURRDIR}"
 
-echo ""
+printf "\n"
 

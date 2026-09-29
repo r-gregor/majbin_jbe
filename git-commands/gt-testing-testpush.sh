@@ -25,12 +25,12 @@ report=()
 CURRDIR=$PWD
 cd ${DEST}
 
-echo "============================================"
-echo "[INFO] running gt-testing-testpush ..."
-echo "============================================"
+printf "============================================\n"
+printf "[i] running gt-testing-testpush ...\n"
+printf "============================================\n"
 for DDD in $(ls -d *); do
 	printf "${COLOR_SET}"
-	echo "***    git testpush in ${DDD} ... ***"
+	printf "***    git testpush in ${DDD} ... ***\n"
 	printf "${COLOR_RESET}"
 	cd "$DDD" &>/dev/null
 	readarray -t output < <(~/.local/bin/gt-all-remotes-testpush)
@@ -49,18 +49,18 @@ done
 
 printf "${COLOR_SET}"
 if [ ${#report[@]} -gt 0 ]; then
-	echo
+	printf "\n"
 	for (( j=0; j<${#report[@]}; j++)); do
-		# echo "*** ${report[$j]} ***"
-		echo "*** ${report[$j]} ***" | tee -a $TESTING_TPUSH_REPORTS
+		# printf "*** ${report[$j]} ***\n"
+		printf "*** ${report[$j]} ***\n" | tee -a $TESTING_TPUSH_REPORTS
 	done
 else
-	echo
-	echo "*** [REPORT] No action required ***"
+	printf "\n"
+	printf "*** [REPORT] No action required ***\n"
 fi
 printf "${COLOR_RESET}"
 
 cd "${CURRDIR}"
 
-echo ""
+printf "\n"
 

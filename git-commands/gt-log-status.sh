@@ -7,15 +7,15 @@
 # ---
 
 # for myopt in raw numstat shortstat dirstat summary name-only name-status check; do
-# 	echo -e "*** git log --${myopt} ***"
+# 	printf -e "*** git log --${myopt} ***\n"
 # 	git log --${myopt} | head -n 15
-# 	echo -e "---\n"
+# 	printf  "---\n"
 # done
 
 if [ -d .git ] || [ -f HEAD ]; then
 	/usr/bin/git log --name-status
 else
-	echo "NOT a git repository!!"
+	printf "[E] NOT a git repository\n"
 	exit
 fi
 

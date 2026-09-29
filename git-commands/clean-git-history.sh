@@ -8,7 +8,7 @@
 # ---
 
 if [ $# -ne 1 ]; then
-	echo -e "[ERROR] must supply a git repository dirname\n"
+	printf "[E] must supply a git repository dirname\n"
 	exit
 else
 	read_gitdirname="$1"
@@ -21,80 +21,80 @@ GLPTH="https://gitlab.com/r-gregor/${gitdirname}.git"
 GTMP="${gitdirname}_backup"
 
 if [ ! -d "${gitdirname}" ]; then
-	echo -e "[ERROR] NO such directory: ${gitdirname}\n"
+	printf "[E] NO such directory: ${gitdirname}\n"
 	exit
 fi
 
 if [ ! -d "${gitdirname}"/.git ]; then
-	echo -e "[ERROR] NOT a git repository\n"
+	printf "[E] NOT a git repository\n"
 	exit
 fi
 
-echo "[INFO] copying ${gitdirname} to ${GTMP} ..."
+printf "[i] copying ${gitdirname} to ${GTMP} ...\n"
 if [ -d "${GTMP}" ]; then
 	yes | rm -rf "${GTMP}" 
 fi
 cp -frv "${gitdirname}" "${GTMP}"
 mv "${GTMP}"/.git "${GTMP}"/dot_git
 
-echo "[INFO] Trying to clean git repository in ${gitdirname}"
+printf "[i] Trying to clean git repository in ${gitdirname}\n"
 
-echo "[INFO] cd into ${gitdirname} ..."
+printf "[i] cd into ${gitdirname} ...\n"
 cd ./"${gitdirname}" || exit 1
 
 
-echo "[INFO] storing existing remotes into array ..."
+printf "[i] storing existing remotes into array ...\n"
 rmts=( $(git remote) )
 
-echo "[INFO] displaying remotes: "
+printf "[i] displaying remotes: \n"
 for rmt in "${rmts[@]}"; do
-	echo "remote: ${rmt}"
+	printf "remote: ${rmt}\n"
 done
 
-read -r -p "Proceed? "
+read -r -p "[?] Proceed? "
 
-echo "[INFO] creating (orphan) latest_branch ..."
+printf "[i] creating (orphan) latest_branch ...\n"
 git checkout --orphan latest_branch
 
-echo "[INFO] adding all files/dirs to new latest_branch ..."
+printf "[i] adding all files/dirs to new latest_branch ...\n"
 git add -A
 
-echo "[INFO] commiting (staging) all changes to new latest_branch ..."
+printf "[i] commiting (staging) all changes to new latest_branch ...\n"
 git commit -am "Cleanup history $(date +"%Y-%m-%d")"
 
-echo "[INFO] deleting old main and creating new main branch ..."
+printf "[i] deleting old main and creating new main branch ...\n"
 git branch -D main
 git branch -m main
 
-echo "[INFO] trying to push to remotes ..."
+printf "[i] trying to push to remotes ...\n"
 for rmt in "${rmts[@]}"; do
-	read -r -p "Force push to ${rmt} main? "
+	read -r -p "[?] Force push to ${rmt} main? "
 	git push -f "${rmt}" main
 done
 
-echo "[INFO] leaving ${gitdirname} ..."
+printf "[i] leaving ${gitdirname} ...\n"
 cd ../
 
-echo "[INFO] removing original git directory ..."
+printf "[i] removing original git directory ...\n"
 yes | rm -rv "${gitdirname}"
 
-echo "[INFO] cloning cleaned repo from github ..."
+printf "[i] cloning cleaned repo from github ...\n"
 git clone "${GHPTH}"
 
 
-echo "[INFO] cd into cleaned ${gitdirname} ..."
+printf "[i] cd into cleaned ${gitdirname} ...\n"
 cd ./"${gitdirname}" || exit 1
 
-echo "[INFO] adding remotes ..."
-echo "git remote add ${rmts[0]} git@github.com:r-gregor/${gitdirname}.git"
-echo "git remote add ${rmts[1]} git@gitlab.com:r-gregor/${gitdirname}.git"
-read -p "Proceed? "
+printf "[i] adding remotes ...\n"
+printf "git remote add ${rmts[0]} git@github.com:r-gregor/${gitdirname}.git\n"
+printf "git remote add ${rmts[1]} git@gitlab.com:r-gregor/${gitdirname}.git\n"
+read -r -p "[?] Proceed? "
 git remote add "${rmts[0]}" git@github.com:r-gregor/"${gitdirname}".git
 git remote add "${rmts[1]}" git@gitlab.com:r-gregor/"${gitdirname}".git
 
-echo "[INFO] removing autocreated remote 'origin' ..."
-echo "git remote rm origin"
+printf "[i] removing autocreated remote 'origin' ...\n"
+printf "[i] git remote rm origin\n"
 git remote rm origin
 
-echo -e "[INFO] done\n"
+printf "[i] done\n"
 

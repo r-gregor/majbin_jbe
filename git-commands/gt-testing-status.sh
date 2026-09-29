@@ -28,27 +28,27 @@ get_status() {
 	echo "${output[@]}" | grep -i "git push\|untracked\|modified\|deleted" > /dev/null
 
 	if [[ $? -ne 0 ]]; then
-		echo -n "[INFO] checking git status in ${DDD} ..."
-		echo " no action required"
+		printf "[i] checking git status in ${DDD} ..."
+		printf " no action required\n"
 	else
-		echo "---"
+		printf -- "---\n"
 		printf "${COLOR_SET}"
 		msg=$(echo -e "[REPORT] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n")
-		echo -e "$msg"
+		printf "$msg"
 		printf "${COLOR_RESET}"
 		readarray -t -O "${#report[@]}" report < <(echo -e "$msg")
 
 		for (( i=0; i<${#output[@]}; i++ )); do
-			echo -e ">\t${output[$i]}"
+			printf ">\t${output[$i]}"
 		done
 
-		echo "---"
+		printf -- "---\n"
 	fi
 }
 
-echo "========================================"
-echo "[INFO] running gtesting-status ..."
-echo "========================================"
+printf "========================================\n"
+printf "[i] running gtesting-status ...\n"
+printf "========================================\n"
 cd "${TSTDST}" || exit 1
 for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${HST}"); do
 	cd "$DDD" &> /dev/null
@@ -59,20 +59,20 @@ done
 
 printf "${COLOR_SET}"
 if [ ${#report[@]} -gt 0 ]; then
-	echo
+	printf "\n"
 	for (( j=0; j<${#report[@]}; j++ )); do
-		# echo "*** ${report[$j]} ***"
-		echo "*** ${report[$j]} ***" | tee -a $TESTING_STATUS_REPORTS
+		# printf "*** ${report[$j]} ***\n"
+		printf "*** ${report[$j]} ***\n" | tee -a $TESTING_STATUS_REPORTS
 		
 		
 	done
 else
-	echo
-	echo "*** [REPORT] No action required ***"
+	printf "\n"
+	printf "*** [REPORT] No action required ***\n"
 fi
 printf "${COLOR_RESET}"
 
 cd "${CURRDIR}" || exit 1
 
-echo ""
+printf "\n"
 

@@ -8,7 +8,7 @@
 # ---
 
 if [ $# -ne 1 ]; then
-	echo -e "Usage: $0 <file_name>\n\n"
+	printf "Usage: $0 <file_name>\n\n"
 	exit 1
 else
 	fname="$1"
@@ -16,8 +16,8 @@ fi
 
 curdir="$(basename $PWD)"
 destdir="$(echo $PWD | sed "s:majstaf/\(.*\):majstaf/${HST}git/\1_${HST}:" | sed "s:\.config:majstaf/${HST}git/dotfiles_${HST}/.config:")"
-echo"$destdir" 
+printf "${destdir}\n"
 
-read -p "cp -i ./${fname} ${destdir}/${fname} ?"
+read -r -p "[?] cp -i ./${fname} ${destdir}/${fname} ?"
 cp -v ./"${fname}" "${destdir}/${fname}"
 

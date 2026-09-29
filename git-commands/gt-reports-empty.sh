@@ -6,11 +6,11 @@
 # last: 20260924
 # ---
 
-echo "[INFO] emty-ing reports for git staus commands ..."
+printf "[i] emty-ing reports for git staus commands ...\n"
 > $GT_STATUS_REPORTS
 > $TESTING_STATUS_REPORTS
-echo "[INFO] checking reports for git test push commands ..."
+printf "[i] checking reports for git test push commands ...\n"
 > $GT_TPUSH_REPORTS
 > $TESTING_TPUSH_REPORTS
-echo "[INFO] done"
+printf "[i] done\n"
 

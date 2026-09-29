@@ -13,14 +13,14 @@ COLOR_RESET="\e[0m"
 
 for rmt in "${rmts[@]}"
 do
-	echo -n "[INFO] git testpush in: $(git remote get-url ${rmt}) ..."
+	printf -n "[i] git testpush in: $(git remote get-url ${rmt}) ...\n"
 	output=$(/usr/bin/git push --dry-run "${rmt}" main 2>&1)
-	echo $output | grep 'reject\|pull' &> /dev/null
+	echo "$output" | grep 'reject\|pull' &> /dev/null
 	if [[ $? -eq 0 ]]; then
 		printf " ${COLOR_RED} NEED TO PULL FROM REMOTE\n"
 		printf "${COLOR_RESET}"
 	else
-		echo " no action required"
+		printf " no action required\n"
 	fi
 done
 

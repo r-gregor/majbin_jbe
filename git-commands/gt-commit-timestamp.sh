@@ -12,8 +12,8 @@ cmd() {
 
 if [ $# -eq 1 ]; then
 	if [ $1 == "-a" ]; then
-		echo -n "/usr/bin/git commit -a ... "
-		read -p "OK?"
+		printf "[i] /usr/bin/git commit -a ... "
+		read -r -p "[?] OK?"
 		cmd -a
 		exit
 	else
@@ -26,7 +26,7 @@ fi
 tmpstmp="$(date +"%Y%m%d_%H%M")_${HST}"
 desc="$msg ${tmpstmp}"
 
-echo -n "/usr/bin/git commit -m \"$desc\" ... "
-read -p "OK?"
+printf "[i] /usr/bin/git commit -m \"$desc\" ... "
+read -r -p "[i] OK?"
 cmd -m "$desc"
 
