@@ -18,7 +18,7 @@ ten_bash_scripts_to_git_update="${PTH}/ten_bash_scripts_to_git_update_$(date +"%
 readarray -t ten_bash_scripts_without_descpt < <(no-descpt-commands-list | head -n 10)
 
 if [ "${#ten_bash_scripts_without_descpt[@]}" -lt 1 ]; then
-	printf "[ERROR] no *.sh file WITHOUT 'descpt: ' line found\n\n"
+	printf "[E] no *.sh file WITHOUT 'descpt: ' line found\n\n"
 	exit 1
 fi
 

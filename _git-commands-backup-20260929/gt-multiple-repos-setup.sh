@@ -17,7 +17,7 @@ gl_rmt_addr="git@gitlab.com:r-gregor"
 # single repo clone and setup function
 single_repo_setup() {
 	if [ $# -ne 1 ]; then
-		echo -e [ERROR] "must supply repo name as argument\n"
+		echo -e [E] "must supply repo name as argument\n"
 		exit
 	else
 		repo="$1"
@@ -25,10 +25,10 @@ single_repo_setup() {
 
 	repo_name="${repo}_${HST}"
 	
-	echo "[INFO] setup git repository for ${repo_name} ..."
+	echo "[i] setup git repository for ${repo_name} ..."
 	read -r -p "Continue?"
 
-	echo "[INFO] cloning/setting up repository: ${repo_name}"
+	echo "[i] cloning/setting up repository: ${repo_name}"
 	git clone "${gh_clone_addr}/${repo_name}.git"
 	cd "${repo}_${HST}" || exit 1
 
@@ -46,5 +46,5 @@ for repo in majbin majrcs metsys dotfiles; do
 	single_repo_setup "${repo}"
 done
 
-echo -e "[INFO] done\n"
+echo -e "[i] done\n"
 

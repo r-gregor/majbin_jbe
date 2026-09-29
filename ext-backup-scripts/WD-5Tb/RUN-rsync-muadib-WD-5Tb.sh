@@ -6,7 +6,7 @@ current_node="$(uname -n)"
 gDest="/media/rgregor/E75F-1AEC/backup_${expected_node}"
 
 if [ "${expected_node}" != "${current_node}" ]; then
-	echo -e "[ERROR] Wrong host name (${current_node}). It should be: ${expected_node}\n"
+	echo -e "[E] Wrong host name (${current_node}). It should be: ${expected_node}\n"
 	exit
 fi
 

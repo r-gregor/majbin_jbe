@@ -35,22 +35,22 @@ ff_launch() {
 	selection=$(for URL in "${URLS[@]}"; do echo "$URL"; done 2>/dev/null | FZFCMD)
 
 	if [ "${selection}" == "" ]; then
-		echo -e "[INFO] nothing selected\n"
+		echo -e "[i] nothing selected\n"
 		exit
 	fi
 
 	if [[ "${selection}" =~ ^(---) ]]; then
-		echo -e "[INFO] nothing selected\n"
+		echo -e "[i] nothing selected\n"
 		exit
 	fi
 
 	if [[ "${selection}" =~ ^\[.*\] ]]; then
-		echo -e "[INFO] nothing selected\n"
+		echo -e "[i] nothing selected\n"
 		exit
 	fi
 
 	path=$(echo "${selection}" | cut -d ' ' -f1)
-	echo "[INFO] selected: ${path}"
+	echo "[i] selected: ${path}"
 	# nohup ${FFCMD} "${path}" >&/dev/null &
 	(nohup ${FFCMD} "${path}" &) > /dev/null 2>&1
 }
@@ -64,7 +64,7 @@ while true; do
 	selected=$(for WAY in "${categories[@]}"; do echo "${WAY}"; done | fzf +c --reverse)
 
 	if [ "${selected}" == "" ]; then
-		echo -e "[INFO] nothing selected\n"
+		echo -e "[i] nothing selected\n"
 		exit
 	fi
 

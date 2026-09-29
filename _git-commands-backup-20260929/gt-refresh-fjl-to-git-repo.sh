@@ -18,6 +18,6 @@ curdir="$(basename $PWD)"
 destdir="$(echo $PWD | sed "s:majstaf/\(.*\):majstaf/${HST}git/\1_${HST}:" | sed "s:\.config:majstaf/${HST}git/dotfiles_${HST}/.config:")"
 echo"$destdir" 
 
-read -p "cp -i ./${fname} ${destdir}/${fname} ?"
+read -r -p "[?] cp -i ./${fname} ${destdir}/${fname} ?"
 cp -v ./"${fname}" "${destdir}/${fname}"
 

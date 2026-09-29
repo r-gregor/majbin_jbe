@@ -13,21 +13,21 @@ if [ $# -eq 1 ]; then
 	HR=$1
 	DEJT=${TODAY}
 	if [ $((${NOW} - ${HR})) -le 0  ]; then
-		echo -e "[ERROR] Out of time range\n"
+		echo -e "[E] Out of time range\n"
 		exit
 	fi
 elif [ $# -eq 2 ]; then
 	DEJT=$1
 	HR=$2
 	if [ $((${DEJT} - ${TODAY})) -gt 0 ]; then
-		echo -e "[ERROR] Wrong date\n"
+		echo -e "[E] Wrong date\n"
 		exit
 	fi
 	if [ $((${TODAY} - ${DEJT})) -gt 0 ]; then
 		NOW=24
 	fi
 	if [ $((${NOW} - ${HR})) -lt 0  ]; then
-		echo -e "[ERROR] Out of time range\n"
+		echo -e "[E] Out of time range\n"
 		exit
 	fi
 else
@@ -43,7 +43,7 @@ fi
 echo -e "\nGetting today's entries:"
 echo -e "\tin \"${SRCDIR}\""
 echo -e "\tafter: ${HR}:00:00 on ${DEJT}\n"
-read -p "Continue? [y/Y], or <enter> to confirm ... " ans
+read -r -p "[?] Continue? [y/Y], or <enter> to confirm ... " ans
 
 if [ ! $ans == "Y" ] && [ ! $ans == "y" ]; then
 	exit
@@ -52,7 +52,7 @@ fi
 readarray -t -O "${#list[@]}" list < <(find ${SRCDIR} -newermt "${DEJT} ${HR}:00:00" -type f | grep -v '\.git')
 
 if [ ${#list[@]} -le 0 ]; then
-	echo -e "[INFO] No files found\n"
+	echo -e "[i] No files found\n"
 	exit
 fi
 
@@ -61,7 +61,7 @@ fjls=$(for (( i=0; i<${#list[@]}; i++)); do
 done | fzf -m --reverse)
 
 if [ "x${fjls[0]}" == "x" ]; then
-	echo -e "[INFO] No files selected\n"
+	echo -e "[i] No files selected\n"
 	exit
 fi
 

@@ -44,7 +44,7 @@ load_files_into_list() {
 	done
 
 	if [ ${#fjls_lst[@]} -eq 0 ]; then
-		printf "[INFO] no file with datestamp: '%s' found\n\n" "${dtstmp}"
+		printf "[i] no file with datestamp: '%s' found\n\n" "${dtstmp}"
 		exit 1
 	fi
 
@@ -72,18 +72,18 @@ main() {
 	done) | ${FZFCMD_EN})
 
 	if [ "${#selections[@]}" -eq 0 ]; then
-		printf "[INFO] nothing selected\n\n"
+		printf "[i] nothing selected\n\n"
 		exit 1
 	fi
 
 	for selection1 in ${selections[@]}; do
 		if [[ "${selection1}" == "Quit" ]]; then
-			printf "[INFO] nothing selected\n\n"
+			printf "[i] nothing selected\n\n"
 			exit 1
 		fi
 	done
 
-	printf "[INFO] Selected:\n"
+	printf "[i] Selected:\n"
 	for selection2 in ${selections[@]}; do
 		printf "${selection2}\n"
 	done

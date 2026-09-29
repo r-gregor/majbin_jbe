@@ -27,7 +27,7 @@ for FFF in $(find "${PTH}"/* -maxdepth 1 -type f -name "*\.sh"); do
 done
 
 if [ "${#found_bash_commands[@]}" -lt 1 ]; then
-	printf "[ERROR] no *.sh file with 'descpt: ' line found\n\n"
+	printf "[E] no *.sh file with 'descpt: ' line found\n\n"
 	exit 1
 fi
 

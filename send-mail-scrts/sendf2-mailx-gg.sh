@@ -25,7 +25,7 @@ fi
 
 echo -e "\nDo you really want to send home file:"
 echo -e "[ ${gAttf} ]\n"
-read -p "Press any key to confirm, or ctlr+c to quit _"
+read -r -p "[?] Press any key to confirm, or ctlr+c to quit _"
 
 gFjl="${gAttf}"
 

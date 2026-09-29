@@ -54,7 +54,7 @@ readarray -t RESULT < <(for DYS in $(seq  "${month_days["${mnth}"]}" -1 "${day}"
 	-iname $(printf "*%d%02d%02d.txt" "${curryr}" "${mnth}" "${DYS}"); done)
 
 if [ "${RESULT[0]}" == "" ]; then
-	printf "[INFO] No files found\n"
+	printf "[i] No files found\n"
 	exit
 fi
 
@@ -64,11 +64,11 @@ unset fjls
 readarray -t fjls < <(for FJL in $(echo "${RESULT[@]}"); do echo "${FJL}"; done | sort -t'/' -k7 | fzf -m -e --reverse)
 
 if [ "${fjls[0]}" == "" ]; then
-	printf "[INFO] No files selected\n"
+	printf "[i] No files selected\n"
 	exit
 fi
 
-printf "[INFO] Selected:\n"
+printf "[i] Selected:\n"
 # for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done
 # for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done | xargs -ro vim -pM
 # v2

@@ -10,7 +10,7 @@
 HUB=github
 
 if [ $# -ne 2 ]; then
-	printf "[ERROR] wrong number of parameters\n"
+	printf "[E] wrong number of parameters\n"
 	printf "Usage: $0 <repository> <file name>\n"
 	printf "\n"
 	exit
@@ -43,17 +43,17 @@ if [ ! -d "${odir}" ]; then
 	mkdir -pv "${odir}"
 fi
 
-printf "[INFO] download from %s ... into\n" "${ipath}"
-printf "[INFO] ./${opath} ... "
-read -p "OK?"
+printf "[i] download from %s ... into\n" "${ipath}"
+printf "[i] ./${opath} ... "
+read -r -p "[?] OK?"
 
 # wget "${ipath}" -O "${opath}"
 curl -s -f -o "./${opath}" "${ipath}"
 
 if [ $? -ne 0 ]; then
-	printf "[ERROR] Could not download file: ${src}\n\n"
+	printf "[E] Could not download file: ${src}\n\n"
 	exit
 else
-	printf "[INFO] download successful\n\n"
+	printf "[i] download successful\n\n"
 fi
 

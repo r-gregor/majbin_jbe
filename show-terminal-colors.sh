@@ -34,7 +34,7 @@ printf "Cyan                        "; printf "\e[96m"; echo -n "\e[96m"; printf
 printf "White                       "; printf "\e[97m"; echo -n "\e[97m"; printf "\e[0m"; printf "            \e[107m"; echo -n "   \e[107m"; printf "\e[0m";printf "\n"
 printf "========================================================\n\n"
 
-read -p "Examples:"
+read -r -p "[?] Examples:"
 printf "\e[31;42mCOLOR\e[0m"; echo -n " \e[31;42mCOLOR\e[0m"; printf "\n"
 printf "\e[31;102mCOLOR\e[0m"; echo -n " \e[31;102mCOLOR\e[0m"; printf "\n"
 printf "\e[1;104mCOLOR\e[0m"; echo -n " \e[1;104mCOLOR\e[0m"; printf "\n"
@@ -58,7 +58,7 @@ printf "\e[2;38;2;150;230;100mCOLOR\e[0m"; echo -n " \e[2;38;2;150;230;100mCOLOR
 
 printf "\n"
 
-read -p "10bit colors:"
+read -r -p "[?] 10bit colors:"
 
 # test if terminal is true color (full RGB = 16.777.216 (256^3))
 awk -v term_cols="${width:-$(tput cols || echo 80)}" 'BEGIN{
@@ -77,7 +77,7 @@ awk -v term_cols="${width:-$(tput cols || echo 80)}" 'BEGIN{
 
 printf "\n"
 
-read -p "256 colors:"
+read -r -p "[?] 256 colors:"
 
 set -eu # Fail on errors or undeclared variables
 

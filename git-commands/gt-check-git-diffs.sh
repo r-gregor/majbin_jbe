@@ -77,7 +77,7 @@ for FJL in "${fjls[@]}"; do
 done
 printf "\n"
 
-read -p "[y/Y] to procede [Any other key to quit] " choice
+read -r -p "[?] [y/Y] to procede [Any other key to quit] " choice
 
 if [ "$choice" = "y" ] || [ "$choice" = "Y" ]; then
 	for FJL in "${fjls[@]}"; do

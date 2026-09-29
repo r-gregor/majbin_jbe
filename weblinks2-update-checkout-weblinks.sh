@@ -96,7 +96,7 @@ fi
 # ---
 # check if OK:
 echo
-read -p "OK? Press any key to continue, or <CTRL-C> to quit ___ "
+read -r -p "[?] OK? Press any key to continue, or <CTRL-C> to quit ___ "
 
 
 # ---

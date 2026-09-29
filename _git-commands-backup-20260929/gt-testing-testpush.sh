@@ -26,7 +26,7 @@ CURRDIR=$PWD
 cd ${DEST}
 
 echo "============================================"
-echo "[INFO] running gt-testing-testpush ..."
+echo "[i] running gt-testing-testpush ..."
 echo "============================================"
 for DDD in $(ls -d *); do
 	printf "${COLOR_SET}"

@@ -66,7 +66,7 @@ get_start_date_from_daysdiff() {
 	fi
 
 	if [ "${days_diff}" -ge ${year_days} ]; then
-		printf "[ERROR] to many days back (over a whole year)\n\n"
+		printf "[E] to many days back (over a whole year)\n\n"
 		exit
 	fi
 
@@ -105,7 +105,7 @@ else
 fi
 
 if [ ! -d "${PTH}" ]; then
-	printf "[ERROR] no such directory: '%s'\n\n" "${PTH}"
+	printf "[E] no such directory: '%s'\n\n" "${PTH}"
 	exit 1
 fi
 
@@ -113,7 +113,7 @@ newdate="$(get_start_date_from_daysdiff ${ddiff})"
 
 # TEST
 # printf "newdate: %s\n" "${newdate}"
-# read -p "OK?"
+# read -r -p "[?] OK?"
 
 # MAIN
 list_new_files

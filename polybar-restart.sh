@@ -1,11 +1,11 @@
 #! /usr/bin/env bash
 
 if [ "$(pgrep polybar)" == "" ]; then
-	printf "[INFO] polybar not running -- reloading ...\n"
+	printf "[i] polybar not running -- reloading ...\n"
 	/home/rgregor/.config/polybar/launch.sh
 	printf "\n"
 else
-	printf "[INFO] polybar already running\n"
+	printf "[i] polybar already running\n"
 	printf "\n"
 fi
 

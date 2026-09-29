@@ -13,7 +13,7 @@ curr_fs=$(echo "${curr_line}" | grep -o "[0-9][0-9]")
 # test
 # echo "Current line:      ${curr_line}"
 # echo "Current font size: ${curr_fs}"
-# read -p "OK?"
+# read -r -p "[?] OK?"
 
 # displays terminal app name: xfce4-terminal / kitty / alacritty / urxvt / ...
 get_ppid() { printf `awk -F "PPid:" '{print $2}' "/proc/$1/status"` ; }
@@ -42,7 +42,7 @@ TERMINAL=$(get_terminal_name)
 
 if [ "${TERMINAL}" != "xfce4-terminal" ]; then
 
-	echo "[ERROR] wrong terminal app"
+	echo "[E] wrong terminal app"
 	exit
 fi
 

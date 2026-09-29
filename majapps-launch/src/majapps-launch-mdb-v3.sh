@@ -63,7 +63,7 @@ get_longest() {
 }
 
 selection_info() {
-	printf "[INFO] selected: $1\n"
+	printf "[i] selected: $1\n"
 }
 
 # MAIN # v3
@@ -81,7 +81,7 @@ while true; do
 				--prompt="launch (q to quit): ")
 
 	if [ "x${selection}" == "x" ]; then
-		echo -e "[INFO] no selection\n"
+		echo -e "[i] no selection\n"
 		exit
 	fi
 

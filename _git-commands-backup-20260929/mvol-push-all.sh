@@ -14,11 +14,11 @@ vol_cmd() {
 	/usr/bin/git --git-dir="${VOLGITDIR}" --work-tree="${VOLWORKDIR}" "$@"
 }
 
-echo "[INFO] Push to d_GITHUB ..."
+echo "[i] Push to d_GITHUB ..."
 vol_cmd push git@github.com:r-gregor/vlpprs_${HST}.git main
 echo "---"
 
-echo "[INFO] Push to d_GITLAB ..."
+echo "[i] Push to d_GITLAB ..."
 vol_cmd push git@gitlab.com:r-gregor/vlpprs_${HST}.git main
 echo "---"
 

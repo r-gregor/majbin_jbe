@@ -20,15 +20,15 @@ fname_base=COMMANDS-${HNML}-by-$(date +"%Y%m%d")
 dest_fname=${fname_base}.txt
 
 export LC_ALL=C
-printf "[INFO] collecting hstl files into ${fname_temp} ...\n"
+printf "[i] collecting hstl files into ${fname_temp} ...\n"
 readarray -t CMMNDS < <(cat ${SEZNAMI_DIR}/hstl-${HNML}-${CURRYR}* | cut -b 28- | sort | uniq -c)
 
 # v4
-printf "[INFO] cleaning final ${dest_fname} ...\n"
+printf "[i] cleaning final ${dest_fname} ...\n"
 for LINE in "${CMMNDS[@]}"; do
 	echo "${LINE}"
 done | cut -b 9- | grep -v -f "${SRCDIR}/excludes-hstl-${HST}.txt" > ${SEZNAMI_DIR}/${dest_fname}
 # done | cut -b 9- | grep -v -f "${SRCDIR}/excludes-hstl-${HNM}.txt"
 
-printf "[INFO] done\n"
+printf "[i] done\n"
 

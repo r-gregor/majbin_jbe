@@ -44,14 +44,14 @@ fi
 if [ $# -eq 2 ]; then
 	seznam="$1"
 	if [ ! -f $seznam ]; then
-		printf "[ERROR] no such file: ${seznam}\n\n"
+		printf "[E] no such file: ${seznam}\n\n"
 		exit 1
 	fi
 	ffname=$(fname_string_adjustment "$2")
 elif [ $# -eq 3 ]; then
 	seznam="$1"
 	if [ ! -f $seznam ]; then
-		printf "[ERROR] no such file: ${seznam}\n\n"
+		printf "[E] no such file: ${seznam}\n\n"
 		exit 1
 	fi
 	pfnm=$(fname_string_adjustment "$2")
@@ -65,22 +65,22 @@ dest="$PWD"
 
 # destination ...
 fdest="${PWD}"
-printf "[INFO] Destination: ${fdest}/${ffname}\n"
+printf "[i] Destination: ${fdest}/${ffname}\n"
 
 # If OK pres any key, else ctrl-c ...
-read -p "[INFO] Continue ?"
+read -r -p "[?] [i] Continue ?"
 cd $fdest
 touch ${ffname}
 
 printf "filename: ${ffname}\n" >> ${ffname}
 
 for FFF in $(cat ${seznam}); do
-	printf "[INFO] inserting $FFF into ${ffname}\n"
+	printf "[i] inserting $FFF into ${ffname}\n"
 	printf "$FFF\n" >> ${ffname}
 	# lynx -dump -width=110 $FFF >> ${ffname}
 	dump_command $FFF >> ${ffname}
 	printf "\n\n\n---\n" >> ${ffname}
 done
 
-printf "[INFO] done\n"
+printf "[i] done\n"
 

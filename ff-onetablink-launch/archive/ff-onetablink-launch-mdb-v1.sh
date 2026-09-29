@@ -20,7 +20,7 @@ if [ $# -ne 1 ]; then
 else
 	fjl=$1
 	if [ ! -f "${fjl}" ]; then
-		printf "%s\n\n" "[ERROR] No such file: ${fjl}"
+		printf "%s\n\n" "[E] No such file: ${fjl}"
 		exit
 	fi
 fi

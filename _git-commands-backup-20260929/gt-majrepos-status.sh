@@ -27,7 +27,7 @@ get_status() {
 	echo "${output[@]}" | grep -i "git push\|untracked\|modified\|deleted" > /dev/null
 
 	if [[ $? -ne 0 ]]; then
-		echo -n "[INFO] checking git status in ${DDD} ..."
+		echo -n "[i] checking git status in ${DDD} ..."
 		echo " no action required"
 	else
 		echo "---"
@@ -46,7 +46,7 @@ get_status() {
 }
 
 echo "========================================"
-echo "[INFO] running gt-status ..."
+echo "[i] running gt-status ..."
 echo "========================================"
 cd ~/majstaf/${HST}git/
 for DDD in $(find * -maxdepth 0 -type d | grep -v "vlpprs_${HST}"); do

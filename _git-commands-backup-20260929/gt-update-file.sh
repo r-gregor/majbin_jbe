@@ -18,7 +18,7 @@ else
 fi
 
 if [ ! -f ${src_fname} ]; then
-	printf "[ERROR] no such source file: %s\n\n" "${src_fname}"
+	printf "[E] no such source file: %s\n\n" "${src_fname}"
 	exit 1
 fi
 
@@ -30,14 +30,14 @@ DSTF="$(realpath "${dest_fname}")"
 DSTD="${DSTF%/*}"
 
 if [ ! -d "${DSTD}" ]; then
-	printf "[ERROR] no such destination: %s\n\n" "${DSTD}"
+	printf "[E] no such destination: %s\n\n" "${DSTD}"
 	exit 1
 fi
 
 ptrn="majstaf/${HST}git"
 
 if [[ ! "${DSTD}" =~ ${ptrn} ]]; then
-	printf "[ERROR] file '%s' must be copied over directly\n\n" "${SRCF}"
+	printf "[E] file '%s' must be copied over directly\n\n" "${SRCF}"
 	exit 1
 fi
 
@@ -51,7 +51,7 @@ update_file_to_git() {
 		"from: ${SRCF}" \
 		"to:   ${DSTF}" \
 		"---"
-	read -p "OK?"
+	read -r -p "[?] OK?"
 	cp -iv "${SRCF}" "${DSTF}"
 }
 

@@ -53,7 +53,7 @@ get_start_date_from_daysdiff() {
 	fi
 
 	if [ "${days_diff}" -ge ${year_days} ]; then
-		printf "[ERROR] to many days back (over a whole year)\n\n"
+		printf "[E] to many days back (over a whole year)\n\n"
 		exit
 	fi
 

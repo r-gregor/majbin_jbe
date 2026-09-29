@@ -24,7 +24,7 @@ clear
 # ---
 # echo
 # echo "Entered date: $GR_DEJT"
-# read -p "OK? Any key to proceed or ctrl-c to quit"
+# read -r -p "[?] OK? Any key to proceed or ctrl-c to quit"
 
 GR_DBOT="$HOME/Dropbox/ODPRTO/_TXT/"
 
@@ -33,7 +33,7 @@ GR_DBOT="$HOME/Dropbox/ODPRTO/_TXT/"
 # echo "cd-ing to $GR_DBOT ..."
 cd $GR_DBOT
 # echo "We are in: $PWD"
-# read -p "OK? Any key to proceed or ctrl-c to quit"
+# read -r -p "[?] OK? Any key to proceed or ctrl-c to quit"
 # 
 # ---
 echo

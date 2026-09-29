@@ -22,7 +22,7 @@ for FFF in $(find "${PTH}"/git-commands/*  "${PTH}"/ff*/* -maxdepth 0 -type f -n
 done
 
 # echo "${found_bash_commands[@]}"
-# read -p "OK?"
+# read -r -p "[?] OK?"
 
 for CMD in "${found_bash_commands[@]}"; do
 	printf "%-60s %s\n" "${CMD}" "$(grep 'descpt' "${PTH}/${CMD}" | sed 's/# descpt: //')"

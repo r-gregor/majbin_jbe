@@ -73,7 +73,7 @@ while true; do
 				--prompt="launch (q to quit): ")
 
 	if [ "x${selection}" == "x" ]; then
-		echo -e "[ERROR] no aplication selected\n"
+		echo -e "[E] no aplication selected\n"
 		exit
 	fi
 

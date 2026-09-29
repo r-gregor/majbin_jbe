@@ -22,13 +22,13 @@ while [ "$1" ]; do
 done
 
 if [ "${#fjls[@]}" -lt 1 ]; then
-	printf "[INFO] No files selected"
+	printf "[i] No files selected"
 	exit
 fi
 
 for ((i=0; i<"${#fjls[@]}"; i++)); do
 	if [ ! -f "${fjls[i]}" ]; then
-		printf "[ERROR] file: '%s' does NOT exist\n" "${fjls[i]}"
+		printf "[E] file: '%s' does NOT exist\n" "${fjls[i]}"
 		printf "\n"
 		exit
 	fi
@@ -36,11 +36,11 @@ done
 
 CATEGORY=$(ls -1 ${DEST} | fzf -e --reverse)
 
-printf "[INFO] move selected files:\n"
+printf "[i] move selected files:\n"
 for ((j=0; j<"${#fjls[@]}"; j++)); do
-	printf "[INFO] '%s'\n" "${fjls[j]}"
+	printf "[i] '%s'\n" "${fjls[j]}"
 done
-printf "[INFO] to .../%s [y/n]?  " "${CATEGORY}"
+printf "[i] to .../%s [y/n]?  " "${CATEGORY}"
 read -r ans
 
 if [ "${ans}" == "y" ] || [ "${ans}" == "Y" ]; then
@@ -50,7 +50,7 @@ if [ "${ans}" == "y" ] || [ "${ans}" == "Y" ]; then
 	done
 	printf "\n"
 else
-	printf "[INFO] No files moved\n"
+	printf "[i] No files moved\n"
 	printf "\n"
 	exit
 fi

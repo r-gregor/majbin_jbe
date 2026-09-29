@@ -50,7 +50,7 @@ tms; crtc ${crtn}
 if [ "$(ls -A ${gDest})" ]; then
 	tms; echo "${gDest}/ is NOT empty!"
 	# Ask for confirmation:
-	# read -p "Press any key to REMOVE files or [ctrl+c] to quit"
+	# read -r -p "[?] Press any key to REMOVE files or [ctrl+c] to quit"
 	tms; echo "Removing files from ${gDest}/ ... "
 	rm -v ${gDest}/* | grep -v '^[[:space:]]*$' | while read line; do (tms; echo $line); done
 	tms; crtc ${crtn}

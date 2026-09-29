@@ -25,7 +25,7 @@ FZFCMD() {
 if [ $# -eq 1 ]; then
 	checkout_files_list="$1"
 	if [ ! -f "${checkout_files_list}" ]; then
-		printf "[ERROR] no such file: %s\n\n" "${checkout_files_list}"
+		printf "[E] no such file: %s\n\n" "${checkout_files_list}"
 		exit 1
 	fi
 fi
@@ -45,7 +45,7 @@ ff_checkout_launch() {
 	selection=$( (for descrp in "${checkout_files[@]}"; do echo "${descrp}"; done | sort; echo "----"; echo "Quit") | FZFCMD)
 
 	if [ "${selection}" == "" ]; then
-		printf "[INFO] nothing selected\n"
+		printf "[i] nothing selected\n"
 		exit 0
 	fi
 
@@ -61,7 +61,7 @@ ff_checkout_launch() {
 	# run
 	for URL in "${!checkout_files[@]}"; do
 		if [[ "${checkout_files["${URL}"]}" =~ "${selection}" ]]; then
-		printf "[INFO] selected: %s\n" "${selection}" #v4
+		printf "[i] selected: %s\n" "${selection}" #v4
 		(nohup ${FFCMD} "${URL}" &) >/dev/null 2>&1
 		fi
 	done

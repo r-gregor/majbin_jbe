@@ -16,13 +16,13 @@ touch ${fname_temp}
 # 01-COLLECT-ALL-COMMANDS-from-history-en-dat-to-single-file.onl.txt
 export LC_ALL=C
 # cat $HOME/majstaf/seznami/hstl-en-${CURRYR}* | cut -b 28- | grep -v -f "${SRCDIR}/excludes-hstl.txt" | sort | uniq -c >> ${fname_base}.txt
-printf "[INFO] collecting hstl files into ${fname_temp} ...\n"
+printf "[i] collecting hstl files into ${fname_temp} ...\n"
 cat $HOME/majstaf/seznami/hstl-en-${CURRYR}* | cut -b 28- | sort | uniq -c >> ${fname_temp}
 
 # 02-REMOVE-count-nums-infront-of-commands-in-single-file.onl.txt
 # cat commands-history-list-en-by-$(date +"%Y%m%d").txt | cut -b 9- > commands-history-list-en-by-$(date +"%Y%m%d")-2.txt
-printf "[INFO] cleaning final ${dest_fname} ...\n"
+printf "[i] cleaning final ${dest_fname} ...\n"
 cat ${fname_temp} | cut -b 9- > ${dest_fname}
-printf "[INFO] done\n"
+printf "[i] done\n"
 
 

@@ -58,13 +58,13 @@ get_longest() {
 }
 
 selection_info() {
-	printf "[INFO] selected: $1\n"
+	printf "[i] selected: $1\n"
 }
 
 # v3
 majapps_run() {
 	if [ "x${selection}" == "x" ]; then
-		echo -e "[INFO] no selection\n"
+		echo -e "[i] no selection\n"
 		exit
 	fi
 
@@ -123,20 +123,20 @@ if [ $# -eq 1 ]; then
 	done
 
 	if [ "${#options[@]}" -gt 1 ]; then
-		printf "[ERROR] multiple selections:\n"
+		printf "[E] multiple selections:\n"
 		for OPT in "${options[@]}"; do
 			printf "${OPT}\n"
 		done
-		printf "[INFO] redefine parameter\n\n"
+		printf "[i] redefine parameter\n\n"
 		exit
 	elif [ "${#options[@]}" -eq 0 ]; then
-		printf "[ERROR] no selection\n\n"
+		printf "[E] no selection\n\n"
 		exit
 	else
 		selection="${options[0]}"
 	fi
 
-	read -p "[INFO] launch: ${selection} ... OK?"
+	read -r -p "[?] [i] launch: ${selection} ... OK?"
 	majapps_run
 	exit
 fi

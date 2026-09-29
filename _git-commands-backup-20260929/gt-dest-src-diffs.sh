@@ -13,7 +13,7 @@ TMPF="${HOME}/.tmp/getd_tmp"
 
 
 cd ${MJSTFMDB_G}/dotfiles_${HST}
-echo "[INFO] diffs: dotfiles_en ..."
+echo "[i] diffs: dotfiles_en ..."
 touch $TMPF
 for FFF in $(ls -1A); do diff -qr $FFF ${HOME}/${FFF} 2>/dev/null | grep -iv 'only' | grep -v '.git' >> $TMPF; done
 output=$(cat $TMPF | head -c1 | wc -c)
@@ -27,7 +27,7 @@ rm $TMPF 2>/dev/null
 
 for check_dir in majbin majrcs metsys; do
 	cd ${MJSTFMDB_G}/${check_dir}_${HST}
-	echo "[INFO] diffs: ${check_dir} ..."
+	echo "[i] diffs: ${check_dir} ..."
 	touch $TMPF
 	for FFF in $(ls -1); do diff -qr $FFF ${MJSTFMDB}/${check_dir}/${FFF} | grep -iv 'only' >> $TMPF; done
 	output2=$(cat $TMPF | head -c1 | wc -c)

@@ -55,10 +55,10 @@ else
 fi
 
 
-printf "[INFO] %-10s%s\n" "Web URL:" "${weburl}"
-printf "[INFO] %-10s%s\n" "filename:" "${flnm}"
+printf "[i] %-10s%s\n" "Web URL:" "${weburl}"
+printf "[i] %-10s%s\n" "filename:" "${flnm}"
 
-printf "[INFO] Press <enter> to proceed or <ctrl-c> to quit"
+printf "[i] Press <enter> to proceed or <ctrl-c> to quit"
 read ANS
 
 # echo "filename: ${flnm}" >> ${flnm}
@@ -69,5 +69,5 @@ printf "${weburl}\n\n" >> ${flnm}
 dump_command ${weburl} >> ${flnm}
 echo -e "\n\n---\n" >> ${flnm}
 
-printf "[INFO] done\n"
+printf "[i] done\n"
 

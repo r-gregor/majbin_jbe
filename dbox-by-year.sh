@@ -15,4 +15,4 @@ if [ $lns -lt 1 ]; then
 fi
 
 
-clear; for line in $(ls | grep "_${YEAR}"); do let lns=$lns-1; echo -e "$line ($lns more ...)"; read -p ""; clear; done
+clear; for line in $(ls | grep "_${YEAR}"); do let lns=$lns-1; echo -e "$line ($lns more ...)"; read -r -p "[?] "; clear; done

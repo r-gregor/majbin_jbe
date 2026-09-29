@@ -52,7 +52,7 @@ update_file_to_git() {
 		"from: ${SRCF}" \
 		"to:   ${DSTF}" \
 		"---"
-	read -p "OK?"
+	read -r -p "[?] OK?"
 	cp -iv "${SRCF}" "${DSTF}"
 }
 

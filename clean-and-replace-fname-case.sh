@@ -36,7 +36,7 @@ echo mv "\"${FFF}\"" $(echo "${FFF}" | sed \
 	| tr '[:upper:]' '[:lower:]' \
 )
 
-read -p "Continue?"
+read -r -p "[?] Continue?"
 
 mv -v "${FFF}" $(echo "${FFF}" | sed \
 	-e "s/\s\+/_/g" \

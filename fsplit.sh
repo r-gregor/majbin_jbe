@@ -20,7 +20,7 @@ case $NUMARGS in
 	;;
 
 	*)
-		echo "[ERROR] No filename supplied"
+		echo "[E] No filename supplied"
 		echo "Usage: $0 <fname> <n>"
 		echo "           fname: file name"
 		echo "           n:     number of parts to split fname into"
@@ -31,12 +31,12 @@ case $NUMARGS in
 esac
 
 if [ ! $fname ]; then
-	echo -e "[ERROR] $fname: No such file\n"
+	echo -e "[E] $fname: No such file\n"
 	exit
 fi
 
 echo -n "Command: "
 echo "split -n ${PARTS} -d ${fname} ${fname}_part-"
-read -p "Continue?"
+read -r -p "[?] Continue?"
 split -n ${PARTS} -d ${fname} ${fname}_part-
 

@@ -9,16 +9,16 @@ fi
 
 src=${fname}
 dest="$(basename $fname .html)_cleaned.html"
-echo -n "[INFO] cleaning ${src} into ${dest} ... "
+echo -n "[i] cleaning ${src} into ${dest} ... "
 sed 's/\(.*\) ADD_DATE=.*\(>.* \)/\1\2/' ${src} > ${dest}
 echo "done"
 
 if [ -f $dest ]; then
-	echo "[INFO] cleaning successful ..."
-	echo "[INFO] renaming src file ..."
+	echo "[i] cleaning successful ..."
+	echo "[i] renaming src file ..."
 	mv -v $fname "_brisime_${fname}"
 else
-	echo -e "[ERROR] cleaning unsuccessful -- aborting\n"
+	echo -e "[E] cleaning unsuccessful -- aborting\n"
 	exit
 fi
 

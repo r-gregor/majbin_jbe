@@ -18,7 +18,7 @@ nifs
 
 for FFF in $(find . -type f -name "*.mp4" -o -name "*.mkv" -o -name "*.avi" -o -name "*.srt" | grep -v "EN"); do echo mv -v $FFF $(echo $FFF | sed 's/\(.*\)[[:digit:]]\{3,4\}p.*\(.\{3\}$\)/\1\2/'); done
 
-read -p "OK? Press any key to continue and <ctrl+c> to quit!"
+read -r -p "[?] OK? Press any key to continue and <ctrl+c> to quit!"
 for FFF in $(find . -type f -name "*.mp4" -o -name "*.mkv" -o -name "*.avi" -o -name "*.srt" | grep -v "EN"); do mv -v $FFF $(echo $FFF | sed 's/\(.*\)[[:digit:]]\{3,4\}p.*\(.\{3\}$\)/\1\2/'); done
 
 oifs

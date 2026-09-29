@@ -49,7 +49,7 @@ for FFF in $(find ${dest}/* -name "*\.sh" | grep -v 'src/'); do
 done
 
 if [ ${#fjls_lst[@]} -eq 0 ]; then
-	printf "[INFO] no file with datestamp: '%s' found\n"
+	printf "[i] no file with datestamp: '%s' found\n"
 	exit
 fi
 
@@ -61,11 +61,11 @@ selections+=$((for FJL in ${fjls_lst[@]}; do
 done; echo "---"; echo "Quit") | ${FZFCMD_EN})
 
 if [ "${#selections[@]}" -eq 0 ]; then
-	printf "[INFO] nothing selected\n\n"
+	printf "[i] nothing selected\n\n"
 	exit
 fi
 
-printf "[INFO] Selected:\n"
+printf "[i] Selected:\n"
 for selection in ${selections[@]}; do
 	if [ "${selection}" == "Quit" ]; then
 		exit

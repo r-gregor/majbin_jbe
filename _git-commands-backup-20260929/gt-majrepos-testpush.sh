@@ -27,7 +27,7 @@ CURRDIR="$PWD"
 cd "${DEST}" || exit 1
 
 echo "========================================"
-echo "[INFO] running gt-majrepos-testpush ..."
+echo "[i] running gt-majrepos-testpush ..."
 echo "========================================"
 for DDD in $(find * -maxdepth 0 -type d); do
 	printf "${COLOR_SET}"

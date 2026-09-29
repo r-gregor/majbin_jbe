@@ -12,7 +12,7 @@ else
 fi
 
 if [ ! -f "${fname}" ]; then
-	echo -e "[ERROR] No such file: ${fname}\n"
+	echo -e "[E] No such file: ${fname}\n"
 	exit
 fi
 
@@ -24,7 +24,7 @@ read -r ans
 if [ "${ans}" == "y" ] || [ "${ans}" == "Y" ]; then
 	cp -iv ./"${fname}" "${DEST}/${CATEGORY}/"
 else
-	echo -e "[INFO] No files moved\n"
+	echo -e "[i] No files moved\n"
 	exit
 fi
 

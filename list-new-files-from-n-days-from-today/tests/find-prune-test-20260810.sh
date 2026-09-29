@@ -11,7 +11,7 @@ else
 fi
 
 if [ ! -d "${PTH}" ]; then
-	printf "[ERROR] no such directory: '%s'\n\n" "${PTH}"
+	printf "[E] no such directory: '%s'\n\n" "${PTH}"
 	exit 1
 fi
 

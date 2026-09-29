@@ -7,7 +7,7 @@
 ARG="$@"
 
 if [ "x${ARG}" = "x" ]; then
-	printf "[ERROR] -- no filename as argument\n"
+	printf "[E] -- no filename as argument\n"
 	exit
 else
 	FJLM="$ARG"

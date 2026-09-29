@@ -66,25 +66,25 @@ while getopts "ejmahf:" arg; do
 done
 
 if [ "${farg}" != "true" ]; then
-	echo "[ERROR] no file selected"
+	echo "[E] no file selected"
 	usage
 	exit
 fi
 
 if [ ! -f ${fname} ]; then
-	echo "[ERROR] no such file"
+	echo "[E] no such file"
 	exit
 fi
 
 if [ "${NM}" == "" ]; then
-	echo "[ERROR] no destination"
+	echo "[E] no destination"
 	exit
 fi
 
 for dest in ${NM}; do
 	PATH="${DEST}/update_${dest}"
 	if [ ! -d "${PATH}" ]; then
-		echo "[ERROR] no such directory: ${PATH}"
+		echo "[E] no such directory: ${PATH}"
 		exit
 	fi
 

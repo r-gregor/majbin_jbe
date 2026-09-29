@@ -29,7 +29,7 @@ else
 fi
 
 if [ ! -d "${PTH}" ]; then
-	printf "[ERROR] no such directory: '%s'\n\n" "${PTH}"
+	printf "[E] no such directory: '%s'\n\n" "${PTH}"
 	exit 1
 fi
 
@@ -38,10 +38,10 @@ new_MN=${MN//0/}
 
 # test
 # echo "new_DY: ${new_DY}"
-# read -p "OK?"
+# read -r -p "[?] OK?"
 
 if [ $new_DY -le 0 ]; then
-	printf "[ERROR] The days difference is to big\n"
+	printf "[E] The days difference is to big\n"
 	exit 1
 fi
 
@@ -49,7 +49,7 @@ newdate=$(printf "%4d%02d%02d\n" "${YR}" "${new_MN}" "${new_DY}")
 
 # test
 # echo "newdate: ${newdate}"
-# read -p "OK?"
+# read -r -p "[?] OK?"
 
 # NOT working if inside function??
 find "${PTH}"/* \( \

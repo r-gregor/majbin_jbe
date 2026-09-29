@@ -58,14 +58,14 @@ while getopts "s:d:h" opt; do
 done
 
 if [ "${sarg}" != "true" ]; then
-	echo "[ERROR] no file selected"
+	echo "[E] no file selected"
 	usage
 	exit
 fi
 
 
 if [ "${darg}" != "true" ]; then
-	echo "[ERROR] no directory selected"
+	echo "[E] no directory selected"
 	usage
 	exit
 fi
@@ -73,14 +73,14 @@ IFS=$OIFS
 
 for DDD in "${dsts[@]}"; do
 	if [ ! -d "${DDD}" ]; then
-		printf "[ERROR] no such directory: ${DDD}\n\n"
+		printf "[E] no such directory: ${DDD}\n\n"
 		exit
 	fi
 done
 
 for SDD in "${srcs[@]}"; do
 	if [ ! -d "${SDD}" ]; then
-		printf "[ERROR] no such file: ${SDD}\n\n"
+		printf "[E] no such file: ${SDD}\n\n"
 		exit
 	fi
 done

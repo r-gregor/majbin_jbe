@@ -34,7 +34,7 @@ echo mv "\"${FFF}\"" $(echo "${FFF}" | sed \
 	-e "s/_\{2,\}/_/g"
 )
 
-read -p "Continue?"
+read -r -p "[?] Continue?"
 
 mv -v "${FFF}" $(echo "${FFF}" | sed \
 	-e "s/\s\+/_/g" \

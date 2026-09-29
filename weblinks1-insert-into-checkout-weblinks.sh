@@ -28,7 +28,7 @@ echo "gr_TXTB: ${gr_TXTB}"
 echo "gr_TXTCURDATE: ${gr_TXTCURDATE}"
 echo "gr_TXTN: ${gr_TXTN}"
 
-read -p "Proceed?"
+read -r -p "[?] Proceed?"
 
 
 # TEST if links IZ-ENERGETIKE exist:
@@ -48,7 +48,7 @@ echo "Backing up ${gr_SZN}/${gr_TXT} ..."
 cp -v ${gr_SZN}/${gr_TXT} ${gr_IZE}/${gr_TXTB}
 cp -v ${gr_SZN}/${gr_TXT} ${gr_TMP}/${gr_TXT}.in
 
-read -p "Proceed?"
+read -r -p "[?] Proceed?"
 
 # 2: insert links IZ-ENERGETIKE to TXT-source
 echo
@@ -60,14 +60,14 @@ for FFF in $(ls -1 ${gr_IZE}/*.txt); do
 		mv -v ${gr_IZE}/${gr_FJL} ${gr_IZE}/${gr_FJL}.brisi
 done
 
-read -p "Proceed?"
+read -r -p "[?] Proceed?"
 
 # 3: Insert newlines infront of labels
 echo
 echo "Inserting newlines infront of labels in ${gr_TMP}/${gr_TXT}.in ..."
 sed -i '/^$/d;/http/!s/.*/\n&/' ${gr_TMP}/${gr_TXT}.in
 
-read -p "Proceed?"
+read -r -p "[?] Proceed?"
 
 echo
 echo "Copying *.in to ${gr_TXTN}"

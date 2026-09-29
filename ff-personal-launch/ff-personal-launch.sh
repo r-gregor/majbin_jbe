@@ -69,17 +69,17 @@ ff_personallaunch() {
 	local selection=$((for KEY in "${KEYS[@]}"; do echo "$KEY"; done | sort; echo "${delline}" ; echo "Quit") | fzf --reverse)
 
 	if [ "${selection}" == "" ]; then
-		echo -e "[INFO] nothing selected\n"
+		echo -e "[i] nothing selected\n"
 		exit 0
 	fi
 
 	if [ "${selection}" == "Quit" ]; then
-		# echo -e "[INFO] leaving\n"
+		# echo -e "[i] leaving\n"
 		exit 0
 	fi
 
 	if [ "${selection}" != "${delline}" ]; then
-		echo "[INFO] selected: ${selection}"
+		echo "[i] selected: ${selection}"
 		# nohup ${FFCMD} "${URLS["${selection}"]}" >&/dev/null &
 		(nohup ${FFCMD} "${URLS["${selection}"]}" &) > /dev/null 2>&1
 	fi

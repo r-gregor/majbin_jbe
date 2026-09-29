@@ -3,22 +3,22 @@
 ARG="$@"
 
 if [ "x${ARG}" = "x" ]; then
-	echo -e "[ERROR] -- no filename as argument\n"
+	echo -e "[E] -- no filename as argument\n"
 	exit
 else
 	FNAME="$ARG"
 fi
 
 if [ ! -f ${FNAME} ]; then
-	echo -e "[ERROR] -- no such file\n"
+	echo -e "[E] -- no such file\n"
 	exit
 fi
 
 NEW_FNAME=$(echo ${FNAME} | sed 's/ \././' | tr '-' '_')
-echo "[INFO] -- renaming ${FNAME} into ${NEW_FNAME} ..."
-read -p "OK?"
+echo "[i] -- renaming ${FNAME} into ${NEW_FNAME} ..."
+read -r -p "[?] OK?"
 
 mv -v ${FNAME} ${NEW_FNAME}
 
-echo -e "[INFO] done\n"
+echo -e "[i] done\n"
 

@@ -11,7 +11,7 @@ else
 fi
 
 if [ ! -d "${PREFIX}" ]; then
-	printf "[ERROR] no such directory/dest: '%s'\n\n" "${PREFIX}"
+	printf "[E] no such directory/dest: '%s'\n\n" "${PREFIX}"
 	exit 1
 fi
 
@@ -27,4 +27,4 @@ touch "${DESTF}"
 cat ~/.vimrc | grep -B1 '^[a-z]*map' >> "${DESTF}"
 (printf -- "\" ---\n\n") >> "${DESTF}"
 
-printf "[INFO] ~/.vimrc mappings succesfully exported to ${DESTF}\n\n"
+printf "[i] ~/.vimrc mappings succesfully exported to ${DESTF}\n\n"

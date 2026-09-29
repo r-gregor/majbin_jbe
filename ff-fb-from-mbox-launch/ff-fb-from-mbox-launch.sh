@@ -38,7 +38,7 @@ fb_files_list_update() {
 }
 
 fb_files_load() {
-	echo "[INFO] loading messages ..." # CHANGE 20260223 !!!
+	echo "[i] loading messages ..." # CHANGE 20260223 !!!
 	while IFS= read -r LINE; do
 		local fb_url="${LINE%;*}"
 		local fb_fname="${LINE#*;}"
@@ -49,7 +49,7 @@ fb_files_load() {
 
 if [ $# -eq 1 ]; then
 	if [ "$1" == "-u" ] || [ "$1" == "--update" ]; then
-		echo "[INFO] updating ${fb_files_list} ..."
+		echo "[i] updating ${fb_files_list} ..."
 		fb_files_list_update
 	fi
 	fb_files_load
@@ -67,7 +67,7 @@ fb_launch() {
 	selection=$(for EL in "${!fb_files[@]}"; do echo "${EL}"; done | sort -nr | FZFCMD)
 
 	if [ "${selection}" == "" ]; then
-		echo -e "[INFO] nothing selected\n"
+		echo -e "[i] nothing selected\n"
 		exit 0
 	fi
 
@@ -75,7 +75,7 @@ fb_launch() {
 		exit 0
 	fi
 
-	echo "[INFO] selected: ${selection} | ${fb_files[${selection}]}"
+	echo "[i] selected: ${selection} | ${fb_files[${selection}]}"
 	(nohup "${FFCMD}" "${fb_files["${selection}"]}" &) >/dev/null 2>&1
 }
 

@@ -35,7 +35,7 @@ if [ $# -ne 1 ]; then
 else
 	fjl=$1
 	if [ ! -f "${fjl}" ]; then
-		printf "%s\n\n" "[ERROR] No such file: ${fjl}"
+		printf "%s\n\n" "[E] No such file: ${fjl}"
 		exit
 	fi
 fi
@@ -61,7 +61,7 @@ ff_onetablink_launch() {
 
 	#v4
 	if [ "x${selection}" == "x" ]; then
-		printf "[INFO] nothing selected\n"
+		printf "[i] nothing selected\n"
 		exit 0
 	fi
 
@@ -77,7 +77,7 @@ ff_onetablink_launch() {
 	# run
 	for URL in ${!llist[@]}; do
 		if [[ "${llist["${URL}"]}" =~ "${selection}" ]]; then
-			printf "[INFO] selected: ${selection}\n" #v4
+			printf "[i] selected: ${selection}\n" #v4
 			(nohup ${FFCMD} "${URL}" &) > /dev/null 2>&1
 			# exit #v4
 		fi

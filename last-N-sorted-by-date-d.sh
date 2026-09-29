@@ -17,7 +17,7 @@ readarray -t CATEGORIES < <(ls -1 "${KNWLGDB}")
 
 ### # TEST
 ### for CAT in "${CATEGORIES[@]}"; do printf "category: ${CAT}\n"; done
-### read -p "OK?"
+### read -r -p "[?] OK?"
 
 usage() {
 MSG=$(cat << HDOC

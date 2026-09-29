@@ -15,7 +15,7 @@ gh_rmt_addr="git@github.com:r-gregor"
 gl_rmt_addr="git@gitlab.com:r-gregor"
 
 if [ $# -ne 1 ]; then
-	echo -e [ERROR] "must supply repo name as argument\n"
+	echo -e [E] "must supply repo name as argument\n"
 	exit
 else
 	repo="$1"
@@ -24,7 +24,7 @@ fi
 repo_name="${repo}_${HST}"
 
 # single repo clone and setup
-echo "[INFO] cloning/setting up repository: ${repo_name}"
+echo "[i] cloning/setting up repository: ${repo_name}"
 git clone "${gh_clone_addr}/${repo_name}.git"
 cd "${repo}_${HST}"
 
@@ -36,5 +36,5 @@ git remote -v
 
 git pull gh_${repo_name} main --set-upstream
 cd ../
-echo -e "[INFO] done\n"
+echo -e "[i] done\n"
 

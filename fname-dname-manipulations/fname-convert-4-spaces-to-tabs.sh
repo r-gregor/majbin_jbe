@@ -7,7 +7,7 @@
 ARG="$@"
 
 if [ "x${ARG}" = "x" ]; then
-	printf "[ERROR] -- no string as argument\n"
+	printf "[E] -- no string as argument\n"
 	exit
 else
 	FNAME="$ARG"

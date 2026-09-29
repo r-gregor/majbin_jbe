@@ -1,10 +1,10 @@
 #! /usr/bin/env bash
 
 if [ "$(pgrep picom)" != "" ]; then
-	printf "[INFO] not running -- shuting down ...\n"
+	printf "[i] not running -- shuting down ...\n"
 	sudo killall picom
 else
-	printf "[INFO] picom not running \n"
+	printf "[i] picom not running \n"
 	printf "\n"
 	exit
 fi

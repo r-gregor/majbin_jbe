@@ -9,7 +9,7 @@
 rmts=( $(git remote) )
 
 for rmt in "${rmts[@]}"; do
-	echo "[INFO] git PUSH in: $(git remote get-url ${rmt}) ..."
+	echo "[i] git PUSH in: $(git remote get-url ${rmt}) ..."
 	git push ${rmt} main
 	echo "---"
 done

@@ -45,11 +45,11 @@ for FFF in $(find ${dest}/* -name "*\.sh" | grep -v 'src/'); do
 done
 
 if [ ${#selections[@]} -eq 0 ]; then
-	printf "[INFO] no file with datestamp: '%s' found\n"
+	printf "[i] no file with datestamp: '%s' found\n"
 	exit
 fi
 
-printf "[INFO] files found:\n"
+printf "[i] files found:\n"
 for FJL in ${selections[@]}; do
 	while IFS=';' read fname dtstmp; do
 		printf "${dtstmp} -- ${fname}\n"
