@@ -18,7 +18,7 @@ printf "[i] diffs: dotfiles_en ...\n"
 unset DTFOUNDDIFFS
 declare -a DTFOUNDDIFFS
 
-readarray -t DTFOUNDDIFFS < <(for FFF in $(ls -1A); do diff -qr "${FFF}" "${HOME}/${FFF}" 2>&1 | grep -iv 'only' | grep -v '.git'; done)
+readarray -t DTFOUNDDIFFS < <(for FFF in $(ls -1A); do diff -qr "${FFF}" "${HOME}/${FFF}" 2>&1 | grep -iv 'only\|\.local/bin' | grep -v '.git'; done)
 dtfound_num="${#DTFOUNDDIFFS[@]}"
 
 if [ "${dtfound_num}" -ne 0 ]; then
