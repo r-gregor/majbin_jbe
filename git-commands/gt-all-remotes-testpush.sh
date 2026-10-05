@@ -7,6 +7,7 @@
 # ---
 
 rmts=( $(git remote) )
+# rmts=( $(git remote | grep -vi '^c') )
 
 COLOR_RED="\e[1;92m"
 COLOR_RESET="\e[0m"

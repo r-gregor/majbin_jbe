@@ -4,43 +4,49 @@
 # 20260924
 # 20260924: unified scripts for linux
 #           HST and system info from exported global variable
-# last: 20260924
+# 20261005: no tmp file --> array ...
+# last: 20261005
 # ---
 
-CURRDIR=$PWD
-MJSTFMDB=${HOME}/majstaf
-MJSTFMDB_G=${MJSTFMDB}/${HST}git
-TMPF="${HOME}/.tmp/getd_tmp"
+CURRDIR="${PWD}"
+MAJSTAF="${HOME}/majstaf"
+MAJSTAF_G="${MAJSTAF}/${HST}git"
 
-
-cd ${MJSTFMDB_G}/dotfiles_${HST}
+cd "${MAJSTAF_G}/dotfiles_${HST}"
 printf "[i] diffs: dotfiles_en ...\n"
-touch $TMPF
-for FFF in $(ls -1A); do diff -qr $FFF ${HOME}/${FFF} 2>/dev/null | grep -iv 'only' | grep -v '.git' >> $TMPF; done
-output=$(cat $TMPF | head -c1 | wc -c)
-if [ $output -ne 0 ]; then
-	while read -r LINE; do
-		printf "\t$LINE\n"
-	done < $TMPF
+
+unset DTFOUNDDIFFS
+declare -a DTFOUNDDIFFS
+
+readarray -t DTFOUNDDIFFS < <(for FFF in $(ls -1A); do diff -qr "${FFF}" "${HOME}/${FFF}" 2>&1 | grep -iv 'only' | grep -v '.git'; done)
+dtfound_num="${#DTFOUNDDIFFS[@]}"
+
+if [ "${dtfound_num}" -ne 0 ]; then
+	for DTFDIFF in "${DTFOUNDDIFFS[@]}"; do
+		printf "\t${DTFDIFF}\n"
+	done
 	printf "\n"
 fi
-rm $TMPF 2>/dev/null
 
+# === OTHER LOCATIONS ===
 for check_dir in majbin majrcs metsys; do
-	cd ${MJSTFMDB_G}/${check_dir}_${HST}
+	cd "${MAJSTAF_G}/${check_dir}_${HST}"
 	printf "[i] diffs: ${check_dir} ...\n"
-	touch $TMPF
-	for FFF in $(ls -1); do diff -qr $FFF ${MJSTFMDB}/${check_dir}/${FFF} | grep -iv 'only' >> $TMPF; done
-	output2=$(cat $TMPF | head -c1 | wc -c)
-	if [ $output2 -ne 0 ]; then
-		while read -r LINE; do
-			printf "\t$LINE\n"
-		done < $TMPF
+
+	unset FOUNDDIFFS
+	declare -a FOUNDDIFFS
+
+	readarray -t FOUNDDIFFS < <(for FFF in $(ls -1); do diff -qr "${FFF}" "${MAJSTAF}/${check_dir}/${FFF}" 2>&1 | grep -iv 'only'; done)
+	found_num="${#FOUNDDIFFS[@]}"
+
+	if [ "${found_num}" -ne 0 ]; then
+		for FDIFF in "${FOUNDDIFFS[@]}"; do
+			printf "\t${FDIFF}\n"
+		done
 		printf "\n"
 	fi
-	rm $TMPF 2>/dev/null
-	cd $HOME
+	cd "${HOME}"
 done
 
-cd ${CURRDIR}
+cd "${CURRDIR}"
 

@@ -31,7 +31,7 @@ printf "[i] running gt-majrepos-testpush ...\n"
 printf "========================================\n"
 for DDD in $(find * -maxdepth 0 -type d); do
 	printf "${COLOR_SET}"
-	printf "***    git testpush in ${DDD} ... ***\n"
+	printf "*** git testpush in ${DDD} ... ***\n"
 	printf "${COLOR_RESET}"
 	cd "$DDD" &>/dev/null
 	# readarray -t output < <(~/.local/bin/ghgl-testpush)

@@ -77,7 +77,7 @@ for FJL in "${fjls[@]}"; do
 done
 printf "\n"
 
-read -r -p "[?] [y/Y] to procede [Any other key to quit] " choice
+read -r -p "[?] to procede (y/Y), or any other key to quit " choice
 
 if [ "$choice" = "y" ] || [ "$choice" = "Y" ]; then
 	for FJL in "${fjls[@]}"; do
@@ -88,6 +88,6 @@ if [ "$choice" = "y" ] || [ "$choice" = "Y" ]; then
 else
 	printf "[i] quit\n"
 	printf -- "---\n"
-	exit
+	exit 1
 fi
 

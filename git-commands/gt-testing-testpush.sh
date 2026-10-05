@@ -30,7 +30,7 @@ printf "[i] running gt-testing-testpush ...\n"
 printf "============================================\n"
 for DDD in $(ls -d *); do
 	printf "${COLOR_SET}"
-	printf "***    git testpush in ${DDD} ... ***\n"
+	printf "*** git testpush in ${DDD} ... ***\n"
 	printf "${COLOR_RESET}"
 	cd "$DDD" &>/dev/null
 	readarray -t output < <(~/.local/bin/gt-all-remotes-testpush)
