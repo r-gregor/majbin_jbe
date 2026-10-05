@@ -8,16 +8,28 @@
 # === GLOBALS ===
 unset found_bash_commands_without_descpt
 declare -a found_bash_commands_without_descpt
-PTH="${HOME}/majstaf/majbin/"
+
+if [ $# -eq 1 ]; then
+	SRCDIR="$(realpath "$1")"
+	printf "[i] srcdir: '%s'\n" "${SRCDIR}"
+	printf -- "---\n"
+	if [ ! -d "${SRCDIR}" ]; then
+		printf "[E] no such directory: '%s'\n" "${SRCDIR}"
+		exit 1
+	fi
+else
+	SRCDIR="${HOME}/majstaf/majbin"
+fi
+
 
 # === MAIN ===
 
 # check for 'descpt: ' in top 5 lines of basj script
-for FFF in $(find "${PTH}"/* -maxdepth 1 -type f -name "*\.sh"); do
+for FFF in $(find "${SRCDIR}"/* -maxdepth 1 -type f -name "*\.sh"); do
 	count=5
 	while read -r LINE; do
 		if [ $count -lt 1 ]; then
-			INSERT="${FFF//${PTH}/}"
+			INSERT="${FFF//${SRCDIR}/}"
 			found_bash_commands_without_descpt+=( "${INSERT/\//}" )
 			break
 		fi
