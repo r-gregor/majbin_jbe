@@ -1,0 +1,11 @@
+# 20251117 v1
+# 20251117 v2: :associative array --> no case statement needed
+# 20251117 v3: ALL --> cat all txt files into process subst ...
+#              no 'all.txt' needed
+# 20251118 v4: single "sites.txt" with "[section name]" headers parsing
+# 20251118 v5: get 'categories' from 'sites.txt' file directly
+# 20260305 v6: put main into infinite while loop
+#              output selected to stdot
+# 20260917 v7: move FZFCMD command into FZFCMD() function
+# 20261006 v8: add sellection counter 'num_selected'
+

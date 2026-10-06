@@ -1,0 +1,7 @@
+# 20260216 v1
+# 20260223 v2
+# 20260306 v3: add 'sort -nr' in 'selection=...' to sort by datestamp
+#              rename directory and filename from get-fb-mails-en to: ff-fb-mails-launch-en
+# 20260917 v3: move FZFCMD command into FZFCMD() function
+# 20261006 v4: add sellection counter 'num_selected'
+
