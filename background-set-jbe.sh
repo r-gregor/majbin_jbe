@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
-# fname: background-set.sh
+# fname: background-set-jbe.sh
+# descpt: set specific wallapper (jbe)
 # 20260924 v1
 # ---
 
