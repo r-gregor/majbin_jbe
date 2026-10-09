@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
-# fname: lvedit-scripts-by-last-timestamp_jbe.sh
+# fname: lvview-scripts-by-last-timestamp.sh
+# descpt: view scripts in vim from fzf list
 # v1_20260520
 # v2_20260520 add fzf single selection
 # v3_20260220 fzf to multiple selections to open in vim
@@ -8,6 +9,7 @@
 # last: 20260521
 # ---
 
+# === GLOBALS ===
 unset fjls_lst
 unset selections
 
@@ -17,8 +19,15 @@ declare -a selections
 currdtstmp=$(date +"%Y%m%d")
 
 dest_jbe="/home/rgregor/majstaf/majbin"
-FZFCMD='fzf -e -m --reverse --border rounded'
-VIM_CMD="/usr/bin/vim"
+
+VIM_CMD='/usr/bin/vim -M'
+
+# === FUNCTIONS ===
+FZFCMD() {
+	# fzf -e -m --reverse --border rounded
+	fzf -e -m --reverse
+}
+
 
 usage() {
 cat << "EOF"
@@ -31,6 +40,7 @@ EOF
 
 
 load_files_into_list() {
+	input="${1}"
 	for FFF in $(find ${dest_jbe}/* -name "*\.sh" | grep -v 'src/'); do
 		dtstmp=$(grep last "$FFF" | grep -Eo "[0-9]{8}")
 		if [ $? -eq 0 ]; then
@@ -45,7 +55,7 @@ load_files_into_list() {
 	done
 
 	if [ ${#fjls_lst[@]} -eq 0 ]; then
-		printf "[i] no file with datestamp: '%s' found\n\n" "${dtstmp}"
+		printf "[i] no file with datestamp: '%s' found\n\n" "${input}"
 		exit 1
 	fi
 
@@ -53,8 +63,8 @@ load_files_into_list() {
 	fjls_lst+=("Quit;${currdtstmp}")
 }
 
-# v3
-main() {
+# === MAIN ===
+lvview() {
 	if [ $# -ne 1 ]; then
 		usage
 		exit 1
@@ -63,14 +73,14 @@ main() {
 		exit 1
 	else
 		djt="$1"
-		load_files_into_list
+		load_files_into_list "${djt}"
 	fi
 
 	selections+=$((for FJL in ${fjls_lst[@]}; do
 		while IFS=';' read fname dtstmp; do
 			echo "${fname}"
 		done < <(echo ${FJL})
-	done) | ${FZFCMD})
+	done) | FZFCMD)
 
 	if [ "${#selections[@]}" -eq 0 ]; then
 		printf "[i] nothing selected\n\n"
@@ -89,16 +99,15 @@ main() {
 	for selection2 in ${selections[@]}; do
 		printf "${selection2}\n"
 	done
-	printf "\n"
+	# printf "\n"
 
 	# open in vim
 	for selection2 in ${selections[@]}; do
 		printf "${selection2} "
-	done | xargs -ro ${VIM_CMD}
+	done | xargs -ro $VIM_CMD
 	printf "\n"
 }
 
 
 #MAIN
-main "$@"
-
+lvview "$@"

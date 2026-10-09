@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
-# fname: lvview-scripts-by-last-timestamp_jbe.sh
+# fname: lvedit-scripts-by-last-timestamp.sh
+# descpt: edit scripts in vim from fzf list
 # v1_20260520
 # v2_20260520 add fzf single selection
 # v3_20260220 fzf to multiple selections to open in vim
@@ -8,6 +9,7 @@
 # last: 20260521
 # ---
 
+# === GLOBALS ===
 unset fjls_lst
 unset selections
 
@@ -15,26 +17,32 @@ declare -a fjls_lst
 declare -a selections
 
 currdtstmp=$(date +"%Y%m%d")
-
 dest_jbe="/home/rgregor/majstaf/majbin"
-FZFCMD='fzf -e -m --reverse --border rounded'
-VIM_CMD="/usr/bin/vim -M"
+
+VIM_CMD='/usr/bin/vim'
+
+# === FUNCTIONS ===
+FZFCMD() {
+	# fzf -e -m --reverse --border rounded
+	fzf -e -m --reverse
+}
+
 
 usage() {
 cat << "EOF"
-	Usage: list-scripts-by-last-timestamp <datestamp>
+	[U] usage: list-scripts-by-last-timestamp <datestamp>
 		<datestamp> format: YYYYmmdd ("20260520")
                             at least YYYYmm
 
 EOF
 }
 
-
 load_files_into_list() {
-	for FFF in $(find ${dest_jbe}/* -name "*\.sh" | grep -v 'src/'); do
-		dtstmp=$(grep last "$FFF" | grep -Eo "[0-9]{8}")
+	input="${1}"
+	for FFF in $(find "${dest_jbe}"/* -name "*\.sh" | grep -v 'src/\/arch/'); do
+		dtstmp=$(grep last "${FFF}" | grep -Eo "[0-9]{8}")
 		if [ $? -eq 0 ]; then
-			if [[ ${dtstmp} =~ ${djt} ]]; then
+			if [[ "${dtstmp}" =~ ${djt} ]]; then
 				fjls_lst+=("${FFF};${dtstmp}")
 			else
 				continue
@@ -44,8 +52,8 @@ load_files_into_list() {
 		fi
 	done
 
-	if [ ${#fjls_lst[@]} -eq 0 ]; then
-		printf "[i] no file with datestamp: '%s' found\n\n" "${dtstmp}"
+	if [ "${#fjls_lst[@]}" -eq 0 ]; then
+		printf "[i] no file with datestamp: '%s' found\n\n" "${input}"
 		exit 1
 	fi
 
@@ -53,12 +61,12 @@ load_files_into_list() {
 	fjls_lst+=("Quit;${currdtstmp}")
 }
 
-# v3
-main() {
+# === MAIN ===
+lvedit() {
 	if [ $# -ne 1 ]; then
 		usage
 		exit 1
-	elif [ ${#1} -gt 8 ] || [ ${#1} -lt 6 ]; then
+	elif [ "${#1}" -gt 8 ] || [ "${#1}" -lt 6 ]; then
 		usage
 		exit 1
 	else
@@ -66,18 +74,18 @@ main() {
 		load_files_into_list
 	fi
 
-	selections+=$((for FJL in ${fjls_lst[@]}; do
+	selections+=$((for FJL in "${fjls_lst[@]}"; do
 		while IFS=';' read fname dtstmp; do
 			echo "${fname}"
-		done < <(echo ${FJL})
-	done) | ${FZFCMD})
+		done < <(echo "${FJL}")
+	done) | FZFCMD)
 
 	if [ "${#selections[@]}" -eq 0 ]; then
 		printf "[i] nothing selected\n\n"
 		exit 1
 	fi
 
-	for selection1 in ${selections[@]}; do
+	for selection1 in "${selections[@]}"; do
 		if [[ "${selection1}" == "Quit" ]]; then
 			printf "[i] nothing selected\n\n"
 			exit 1
@@ -85,20 +93,18 @@ main() {
 	done
 
 	# info
-	printf "[i] Selected:\n"
-	for selection2 in ${selections[@]}; do
+	printf "[i] selected:\n"
+	for selection2 in "${selections[@]}"; do
 		printf "${selection2}\n"
 	done
-	printf "\n"
+	# printf "\n"
 
 	# open in vim
-	for selection2 in ${selections[@]}; do
+	for selection2 in "${selections[@]}"; do
 		printf "${selection2} "
-	done | xargs -ro ${VIM_CMD}
+	done | xargs -ro $VIM_CMD
 	printf "\n"
 }
 
-
 #MAIN
-main "$@"
-
+lvedit "$@"
