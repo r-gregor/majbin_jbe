@@ -1,0 +1,73 @@
+﻿[PROGRAMMING STUFF COLLECTION]
+https://www.youtube.com/@nicbarkeragain                  -- Nic Barker (ytbc)
+https://www.youtube.com/@nirlichtman                     -- Nir Lichtman (ytbc)
+https://www.youtube.com/@JacobSorber                     -- Jacob Sorber (ytbc)
+https://www.youtube.com/@TsodingDaily                    -- Tsoding Daily (ytbc)
+https://www.youtube.com/@eom-dev                         -- Eric O Meehan (ytbc)
+https://www.youtube.com/@dr-Jonas-Birch                  -- dr Jonas Birch (ytbc)
+https://www.youtube.com/@CodeVault                       -- CodeVault (ytbc)
+https://www.youtube.com/@MikeShah                        -- Mike Shah (ytbc)
+https://www.youtube.com/@PortfolioCourses                -- Portfolio Courses (ytbc)
+https://www.youtube.com/@profbbrown                      -- Barry Brown (ytbc)
+https://www.youtube.com/@KrisJordan                      -- Kris Jordan (ytbc)
+https://www.youtube.com/@CasualCoder                     -- CasualCoder (ytbc)
+https://www.youtube.com/@programizstudios                -- Programiz (ytbc)
+https://www.youtube.com/@LowLevelTV                      -- Low Level (ytbc)
+https://www.youtube.com/@CoreDumpped                     -- Core Dumped (ytbc)
+https://www.youtube.com/@joshrosso                       -- octetz (ytbc)
+https://www.youtube.com/@MikeShah                        -- Mike Shah (ytbc)
+https://www.youtube.com/@mycodeschool                    -- mycodeschool (ytbc)
+https://www.youtube.com/@BroCodez                        -- Bro Code (ytbc)
+https://www.youtube.com/@TechWorldwithNana               -- TechWorld with Nana (ytbc)
+https://www.youtube.com/@codetpointofficial              -- Codetpoint (ytbc)
+https://www.youtube.com/@billskycomputerguy              -- Bill Sky - The Computer Guy! (ytbc)
+https://www.youtube.com/@TrevorSullivan                  -- Trevor Sullivan (ytbc)
+https://www.youtube.com/@lauriewired                     -- LaurieWired (ytbc)
+https://www.youtube.com/@codebreakthrough                -- Caleb Curry (ytbc)
+https://www.youtube.com/@Socratica                       -- Socratica (ytbc)
+https://www.youtube.com/@EngineerMan                     -- Engineer Man (ytbc)
+https://www.youtube.com/@Codemycom                       -- Codemy.com (ytbc)
+https://www.youtube.com/@programmingwithmosh             -- Programming with Mosh (ytbc)
+https://www.youtube.com/@javidx9                         -- javidx9 (OneLoneCoder) (ytbc)
+https://www.youtube.com/@programizstudios                -- Programiz (ytbc)
+https://www.youtube.com/@anthonywritescode               -- anthonywritescode (ytbc)
+https://www.youtube.com/@CodingWithJohn                  -- Coding with John (ytbc)
+https://www.youtube.com/@javacodegeeks245                -- Java Code Geeks (ytbc)
+https://www.youtube.com/@amigoscode                      -- Amigoscode (ytbc)
+https://www.youtube.com/@ArjanCodes                      -- ArjanCodes (ytbc)
+https://www.youtube.com/@realpython                      -- Real Python (ytbc)
+https://www.youtube.com/@mCoding                         -- mCoding (ytbc)
+https://www.youtube.com/@coreyms                         -- Corey Schafer (ytbc)
+https://www.youtube.com/@patloeber                       -- Pat Loeber (ytbc)
+https://www.youtube.com/@NeuralNine                      -- NeuralNine (ytbc)
+https://www.youtube.com/@linuxdabbler                    -- linux dabbler -- dabbler
+https://www.youtube.com/@JakeLinux                       -- Jake@Linux (ytbc)
+https://www.youtube.com/@LukeSmithxyz                    -- Luke Smith (ytbc)
+https://www.youtube.com/@OldTechBloke                    -- OldTechBloke (ytbc)
+https://www.youtube.com/@TitusTechTalk                   -- Titus Tech Talk (ytbc)
+https://www.youtube.com/@eflinux                         -- EF - Linux Made Simple (ytbc)
+https://www.youtube.com/@x80nix                          -- x80nix (ytbc)
+https://www.youtube.com/@NapoleonWils0n                  -- NapoleonWils0n (ytbc)
+https://www.youtube.com/@SebastianDaschnerIT             -- Sebastian Daschner (ytbc)
+https://www.youtube.com/@TheCodingTrain                  -- The Coding Train (ytbc)
+---
+https://www.youtube.com/watch?v=5dxMmHN8awg&amp;list=PLZGM26Bt_cku5_-UkQCKEsAjbsX2DK9JR  -- Rust - The BEST Programming Language to Learn in 2022? - YouTube</li>
+https://www.youtube.com/playlist?list=PLDbRgZ0OOEpUkWDGqp91ODn0dk7LPBAUL                 -- Rust Programming Tutorial - YouTube
+https://www.youtube.com/playlist?list=PLvv0ScY6vfd9Fso-3cB4CGnSlW0E4btJV                 -- D Language (DLang) Programming - YouTube
+https://www.youtube.com/playlist?list=PLAHg9b-jVA_4c8tCJfS48gBl45QOtfnPR                 -- NCURSES with C - YouTube
+https://www.youtube.com/playlist?list=PL3Y9MECuxct01Qol3kWK0fB5AXh3NFThZ                 -- Vim Tips - YouTube
+https://www.youtube.com/playlist?list=PL46-cKSxMYYDgMdQZ2FRU38gaFxIBBfoa                 -- Vim Tips and Tricks - YouTube
+https://www.youtube.com/playlist?list=PL0tgH22U2S3GN7MdobsdWV44qw-P5g7RJ                 -- Vim Tips - YouTube
+https://www.youtube.com/playlist?list=PLLSiimA0Z6S7efW-4qvBXZYi81BocjI-C                 -- Beginning C - YouTube
+https://www.youtube.com/playlist?list=PLpM-Dvs8t0VY73ytTCQqgvgCWttV3m8LM                 -- Virtual Machine in C - YouTube
+https://www.youtube.com/playlist?list=PL6gx4Cwl9DGAKIXv8Yr6nhGJ9Vlcjyymq                 -- C Programming Tutorials - YouTube
+https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHMuYlyxQl4v                 -- ncurses tutorials - YouTube
+https://www.youtube.com/watch?v=LmQKZmQh1ZQ&amp;list=PLpM-Dvs8t0Va-Gb0Dp4d9t8yvNFHaKH6N  -- New Graphics Library in C (Olive.c Ep.01) - YouTube
+https://www.youtube.com/playlist?list=PLvv0ScY6vfd8M-Mi_Vyrg7KgISTW3Sklt                 -- C Programming Series - YouTube
+https://www.youtube.com/playlist?list=PL98qAXLA6aftD9ZlnjpLhdQAOFI8xIB6e                 -- C Programming for Beginners - YouTube
+https://www.youtube.com/playlist?list=PLlcnQQJK8SUg4C8syQ63d6o44dzt_vFls                 -- C Videos - YouTube
+https://www.youtube.com/playlist?list=PLdo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S                 -- Programming in C - YouTube
+https://www.youtube.com/playlist?list=PLLAZ4kZ9dFpMlt_8ZAs3ltQNeVQ9WITia                 -- C - Programming Language | Tutorial - YouTube
+https://www.youtube.com/playlist?list=PLqbS7AVVErFiWDOAVrPt7aYmnuuOLYvOa                 -- Crust of Rust - YouTube
+---
+

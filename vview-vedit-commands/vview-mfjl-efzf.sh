@@ -1,16 +1,25 @@
 #! /usr/bin/env bash
-# fname: vview-mfjl-efzf
-# 20260319  en v1
-# last: 20260319
+# fname: vview-mfjl-efzf.sh
+# descpt: vim-viev multiple files from fzf-sellection -- exact match
+# 20261006 v1
+# last: 20261006
 # ---
 
-vcmd='vim -Mp'
-fcmd='fzf -m --reverse -e'
-readarray -t selections < <(cd $HOME && ${fcmd})
+# === FUNCTIONS ===
+FZFCMD() {
+	fzf -e -m --reverse
+}
+
+vcmd() {
+	vim -Mp
+}
+
+# === MAIN ===
+readarray -t selections < <(cd "${HOME}" && FZFCMD)
 
 if [ "${#selections[@]}" -eq 0 ]; then
 	printf "[i] nothing selected\n\n"
-	exit
+	exit 0
 fi
 
 printf "[i] selected:\n"
@@ -20,5 +29,7 @@ done
 
 for selection in "${selections[@]}"; do
 	printf "${HOME}/${selection} "
-done | xargs -ro ${vcmd}
+done | xargs -ro vcmd
+
+printf "\n"
 

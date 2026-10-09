@@ -1,16 +1,25 @@
 #! /usr/bin/env bash
-# fname: vedit-sfjl-efzf
-# 20260319  en v1
-# last: 20260319
+# fname: vedit-sfjl-efzf.sh
+# descpt: vim-edit single file from fzf-sellection -- exact match
+# 20261006 v1
+# last: 20261006
 # ---
 
-vcmd='vim'
-fcmd='fzf --reverse -e'
-readarray -t selections < <(cd $HOME && ${fcmd})
+# === FUNCTIONS ===
+FZFCMD() {
+	fzf -e --reverse
+}
+
+vcmd() {
+	vim
+}
+
+# === MAIN ===
+readarray -t selections < <(cd "${HOME}" && FZFCMD)
 
 if [ "${#selections[@]}" -eq 0 ]; then
 	printf "[i] nothing selected\n\n"
-	exit
+	exit 0
 fi
 
 printf "[i] selected:\n"
@@ -20,5 +29,5 @@ done
 
 for selection in "${selections[@]}"; do
 	printf "${HOME}/${selection} "
-done | xargs -ro ${vcmd}
+done | xargs -ro vcmd
 
