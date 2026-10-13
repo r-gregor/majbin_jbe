@@ -6,6 +6,7 @@
 # ---
 
 # === GLOBALS ===
+vcmd='vim -p'
 unset fljs
 unset selection
 unset finallist
@@ -43,7 +44,7 @@ fi
 
 for fjl in "${finallist[@]}"; do
 	echo -n "${fjl} "
-done | xargs -ro vim -p
+done | xargs -ro ${vcmd}
 
 printf "\n"
 

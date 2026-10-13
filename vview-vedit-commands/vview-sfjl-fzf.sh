@@ -5,13 +5,12 @@
 # last: 20261006
 # ---
 
+# === GLOBALS ===
+vcmd='vim -M'
+
 # === FUNCTIONS ===
 FZFCMD() {
 	fzf --reverse
-}
-
-vcmd() {
-	vim -M
 }
 
 # === MAIN ===
@@ -29,7 +28,7 @@ done
 
 for selection in "${selections[@]}"; do
 	printf "${HOME}/${selection} "
-done | xargs -ro vcmd
+done | xargs -ro ${vcmd}
 
 printf "\n"
 

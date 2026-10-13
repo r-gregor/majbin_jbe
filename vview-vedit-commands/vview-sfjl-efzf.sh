@@ -7,15 +7,10 @@
 
 # === GLOBALS ===
 vcmd='vim -M'
-fcmd='fzf --reverse -e'
 
 # === FUNCTIONS ===
 FZFCMD() {
 	fzf -e --reverse
-}
-
-vcmd() {
-	vim -M
 }
 
 # === MAIN ===
@@ -33,7 +28,7 @@ done
 
 for selection in "${selections[@]}"; do
 	printf "${HOME}/${selection} "
-done | xargs -ro vcmd
+done | xargs -ro ${vcmd}
 
 printf "\n"
 
