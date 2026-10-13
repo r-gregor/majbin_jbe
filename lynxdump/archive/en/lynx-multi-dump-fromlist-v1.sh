@@ -1,11 +1,20 @@
 #! /usr/bin/env bash
-# fname: w3m-multi-dump-fromlist-jbe.sh
-# 20260106 v1
-# 20260731 v2 implement fname_string_adjustment() function
+# filename: lynx-multi-dump-fromlist-en.sh
+# descpt: convert multiple http-tech-sites from url-list in external file into txt-file using lynx
+# v1_20250925 remove option to use dumplist
+# v2 20260731 implement fname_string_adjustment() function
 #             add prefix option
-# 20260804 v3 move 'w3m dump' command into dump_command() function
-# last: 20260804
+# 20260804 v3 move 'lynx dump' command into dump_command() function
+# 20260930
+# last: 20260930
 # ---
+
+# EN-proxy ...
+# prx_ip=172.17.3.64
+prx_ip=10.91.8.21
+export http_proxy=http://${prx_ip}:80/
+export ftp_proxy=ftp://${prx_ip}:8021/
+export https_proxy=http://${prx_ip}:80/
 
 fname_string_adjustment() {
 	today=$(date +"%Y%m%d")
@@ -22,7 +31,7 @@ fname_string_adjustment() {
 		tr '[[:upper:]]' '[[:lower:]]'
 	)
 
-	printf "${fname_str_updated}-${today}.txt"
+	printf "${fname_str_updated}-multif-${today}.txt"
 }
 
 usage() {
@@ -30,11 +39,10 @@ usage() {
 }
 
 dump_command() {
-	w3m -dump -cols 110 "$@"
+	lynx -dump -width=110 "$@"
 }
 
 #MAIN
-clear
 
 if [ $# -lt 2 ]; then
 	usage
@@ -68,18 +76,18 @@ fdest="${PWD}"
 printf "[i] Destination: ${fdest}/${ffname}\n"
 
 # If OK pres any key, else ctrl-c ...
-read -r -p "[?] [i] Continue ?"
-cd $fdest
-touch ${ffname}
+read -r -p "[?] Continue ?"
+cd "${fdest}"
+touch "${ffname}"
 
 printf "filename: ${ffname}\n" >> ${ffname}
 
-for FFF in $(cat ${seznam}); do
+for FFF in $(cat "${seznam}"); do
 	printf "[i] inserting $FFF into ${ffname}\n"
-	printf "$FFF\n" >> ${ffname}
-	# lynx -dump -width=110 $FFF >> ${ffname}
-	dump_command $FFF >> ${ffname}
-	printf "\n\n\n---\n" >> ${ffname}
+	printf "$FFF\n" >> "${ffname}"
+	# lynx -dump -width=110 $FFF >> "${ffname}"
+	dump_command $FFF >> "${ffname}"
+	printf -- "\n\n\n---\n" >> "${ffname}"
 done
 
 printf "[i] done\n"

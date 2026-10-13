@@ -5,7 +5,8 @@
 # 20260928 v2: Check ALL *.sh files nad add them to found_bash_commands only if they
 #              contain 'descpt: ' line
 #              universal: ${HOME}/majstaf/majbin ...
-# last: 20260928
+# 20261013 v3: show fname only without containing directory
+# last: 20261013
 # ---
 
 # === GLOBALS ===
@@ -33,7 +34,7 @@ fi
 
 
 for CMD in "${found_bash_commands[@]}"; do
-	printf "%-60s %s\n" "${CMD}" "$(grep '^# descpt: ' "${PTH}/${CMD}" | sed 's/# descpt: //')"
+	printf "%-60s %s\n" "${CMD##*/}" "$(grep '^# descpt: ' "${PTH}/${CMD}" | sed 's/# descpt: //')"
 done
 
 printf "\n"

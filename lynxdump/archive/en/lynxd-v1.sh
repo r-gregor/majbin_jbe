@@ -1,11 +1,20 @@
 #! /usr/bin/env bash
-# fname: w3md-jbe.sh
-# 20260106 v1
+# fname: lynxd-en.sh
+# descpt: convert http-tech-site into txt-file using lynx
+# 20250925 v1 remove option to use dumplist
 # 20260731 v2 implement fname_string_adjustment() function
 #             add prefix option
-# 20260804 v3 move 'w3m dump' command into dump_command() function
-# last: 20260804
+# 20260804 v3 move 'lynx dump' command into dump_command() function
+# 20260930
+# last: 20260930
 # ---
+
+###  EN-proxy ...
+# prx_ip=172.17.3.64
+prx_ip=10.91.8.21
+export http_proxy=http://${prx_ip}:80/
+export ftp_proxy=ftp://${prx_ip}:8021/
+export https_proxy=http://${prx_ip}:80/
 
 fname_string_adjustment() {
 	today=$(date +"%Y%m%d")
@@ -31,7 +40,7 @@ usage() {
 }
 
 dump_command() {
-	w3m -dump -cols 110 "$@"
+	lynx -dump -width=110 "$@"
 }
 
 # MAIN
@@ -58,14 +67,16 @@ fi
 printf "[i] %-10s%s\n" "Web URL:" "${weburl}"
 printf "[i] %-10s%s\n" "filename:" "${flnm}"
 
-printf "[i] Press <enter> to proceed or <ctrl-c> to quit"
-read ANS
+printf "[?] Press <enter> to proceed or <ctrl-c> to quit"
+read -r ANS
 
-printf "filename: ${flnm}\n" >> ${flnm}
-printf "${weburl}\n\n" >> ${flnm}
+# echo "filename: ${flnm}" >> ${flnm}
+# printf "${weburl}\n\n" >> ${flnm}
+printf "filename: ${flnm}\n" >> "${flnm}"
+printf "${weburl}\n\n" >> "${flnm}"
 # lynx -dump -width=110 ${weburl} >> ${flnm}
-dump_command ${weburl} >> ${flnm}
-echo -e "\n\n---\n" >> ${flnm}
+dump_command "${weburl}" >> "${flnm}"
+printf -- "\n\n---\n" >> "${flnm}"
 
 printf "[i] done\n"
 
