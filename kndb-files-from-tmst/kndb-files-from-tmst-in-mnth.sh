@@ -22,29 +22,30 @@ month_days=(0 31 29 31 30 31 30 31 31 30 31 30 31)
 
 usage() {
 cat << EOF
-	Usage: "${scrpt}" <month_num> <day_num>
+	[U] usage: "${scrpt}" <month_num> <day_num>
+	
 	
 EOF
 }
 
 if [ $# -ne 2 ]; then
-	echo "Must supply exactly two parameters:"
+	printf "[E] must supply exactly two parameters:\n"
 	usage
-	exit
+	exit 1
 else
 	mnth=$1
 	day=$2
 fi
 
 if [ "${mnth}" -lt 1 ] || [ "${mnth}" -gt 12 ]; then
-	echo "Month out of range (1 - 12)"
-	exit
+	printf "[E] month out of range (1 - 12)\n\n"
+	exit 1
 elif [ "${day}" -lt 1 ] || [ "${day}" -gt 31 ]; then
-	echo "Day of month out of range (1 - 31)"
-	exit
+	printf "[E] day of month out of range (1 - 31)\n\n"
+	exit 1
 elif [ "${mnth}" -eq "${currmn}" ] && [ "${day}" -gt "${currdy}" ]; then
-	echo "Day of current month out of range"
-	exit
+	printf "[E] day of current month out of range\n\n"
+	exit 1
 fi
 
 unset RESULT
@@ -54,8 +55,8 @@ readarray -t RESULT < <(for DYS in $(seq  "${month_days["${mnth}"]}" -1 "${day}"
 	-iname $(printf "*%d%02d%02d.txt" "${curryr}" "${mnth}" "${DYS}"); done)
 
 if [ "${RESULT[0]}" == "" ]; then
-	printf "[i] No files found\n"
-	exit
+	printf "[E] no files found\n\n"
+	exit 1
 fi
 
 unset fjls
@@ -64,13 +65,15 @@ unset fjls
 readarray -t fjls < <(for FJL in $(echo "${RESULT[@]}"); do echo "${FJL}"; done | sort -t'/' -k7 | fzf -m -e --reverse)
 
 if [ "${fjls[0]}" == "" ]; then
-	printf "[i] No files selected\n"
-	exit
+	printf "[i] No files selected\n\n"
+	exit 0
 fi
 
-printf "[i] Selected:\n"
+printf "[i] selected:\n"
 # for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done
 # for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done | xargs -ro vim -pM
 # v2
 for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done | tee /dev/tty | xargs -ro vim -pM
+
+printf "\n"
 

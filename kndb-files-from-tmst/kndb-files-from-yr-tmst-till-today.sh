@@ -32,6 +32,7 @@ cat << EOF
                       <day_num>
                       (year is current year)
 
+
 EOF
 }
 
@@ -45,16 +46,16 @@ elif [ $# -eq 3 ]; then
 	slctd_dy="$3"
 else
 	usage
-	exit
+	exit 1
 fi
 
 if [ "${slctd_mt}" -lt 1 ] || [ "${slctd_mt}" -gt 12 ]; then
-	echo "Month out of range (1 - 12)"
-	exit
+	printf "[E] month out of range (1 - 12)\n\n"
+	exit 1
 elif
 	[ "${slctd_dy}" -lt 1 ] || [ "${slctd_dy}" -gt "${month_days["${slctd_mt}"]}" ]; then
-	echo "Day of month out of range (1 - "${month_days["${slctd_mt}"]}")"
-	exit
+	printf "[E] day of month out of range (1 - "${month_days["${slctd_mt}"]}")\n\n"
+	exit 1
 fi
 
 unset DAYS
@@ -87,8 +88,8 @@ unset RESULT
 readarray -t RESULT < <(for DYS in "${DAYS[@]}"; do find "${SRCDIR}" -iname "*${DYS}.txt"; done)
 
 if [ "${RESULT[0]}" == "" ]; then
-	printf "[i] No files found\n"
-	exit
+	printf "[E] no files found\n\n"
+	exit 1
 fi
 
 unset fljs
@@ -98,13 +99,15 @@ unset fljs
 readarray -t fjls < <(for FJL in $(echo "${RESULT[@]}"); do echo "${FJL}"; done | sort -t'/' -k7 | fzf -m -e --reverse)
 
 if [ "${fjls[0]}" == "" ]; then
-	printf "[i] No files selected\n"
-	exit
+	printf "[i] no files selected\n\n"
+	exit 1
 fi
 
-printf "[i] Selected:\n"
+printf "[i] selected:\n"
 # for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done
 # for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done | xargs -ro vim -pM
 # v2
 for FJL in $(echo "${fjls[@]}"); do echo "${FJL}"; done | tee /dev/tty | xargs -ro vim -pM
+
+printf "\n"
 

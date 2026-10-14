@@ -31,20 +31,21 @@ cat << EOF
                       <day_num>
                       (year is current year)
 
+
 EOF
 }
 
 if [ $# -eq 2 ]; then
-	curryr=$(date +"%Y")
-	mnth="$1"
-	day="$2"
+	slct_yr=$(date +"%Y")
+	slct_mnth="$1"
+	slct_day="$2"
 elif [ $# -eq 3 ]; then
-	curryr="$1"
-	mnth="$2"
-	day="$3"
+	slct_yr="$1"
+	slct_mnth="$2"
+	slct_day="$3"
 else
 	usage
-	exit
+	exit 1
 fi
 
 
@@ -54,30 +55,31 @@ fi
 # 	exit
 # else
 # 	year=$1
-# 	mnth=$2
-# 	day=$3
+# 	slct_mnth=$2
+# 	slct_day=$3
 # fi
 
-if [ "${mnth}" -lt 1 ] || [ "${mnth}" -gt 12 ]; then
-	echo "Month out of range (1 - 12)"
-	exit
-elif [ "${day}" -lt 1 ] || [ "${day}" -gt 31 ]; then
-	echo "Day of month out of range (1 - 31)"
-	exit
-elif [ "${mnth}" -eq "${currmn}" ] && [ "${day}" -gt "${currdy}" ]; then
-	echo "Day of current month out of range"
-	exit
+if [ "${slct_mnth}" -lt 1 ] || [ "${slct_mnth}" -gt 12 ]; then
+	printf "[E] month out of range (1 - 12)\n\n"
+	exit 1
+elif [ "${slct_day}" -lt 1 ] || [ "${slct_day}" -gt 31 ]; then
+	printf "[E] day of month out of range (1 - 31)\n\n"
+	exit 1
+# elif [ "${slct_mnth}" -eq "${currmn}" ] && [ "${slct_day}" -gt "${currdy}" ]; then
+elif [ "${slct_yr}" -ge "${curryr}" ] && [ "${slct_mnth}" -eq "${currmn}" ] && [ "${slct_day}" -gt "${currdy}" ]; then
+	printf "[E] day of current month out of range\n\n"
+	exit 1
 fi
 
 unset RESULT
-# readarray -t RESULT < <(for DYS in $(seq "${day}" ${month_days["${mnth}"]}); do find ${SRCDIR} -iname "*${curryr}"${mnth}"${DYS}.txt"; done)
-# readarray -t RESULT < <(for DYS in $(seq "${day}" ${month_days["${mnth}"]}); do find ${SRCDIR} \
-readarray -t RESULT < <(for DYS in $(seq "${month_days["${mnth}"]}" -1 "${day}"); do find "${SRCDIR}" \
-	-iname $(printf "*%d%02d%02d.txt" "${curryr}" "${mnth}" "${DYS}"); done)
+# readarray -t RESULT < <(for DYS in $(seq "${slct_day}" ${month_slct_days["${slct_mnth}"]}); do find ${SRCDIR} -iname "*${slct_yr}"${slct_mnth}"${DYS}.txt"; done)
+# readarray -t RESULT < <(for DYS in $(seq "${slct_day}" ${month_slct_days["${slct_mnth}"]}); do find ${SRCDIR} \
+readarray -t RESULT < <(for DYS in $(seq "${month_days["${slct_mnth}"]}" -1 "${slct_day}"); do find "${SRCDIR}" \
+	-iname $(printf "*%d%02d%02d.txt" "${slct_yr}" "${slct_mnth}" "${DYS}"); done)
 
 if [ "${RESULT[0]}" == "" ]; then
-	printf "[i] No files found\n"
-	exit
+	printf "[E] no files found\n\n"
+	exit 1
 fi
 
 unset fjls
@@ -87,13 +89,15 @@ unset fjls
 readarray -t fjls < <(for FJL in $(echo "${RESULT[@]}"); do echo "${FJL}"; done | sort -t'/' -k7 | fzf -m -e --reverse)
 
 if [ "${fjls[0]}" == "" ]; then;
-	printf "[i] No files selected\n"
-	exit
+	printf "[i] no files selected\n\n"
+	exit 0
 fi
 
-printf "[i] Selected:\n"
+printf "[i] selected:\n"
 # for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done
 # for FJL in $(echo ${fjls[@]}); do echo "$FJL"; done | xargs -ro vim -pM
 # v2
 for FJL in $(echo "${fjls[@]}"); do echo "${FJL}"; done | tee /dev/tty | xargs -ro vim -pM
+
+printf "\n"
 
