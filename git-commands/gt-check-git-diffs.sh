@@ -5,20 +5,21 @@
 # 20241106 v3
 # 20250417 v4
 # 20260305 v5
-# 20260924: unified scripts for linux
+# 20260924 unified scripts for linux
 #           HST and system info from exported global variable
-# last: 20260924
+# 20261016 corrected 'fjls=$( ...' into  'fjls=($( ...' as fjls is an array!
+# last: 20261016
 # ---
 
-src_path=${HOME}/majstaf
-dst_path=${HOME}/majstaf/${HST}git
+src_path="${HOME}/majstaf"
+dst_path="${HOME}/majstaf/${HST}git"
 
 if [ $# -eq 1 ]; then
-	src=${1}
-	dst=${1}_${HST}
+	src="${1}"
+	dst="${1}_${HST}"
 elif [ $# -eq 2 ]; then
-	src=$1
-	dst=$2
+	src="$1"
+	dst="$2"
 else
 	src="majbin"
 	dst="majbin_${HST}"
@@ -30,11 +31,11 @@ export majfjls_dst="${dst_path}/${dst}"
 # test
 printf "[i] majfjls_src: ${majfjls_src}\n"
 printf "[i] majfjls_dst: ${majfjls_dst}\n"
-read -r -p "[?] Continue?"
+read -r -p "[?] continue?"
 
 if [ ! -d "${majfjls_src}" ] || [ ! -d "${majfjls_dst}" ]; then
-	printf -e "[E] No such directories found\n\n"
-	exit
+	printf -e "[E] no such directories found\n\n"
+	exit 1
 fi
 
 short_src=$(echo "${majfjls_src}" | sed "s:${HOME}/majstaf:...:")
@@ -52,24 +53,24 @@ check=($(diff -qr "${majfjls_src}" "${majfjls_dst}" \
 	| sed -e 's/\/: /\//' -e 's/: /\//'))
 
 if [ "${check[0]}" == "" ]; then
-	printf "[i] No files found\n"
+	printf "[E] no files found\n"
 	printf -- "---\n"
-	exit
+	exit 1
 fi
 
-fjls=$(for FFF in $(echo "${check[@]}"); do echo "$FFF"; done | fzf -m --reverse)
+fjls=($(for FFF in $(echo "${check[@]}"); do echo "$FFF"; done | fzf -m --reverse))
 
 
 if [ "${fjls[0]}" == "" ]; then
-	printf "[i] No files found/selected\n"
+	printf "[E] No files found/selected\n"
 	printf -- "---\n"
-	exit
+	exit 1
 fi
 
 SRC=$(echo "${majfjls_src}" | sed "s:${HOME}/majstaf/::")
 DST=$(echo "${majfjls_dst}" | sed "s:${HOME}/majstaf/::")
 
-printf "[i] Files to be copied from [${SRC}] to [${DST}]:\n"
+printf "[i] files to be copied from [${SRC}] to [${DST}]:\n"
 i=0
 for FJL in "${fjls[@]}"; do
 	((i++))
@@ -77,7 +78,7 @@ for FJL in "${fjls[@]}"; do
 done
 printf "\n"
 
-read -r -p "[?] to procede (y/Y), or any other key to quit " choice
+read -r -p "[?] procede (y/Y)?  " choice
 
 if [ "$choice" = "y" ] || [ "$choice" = "Y" ]; then
 	for FJL in "${fjls[@]}"; do
@@ -88,6 +89,6 @@ if [ "$choice" = "y" ] || [ "$choice" = "Y" ]; then
 else
 	printf "[i] quit\n"
 	printf -- "---\n"
-	exit 1
+	exit
 fi
 
