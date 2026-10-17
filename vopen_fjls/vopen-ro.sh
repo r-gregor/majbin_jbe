@@ -6,5 +6,10 @@
 # ---
 
 # === MAIN ===
+if [ ! -p /dev/stdin ] || [ $# -ne 1 ]; then
+	printf "[E] must receive output from stdin\n\n"
+	exit 1
+fi
+
 /usr/bin/xargs -ro /usr/bin/vim -M
 
