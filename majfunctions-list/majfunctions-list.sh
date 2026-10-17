@@ -13,7 +13,7 @@ fnc_lst="${PTH}/funclist-${HST}"
 while read -r LINE; do
 	func_name=${LINE%%\|*}
 	func_decp=${LINE##*\|}
-	printf "%-20s%s\n" "${func_name}" "${func_decp}"
+	printf "%-30s%s\n" "${func_name}" "${func_decp}"
 done < <(grep -A1 '()' "${fnc_lst}" |tr '\n' ' ' | sed 's/ -- /\n/g' |sed 's/ { # descpt: / | /g')
 
 printf "\n"
