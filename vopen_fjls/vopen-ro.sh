@@ -7,7 +7,8 @@
 
 # === MAIN ===
 if [ ! -p /dev/stdin ] || [ $# -ne 1 ]; then
-	printf "[E] must receive output from stdin\n\n"
+	printf "[E] must receive output from stdin\n"
+	printf "[!] usage: command_with_output_to_stdout | vopen-ro -\n\n"
 	exit 1
 fi
 
