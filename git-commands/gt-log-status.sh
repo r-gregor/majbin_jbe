@@ -15,7 +15,7 @@
 if [ -d .git ] || [ -f HEAD ]; then
 	/usr/bin/git log --name-status
 else
-	printf "[E] NOT a git repository\n"
+	printf "[e] not a git repository\n"
 	exit
 fi
 

@@ -12,14 +12,14 @@
 # ---
 
 if [ $# -ne 1 ]; then
-	printf "\tUsage: gupdate-single-file <src_fname>\n\n"
+	printf "[u] usage: gupdate-single-file <src_fname>\n\n"
 	exit 1
 else
 	src_fname=$(realpath "$1")
 fi
 
 if [ ! -f ${src_fname} ]; then
-	printf "[E] no such source file: %s\n\n" "${src_fname}"
+	printf "[e] no such source file: %s\n\n" "${src_fname}"
 	exit 1
 fi
 
@@ -32,20 +32,20 @@ DSTF="$(realpath "${dest_fname}")"
 DSTD="${DSTF%/*}"
 
 if [ ! -d "${DSTD}" ]; then
-	printf "[E] no such destination: %s\n\n" "${DSTD}"
+	printf "[e] no such destination: %s\n\n" "${DSTD}"
 	exit 1
 fi
 
 ptrn="majstaf/${HST}git"
 
 if [[ ! "${DSTD}" =~ ${ptrn} ]]; then
-	printf "[E] file '%s' must be copied over directly\n\n" "${SRCF}"
+	printf "[e] file '%s' must be copied over directly\n\n" "${SRCF}"
 	exit 1
 fi
 
 if [ ! -f "${DSTF}" ]; then
-	printf "[W] no such file on destination: %s\n" "${DSTF##*/}"
-	read -r -p "[?] Continue?"
+	printf "[!] no such file on destination: %s\n" "${DSTF##*/}"
+	read -r -p "[?] continue?"
 fi
 
 # === MAIN ===
@@ -53,13 +53,13 @@ printf -- "%s\n%s\n%s\n" \
 	"---" \
 	"[i] from: ${SRCF}" \
 	"[i] to:   ${DSTF}"
-read -r -p "[?] Continue? (y/n) " ans1
+read -r -p "[?] continue? (y/n) " ans1
 
 if [[ "${ans1}"  == "y" || "${ans1}"  == "Y" ]]; then
 	printf "[+] "
 	cp -iv "${SRCF}" "${DSTF}"
 else
-		printf "file '%s' NOT updated\n\n" "${SRCF}"
+		printf "[!] file '%s' not updated\n\n" "${SRCF}"
 fi
 
 printf "\n"

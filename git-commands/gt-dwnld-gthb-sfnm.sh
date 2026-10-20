@@ -10,8 +10,8 @@
 HUB=github
 
 if [ $# -ne 2 ]; then
-	printf "[E] wrong number of parameters\n"
-	printf "Usage: $0 <repository> <file name>\n"
+	printf "[e] wrong number of parameters\n"
+	printf "[u] usage: gt-dwnld-gthb-sfnm <repository> <file name>\n"
 	printf "\n"
 	exit
 else
@@ -51,7 +51,7 @@ read -r -p "[?] OK?"
 curl -s -f -o "./${opath}" "${ipath}"
 
 if [ $? -ne 0 ]; then
-	printf "[E] Could not download file: ${src}\n\n"
+	printf "[e] could not download file: ${src}\n\n"
 	exit
 else
 	printf "[i] download successful\n\n"

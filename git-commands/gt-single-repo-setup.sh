@@ -15,7 +15,7 @@ gh_rmt_addr="git@github.com:r-gregor"
 gl_rmt_addr="git@gitlab.com:r-gregor"
 
 if [ $# -ne 1 ]; then
-	printf [E] "must supply repo name as argument\n"
+	printf [e] "must supply repo name as argument\n"
 	exit
 else
 	repo="$1"

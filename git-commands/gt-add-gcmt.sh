@@ -10,7 +10,7 @@ gcmd="/usr/bin/git add --verbose ."
 gcmt="${HOME}/.local/bin/gt-commit-timestamp"
 
 # display commands
-echo -en "running: ${gcmd}\n" && ${gcmd}
-echo
-echo -en "running: ${gcmt}\n" && ${gcmt}
+printf "running: ${gcmd}\n" && ${gcmd}
+printf "\n"
+printf "running: ${gcmt}\n" && ${gcmt}
 

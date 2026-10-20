@@ -13,12 +13,12 @@ MAJSTAF="${HOME}/majstaf"
 MAJSTAF_G="${MAJSTAF}/${HST}git"
 
 cd "${MAJSTAF_G}/dotfiles_${HST}"
-printf "[i] diffs: dotfiles_en ...\n"
+printf "[i] diffs: dotfiles_${HST} ...\n"
 
 unset DTFOUNDDIFFS
 declare -a DTFOUNDDIFFS
 
-readarray -t DTFOUNDDIFFS < <(for FFF in $(ls -1A); do diff -qr "${FFF}" "${HOME}/${FFF}" 2>&1 | grep -iv 'only\|\.local/bin' | grep -v '.git'; done)
+readarray -t DTFOUNDDIFFS < <(for FFF in $(ls -1A); do diff -qr "${FFF}" "${HOME}/${FFF}" 2>&1 | grep -iv 'only' | grep -v '.git'; done)
 dtfound_num="${#DTFOUNDDIFFS[@]}"
 
 if [ "${dtfound_num}" -ne 0 ]; then
@@ -36,7 +36,7 @@ for check_dir in majbin majrcs metsys; do
 	unset FOUNDDIFFS
 	declare -a FOUNDDIFFS
 
-	readarray -t FOUNDDIFFS < <(for FFF in $(ls -1); do diff -qr "${FFF}" "${MAJSTAF}/${check_dir}/${FFF}" 2>&1 | grep -iv 'only'; done)
+	readarray -t FOUNDDIFFS < <(for FFF in $(ls -1); do diff -qr "${FFF}" "${MAJSTAF}/${check_dir}/${FFF}" 2>&1 | grep -iv 'only '; done)
 	found_num="${#FOUNDDIFFS[@]}"
 
 	if [ "${found_num}" -ne 0 ]; then
@@ -47,6 +47,8 @@ for check_dir in majbin majrcs metsys; do
 	fi
 	cd "${HOME}"
 done
+
+printf "\n"
 
 cd "${CURRDIR}"
 

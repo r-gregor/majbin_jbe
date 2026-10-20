@@ -32,8 +32,8 @@ get_status() {
 	else
 		printf -- "---\n"
 		printf "${COLOR_SET}"
-		msg=$(echo -e "[REPORT] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n")
-		echo -e "$msg"
+		msg=$(printf "[!] checking git status in ${DDD} ... NEED TO ADD and/or COMMIT\n")
+		printf "${msg}\n"
 		printf "${COLOR_RESET}"
 
 		readarray -t -O "${#report[@]}" report < <(echo -e "$msg")
@@ -71,7 +71,7 @@ if [ ${#report[@]} -gt 0 ]; then
 	done
 else
 	printf "\n"
-	printf "*** [REPORT] No action required ***\n"
+	printf "*** [i] no action required ***\n"
 fi
 printf "${COLOR_RESET}"
 

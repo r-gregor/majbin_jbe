@@ -8,7 +8,7 @@
 # ---
 
 if [ $# -ne 1 ]; then
-	printf "[E] must supply a git repository dirname\n"
+	printf "[e] must supply a git repository dirname\n"
 	exit
 else
 	read_gitdirname="$1"
@@ -21,12 +21,12 @@ GLPTH="https://gitlab.com/r-gregor/${gitdirname}.git"
 GTMP="${gitdirname}_backup"
 
 if [ ! -d "${gitdirname}" ]; then
-	printf "[E] NO such directory: ${gitdirname}\n"
+	printf "[e] NO such directory: ${gitdirname}\n"
 	exit
 fi
 
 if [ ! -d "${gitdirname}"/.git ]; then
-	printf "[E] NOT a git repository\n"
+	printf "[e] NOT a git repository\n"
 	exit
 fi
 
@@ -37,7 +37,7 @@ fi
 cp -frv "${gitdirname}" "${GTMP}"
 mv "${GTMP}"/.git "${GTMP}"/dot_git
 
-printf "[i] Trying to clean git repository in ${gitdirname}\n"
+printf "[i] trying to clean git repository in ${gitdirname}\n"
 
 printf "[i] cd into ${gitdirname} ...\n"
 cd ./"${gitdirname}" || exit 1
@@ -51,7 +51,7 @@ for rmt in "${rmts[@]}"; do
 	printf "remote: ${rmt}\n"
 done
 
-read -r -p "[?] Proceed? "
+read -r -p "[?] proceed? "
 
 printf "[i] creating (orphan) latest_branch ...\n"
 git checkout --orphan latest_branch
@@ -68,7 +68,7 @@ git branch -m main
 
 printf "[i] trying to push to remotes ...\n"
 for rmt in "${rmts[@]}"; do
-	read -r -p "[?] Force push to ${rmt} main? "
+	read -r -p "[?] force push to ${rmt} main? "
 	git push -f "${rmt}" main
 done
 
@@ -88,7 +88,7 @@ cd ./"${gitdirname}" || exit 1
 printf "[i] adding remotes ...\n"
 printf "git remote add ${rmts[0]} git@github.com:r-gregor/${gitdirname}.git\n"
 printf "git remote add ${rmts[1]} git@gitlab.com:r-gregor/${gitdirname}.git\n"
-read -r -p "[?] Proceed? "
+read -r -p "[?] proceed? "
 git remote add "${rmts[0]}" git@github.com:r-gregor/"${gitdirname}".git
 git remote add "${rmts[1]}" git@gitlab.com:r-gregor/"${gitdirname}".git
 

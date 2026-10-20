@@ -7,7 +7,6 @@
 # ---
 
 rmts=( $(git remote) )
-# rmts=( $(git remote | grep -vi '^c') )
 
 for rmt in "${rmts[@]}"; do
 	printf "[i] git PUSH in: $(git remote get-url ${rmt}) ...\n"

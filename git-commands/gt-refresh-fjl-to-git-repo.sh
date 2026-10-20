@@ -8,7 +8,7 @@
 # ---
 
 if [ $# -ne 1 ]; then
-	printf "Usage: $0 <file_name>\n\n"
+	printf "[u] usage: gt-refresh-fjl-to-git-repo <file_name>\n\n"
 	exit 1
 else
 	fname="$1"

@@ -36,12 +36,12 @@ for DDD in $(ls -d *); do
 	readarray -t output < <(~/.local/bin/gt-all-remotes-testpush)
 	for (( i=0; i<${#output[@]}; i++)); do
 		if [[ "${output[$i]}" =~ "PULL" ]]; then
-			msg="$(echo -e "[REPORT] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE")"
+			msg="$(printf "[!] git testpush in: ${DDD} ... NEED TO PULL FROM REMOTE\n")"
 			readarray -t -O "${#report[@]}" report < <(echo -e "$msg")
-			echo -e "${output[$i]}"
+			printf "${output[$i]}\n"
 			break
 		else
-			 echo -e "${output[$i]}"
+			printf "${output[$i]}\n"
 		fi
 	done
 	cd ..
@@ -56,7 +56,7 @@ if [ ${#report[@]} -gt 0 ]; then
 	done
 else
 	printf "\n"
-	printf "*** [REPORT] No action required ***\n"
+	printf "*** [i] no action required ***\n"
 fi
 printf "${COLOR_RESET}"
 

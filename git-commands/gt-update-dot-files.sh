@@ -18,31 +18,34 @@ run_update_file() {
 	dst_f="${dst_f/${HOME}/${GDTDST}}"
 
 	if [ ! -f "${dst_f}" ]; then
-		printf "[W] no such file on destination: %s" "${dst_f##*/}"
-		read -r -p "[?] continue (y/n)?" ans
+		printf "[!] no such file on destination: '%s'\n" "${dst_f##*/}"
+		printf "[i] file '%s' must be copied over directly\n\n" "${src_f}"
+		return
 
-		if [[ "${ans}"  != "y" && "${ans}"  != "Y" ]]; then
-			return
-		fi
+		# OPTIONAL:
+		# read -r -p "[?] continue (y/n)?" ans
+		# if [[ "${ans}"  != "y" && "${ans}"  != "Y" ]]; then
+		# 	return
+		# fi
 	fi
 
 	printf -- "%s\n%s\n%s\n" \
 		"---" \
 		"[i] from: ${src_f}" \
 		"[i] to:   ${dst_f}"
-	read -r -p "[?] Continue? (y/n) " ans1
+	read -r -p "[?] continue? (y/n) " ans1
 
 	if [[ "${ans1}"  == "y" || "${ans1}"  == "Y" ]]; then
 		printf "[+] "
 		cp -iv "${src_f}" "${dst_f}"
 	else
-		printf "file '%s' NOT updated\n\n" "${src_f}"
+		printf "file '%s' not updated\n\n" "${src_f}"
 	fi
 }
 
 # === MAIN ===
 if [ $# -lt 1 ]; then
-	printf "[U] usage: gt-update-dot-files <src_fname1> <src_fname2> ...\n\n"
+	printf "[u] usage: gt-update-dot-files <src_fname1> <src_fname2> ...\n\n"
 	exit 1
 fi
 
@@ -55,14 +58,14 @@ while [ "$1" ]; do
 done
 
 if [ "${#files_to_update[@]}" -lt 1 ]; then
-	printf "[E] no files selected\n\n"
+	printf "[e] no files selected\n\n"
 	exit 1
 fi
 
 ptrn="majstaf"
 for FFF in "${files_to_update[@]}"; do
 	if [ ! -f "${FFF}" ]; then
-		printf "[E] no such file: '%s'\n\n" "${FFF}"
+		printf "[e] no such file: '%s'\n\n" "${FFF}"
 		exit 1
 	fi
 done
@@ -90,7 +93,7 @@ for FFF in "${files_to_update[@]}"; do
 	DSTD="${DSTF%/*}"
 
 	if [ ! -d "${DSTD}" ]; then
-		printf "[E] no such destination: %s\n\n" "${DSTD}"
+		printf "[e] no such destination: %s\n\n" "${DSTD}"
 		exit 1
 	fi
 

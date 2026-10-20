@@ -34,14 +34,14 @@ printf "[i] majfjls_dst: ${majfjls_dst}\n"
 read -r -p "[?] continue?"
 
 if [ ! -d "${majfjls_src}" ] || [ ! -d "${majfjls_dst}" ]; then
-	printf -e "[E] no such directories found\n\n"
+	printf -e "[e] no such directories found\n\n"
 	exit 1
 fi
 
 short_src=$(echo "${majfjls_src}" | sed "s:${HOME}/majstaf:...:")
 short_dst=$(echo "${majfjls_dst}" | sed "s:${HOME}/majstaf:...:")
 
-printf "[i] Checking diffs in \"${short_src}\" and \"${short_dst}\"\n"
+printf "[i] checking diffs in \"${short_src}\" and \"${short_dst}\"\n"
 
 # fjls=($(diff -q ${majfjls_src}/ ${majfjls_dst}/ | grep -iv "common\|differ\|backup" | grep -iv '\.git' | grep -iv '\.txt' | cut -d' ' -f3- | sed 's/: //' | fzf -m --reverse))
 # check=($(diff -qr ${majfjls_src} ${majfjls_dst} | grep -iv "common\|differ\|backup" | grep -iv '\.git' | grep -iv 'jbegit' | cut -d' ' -f3- | sed -e 's/\/: /\//' -e 's/: /\//'))
@@ -53,7 +53,7 @@ check=($(diff -qr "${majfjls_src}" "${majfjls_dst}" \
 	| sed -e 's/\/: /\//' -e 's/: /\//'))
 
 if [ "${check[0]}" == "" ]; then
-	printf "[E] no files found\n"
+	printf "[e] no files found\n"
 	printf -- "---\n"
 	exit 1
 fi
@@ -62,7 +62,7 @@ fjls=($(for FFF in $(echo "${check[@]}"); do echo "$FFF"; done | fzf -m --revers
 
 
 if [ "${fjls[0]}" == "" ]; then
-	printf "[E] No files found/selected\n"
+	printf "[!] no files found/selected\n"
 	printf -- "---\n"
 	exit 1
 fi

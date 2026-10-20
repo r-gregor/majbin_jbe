@@ -12,7 +12,7 @@
 # ---
 
 if [ $# -lt 1 ]; then
-	printf "\tUsage: gt-update-files <src_fname/s>>\n\n"
+	printf "[u] usage: gt-update-files <src_fname/s>>\n\n"
 	exit 1
 fi
 
@@ -24,7 +24,7 @@ run_update_file() {
 	dst_f="${2}"
 
 	if [ ! -f "${dst_f}" ]; then
-		printf "[W] no such file on destination: %s" "${dst_f##*/}"
+		printf "[!] no such file on destination: %s" "${dst_f##*/}\n"
 		read -r -p "[?] continue (y/n)?" ans
 
 		if [[ "${ans}"  != "y" && "${ans}"  != "Y" ]]; then
@@ -36,13 +36,13 @@ run_update_file() {
 		"---" \
 		"[i] from: ${src_f}" \
 		"[i] to:   ${dst_f}"
-	read -r -p "[?] Continue? (y/n) " ans1
+	read -r -p "[?] continue? (y/n) " ans1
 
 	if [[ "${ans1}"  == "y" || "${ans1}"  == "Y" ]]; then
 		printf "[+] "
 		cp -iv "${src_f}" "${dst_f}"
 	else
-		printf "file '%s' NOT updated\n\n" "${src_f}"
+		printf "[!] file '%s' not updated\n\n" "${src_f}"
 	fi
 }
 
@@ -56,17 +56,17 @@ while [ "$1" ]; do
 done
 
 if [ "${#files_to_update[@]}" -lt 1 ]; then
-	printf "[E] no files selected\n\n"
+	printf "[e] no files selected\n\n"
 	exit 1
 fi
 
 ptrn="majstaf"
 for FFF in "${files_to_update[@]}"; do
 	if [ ! -f "${FFF}" ]; then
-		printf "[E] no such file: '%s'\n\n" "${FFF}"
+		printf "[e] no such file: '%s'\n\n" "${FFF}"
 		exit 1
 	elif [[ ! "$(realpath "${FFF}")" =~ ${ptrn} ]]; then
-		printf "[E] file '%s' must be copied over directly\n\n" "${FFF}"
+		printf "[e] file '%s' must be copied over directly\n\n" "${FFF}"
 		exit 1
 	fi
 done
@@ -94,7 +94,7 @@ for FFF in "${files_to_update[@]}"; do
 	DSTD="${DSTF%/*}"
 
 	if [ ! -d "${DSTD}" ]; then
-		printf "[E] no such destination: %s\n\n" "${DSTD}"
+		printf "[e] no such destination: %s\n\n" "${DSTD}"
 		exit 1
 	fi
 
@@ -102,3 +102,4 @@ for FFF in "${files_to_update[@]}"; do
 done
 
 printf "\n"
+

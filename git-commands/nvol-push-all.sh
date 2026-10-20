@@ -8,7 +8,7 @@
 # ---
 
 export VOLGITDIR="${HOME}/majstaf/${HST}git/vlpprs_${HST}"
-export VOLWORKDIR="${HOME}/majstaf/majvolpejpers"
+export VOLWORKDIR="/c/Users/gregor.redelonghi/majstaf_${HST}/${HST}_staf/majvolpejprs"
 git_nvol="/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKDIR}"
 
 ghvol="git@github.com:r-gregor/vlpprs_${HST}.git"
@@ -21,3 +21,4 @@ echo "---"
 echo "[i] Push to ${glvol} ..."
 ${git_nvol} push ${glvol} main
 echo "---"
+

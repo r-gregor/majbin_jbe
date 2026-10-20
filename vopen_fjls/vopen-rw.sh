@@ -2,7 +2,8 @@
 # fname: vopen-rw.sh
 # descpt: opens files list from stdin in 'read-write' mode with vim
 # 20261008 v1
-# last: 20261008
+# 20261019 v2 test if stdin line is not a file
+# last: 20261019
 # ---
 
 # === MAIN ===
@@ -12,5 +13,11 @@ if [ ! -p /dev/stdin ] || [ $# -ne 1 ]; then
 	exit 1
 fi
 
-/usr/bin/xargs -ro /usr/bin/vim
+while read LINE; do
+	if [ ! -f "${LINE}" ]; then
+		continue
+	else
+		printf "${LINE}\n"
+	fi
+done | /usr/bin/xargs -ro /usr/bin/vim
 
