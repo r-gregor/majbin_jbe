@@ -37,13 +37,13 @@ list_new_files() {
 	
 	# v7
 	if ! [[ "${ddiff}" =~ ^[0-9]+$ ]]; then
-		printf "[e] ddiff is not a nubmer\n"
+		printf "[e] ddiff is not a number\n\n"
 		exit 1
 	fi
 
 	newdate="$(get_start_date_from_daysdiff ${ddiff})"
 	# if [[ ! ${newdate} =~ '^[0-9]+$' ]]; then
-	# 	printf "[e] new date is not a nuber\n"
+	# 	printf "[e] new date is not a nuber\n\n"
 	# 	exit 1
 	# fi
 
