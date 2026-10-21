@@ -24,12 +24,12 @@ else
 	fname2="${2}"
 
 	if [ ! -f "${fname1}" ]; then
-		printf "[E] no such file: '%s'\n\n" "${fname1}"
+		printf "[e] no such file: '%s'\n\n" "${fname1}"
 		exit 2
 	fi
 
 	if [ ! -f "${fname2}" ]; then
-		printf "[E] no such file: '%s'\n\n" "${fname2}"
+		printf "[e] no such file: '%s'\n\n" "${fname2}"
 		exit 2
 	fi
 
@@ -43,7 +43,7 @@ while read -r f1fn; do
 done < <(grep -E '[[:alpha:]]\(\) {' "${fname1}" 2>/dev/null | sort |uniq)
 
 if [ "${#f1_func_list[@]}" -eq 0 ]; then
-	printf "[E] file '%s' is not funclist file\n\n" "${bn_fname1}"
+	printf "[e] file '%s' is not funclist file\n\n" "${bn_fname1}"
 	exit 1
 fi
 
@@ -53,7 +53,7 @@ while read -r f2fn; do
 done < <(grep -E '[[:alpha:]]\(\) {' "${fname2}" 2>/dev/null | sort |uniq)
 
 if [ "${#f2_func_list[@]}" -eq 0 ]; then
-	printf "[E] file '%s' is not funclist file\n\n" "${bn_fname2}"
+	printf "[e] file '%s' is not funclist file\n\n" "${bn_fname2}"
 	exit 1
 fi
 
