@@ -1,12 +1,10 @@
 #! /usr/bin/env bash
+# fname: duh.sh
+# descpt: run dun command including hidden files
+# 20260929 v1
+# last: 20260929
+# ---
 
-### Name:	Scriptname ...
-### Author:	Author ... 
-### Date:	 
-### Decription:
-### 
-### 
-### 
 
 gCurDir="."
 nLines=0
@@ -24,23 +22,23 @@ exit 1
 }
 
 if [ $# -eq 1 ] && [ -d $1 ]; then
-	gCurDir=$1
-elif [ $# -eq 1 ] && [ $1 = "-h" ]; then 
+	gCurDir="$1"
+elif [ $# -eq 1 ] && [ "$1" = "-h" ]; then 
 	usage
-elif [ $# -eq 1 ] && [ ! -d $1 ]; then 
+elif [ $# -eq 1 ] && [ ! -d "$1" ]; then 
 	usage
 else
 	gCurDir="."
 fi
 
-if [ $# -eq 2 ] && [ -d $1 ] && [ ! $2 = "-h" ]; then
-	gCurDir=$1
-	nLines=$2
+if [ $# -eq 2 ] && [ -d "$1" ] && [ ! "$2" = "-h" ]; then
+	gCurDir="$1"
+	nLines="$2"
 fi
 
-if [ ${nLines} -gt 0 ]; then
-	sudo du -sh --total ${gCurDir}/* | sort -hr | head -n ${nLines}
+if [ "${nLines}" -gt 0 ]; then
+	du -sh --total "${gCurDir}"/* | sort -hr | head -n "${nLines}"
 else
-	sudo du -sh --total ${gCurDir}/* | sort -hr
+	du -sh --total "${gCurDir}"/* | sort -hr
 fi
 

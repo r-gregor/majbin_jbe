@@ -1,7 +1,9 @@
-#! /bin/bash
-
-### change: 20150310
-
+#! /usr/bin/env bash
+# fname: 2listulb2.sh
+# descpt: list all soft-linked scripts in ~/.local/bin/
+# 20260929 v1
+# last: 20260929
+# ---
 
 clear
 echo "List of \"soft-linked\" scripts on ~/.local/bin:"

@@ -5,10 +5,11 @@
 # 20260331 v1: display from newest to oldst: $(seq start end) --> $(seq end -1 start)
 # 20260415 v2: final printout to stdout and into xargs in one line with 'tee /dev/tty' comand
 # 20260831 v3: fzf files list sorted by cathegory
-# 20260925
-# last: 20260925
+# 20261021
+# last: 20261021
 # ---
 
+# === GLOBALS ===
 curryr=$(date +"%Y")
 currmn=$(date +"%m")
 currdy=$(date +"%d")
@@ -16,20 +17,17 @@ currdy=$(date +"%d")
 scrpt=$(basename $0)
 SRCDIR="${KNOWLEDGEDB:-${HOME}/majstaf/${HST}git/knowledgedb}"
 
-
 months=("" "January" "February" "March" "April" "May" "June" "July" "Avgust" "September" "October" "November" "December")
 month_days=(0 31 29 31 30 31 30 31 31 30 31 30 31)
 
+# === FUNCTIONS ===
 usage() {
-cat << EOF
-	[U] usage: "${scrpt}" <month_num> <day_num>
-	
-	
-EOF
+	printf "[!] usage: kndb-files-from-tmst-in-mnth <month_num> <day_num>\n\n"
 }
 
+# === MAIN ===
 if [ $# -ne 2 ]; then
-	printf "[E] must supply exactly two parameters:\n"
+	printf "[e] must supply exactly two parameters:\n"
 	usage
 	exit 1
 else
@@ -38,13 +36,13 @@ else
 fi
 
 if [ "${mnth}" -lt 1 ] || [ "${mnth}" -gt 12 ]; then
-	printf "[E] month out of range (1 - 12)\n\n"
+	printf "[e] month out of range (1 - 12)\n\n"
 	exit 1
 elif [ "${day}" -lt 1 ] || [ "${day}" -gt 31 ]; then
-	printf "[E] day of month out of range (1 - 31)\n\n"
+	printf "[e] day of month out of range (1 - 31)\n\n"
 	exit 1
 elif [ "${mnth}" -eq "${currmn}" ] && [ "${day}" -gt "${currdy}" ]; then
-	printf "[E] day of current month out of range\n\n"
+	printf "[e] day of current month out of range\n\n"
 	exit 1
 fi
 
@@ -55,7 +53,7 @@ readarray -t RESULT < <(for DYS in $(seq  "${month_days["${mnth}"]}" -1 "${day}"
 	-iname $(printf "*%d%02d%02d.txt" "${curryr}" "${mnth}" "${DYS}"); done)
 
 if [ "${RESULT[0]}" == "" ]; then
-	printf "[E] no files found\n\n"
+	printf "[e] no files found\n\n"
 	exit 1
 fi
 

@@ -10,7 +10,7 @@ project_path="./${project_name}"
 
 
 if [ -d ${project_path} ]; then
-	echo -e "${project_path} exists!\n"
+	echo "${project_path} exists!"
 	exit
 fi
 

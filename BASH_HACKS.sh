@@ -1,9 +1,11 @@
 #! /usr/bin/env bash
-# v1 20251014 d
-# v1 20251027 d
-# last: 20251027
+# filename: BASH_HACKS.sh
+# descpt: quick display useful BASH HACKS
+# 20260928
+# last: 20260928
+# ---
 
-path_full="/home/gregor.redelonghi/majstaf/_NERAZPOREJENO/__DANES__/maj-fajl.txt"
+path_full="${HOME}/majstaf/_NERAZPOREJENO/__DANES__/maj-fajl.txt"
 
 path_only=${path_full%\/*}           # OK
 fname_full=${path_full##*\/}         # OK

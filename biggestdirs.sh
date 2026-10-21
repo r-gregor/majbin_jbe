@@ -1,7 +1,13 @@
 #! /bin/bash
+# filename: biggestdirs.sh
+# descpt: clear the screen and display biggest dirs
+# 20260928
+# last: 20260928
+# ---
 
-### clear the screen and display biggest dirs
-### under current dir ...
+# CHANGING IFS TO NEWLINE
+gr_oldifs=$IFS
+IFS=$'\n'
 
 clear # clear the screen ...
 
@@ -22,5 +28,8 @@ if [ -L $PWD ];
 fi
 
 # run command ...
-clear; echo; for FFF in $(find ${gr_POT} -maxdepth 1 -type d -iname "*"); do du -sh $FFF 2> /dev/null; done | sort -hr | head -n ${gr_linesnum} | cat -n
+clear; echo; for FFF in $(find "${gr_POT}" -maxdepth 1 -type d -iname "*"); do du -sh "$FFF" 2> /dev/null; done | sort -hr | head -n ${gr_linesnum} | cat -n
 
+
+# SET THE IFS TO ORIGINAL VALUE
+IFS=${gr_oldifs}

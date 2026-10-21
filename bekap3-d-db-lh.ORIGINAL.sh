@@ -18,7 +18,7 @@ crtc() {
 tms; echo "Starting $0 ..."
 
 gr_DEJTT="$(date +%Y%m%d_%H%M)"
-gr_DBX=$HOME/OLDHDD/Dropbox
+gr_DBX=$HOME/Dropbox
 gr_DBO=${gr_DBX}/ODPRTO
 gr_DBS=${gr_DBX}/SKUPNI
 gr_DEST=$HOME/majstaf/bckps_all/bckp_drpbx

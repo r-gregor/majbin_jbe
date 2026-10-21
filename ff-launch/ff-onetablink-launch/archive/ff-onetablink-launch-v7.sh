@@ -14,10 +14,7 @@ num_selected=0
 
 # === FUNCTIONS ===
 usage() {
-	cat <<"EOF"
-	Usage: ff-onetablink-launch <filename>
-
-EOF
+	printf "[!] usage: ff-onetablink-launch <filename>\n\n"
 }
 
 FZFCMD() {
@@ -29,7 +26,7 @@ ff_onetablink_launch() {
 
 	#v4
 	if [ "${selection}" == "" ]; then
-		printf "[i] nothing selected\n"
+		printf "[i] nothing selected\n\n"
 		exit 0
 	fi
 
@@ -45,7 +42,6 @@ ff_onetablink_launch() {
 		exit 0
 	fi
 
-	# run
 	for URL in "${!llist[@]}"; do
 		if [[ "${llist["${URL}"]}" =~ ${selection} ]]; then
 			printf "[i] selected: %s\n" "${selection}" #v4
@@ -62,7 +58,7 @@ if [ $# -ne 1 ]; then
 else
 	fjl="$1"
 	if [ ! -f "${fjl}" ]; then
-		printf "%s\n\n" "[E] No such file: ${fjl}"
+		printf "%s\n\n" "[e] No such file: ${fjl}"
 		exit
 	fi
 fi

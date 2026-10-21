@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-# fname: w3md-en.sh
+# fname: ./w3mdump/w3md.sh
 # descpt: convert single 'html-file'  to 'txt-file' with w3m
 # 20261013 make universal --> proxy settins only if on cygwin
 # last: 20261013

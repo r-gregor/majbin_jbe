@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
-# check_if_mvs_in_both_dirs.sh
+# filename: check_if_mvs_in_both_dirs.sh
+# descpt: check if movie is in both Seivom/ and Movies/ directory
 # 20240422_d:  - added check if parameter is 4-digit year
 #              - and 'all' as parameter to check all durectories
 # 20240423_en: - (or) logical operator in checking for dirs"

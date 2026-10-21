@@ -1,15 +1,14 @@
 #! /usr/bin/env bash
 
-CMD='for FFF in $(\ls -1); do echo $(echo $FFF | sed "s/\(.*\)_\([[:digit:]]\{8\}\).*/\2 /") $FFF; done | sort -nr'
-
-run1() {
-	# eval $CMD | less
-	eval $CMD
+function run1() {
+		# for FFF in $(ls -1); do echo $(echo $FFF | sed 's/\(.*\)_\([[:digit:]]\{8\}\).txt/\2 /') $FFF; done | sort -nr | less
+		for FFF in $(\ls -1); do echo $(echo $FFF | sed 's/\(.*\)_\([[:digit:]]\{8\}\).*/\2 /') $FFF; done | sort -nr | less
 }
 
-run2() {
-	gNr=$1
-	eval $CMD | head -n ${gNr}
+function run2() {
+		gNr=$1
+		# for FFF in $(ls -1); do echo $(echo $FFF | sed 's/\(.*\)_\([[:digit:]]\{8\}\).txt/\2 /') $FFF; done | sort -nr | head -n ${gNr}
+		for FFF in $(\ls -1); do echo $(echo $FFF | sed 's/\(.*\)_\([[:digit:]]\{8\}\).*/\2 /') $FFF; done | sort -nr | head -n ${gNr}
 }
 
 if [[ ! $# -eq 1 ]]; then

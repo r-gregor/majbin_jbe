@@ -1,4 +1,9 @@
 #! /usr/bin/env bash
+# filename: check-if-installed.sh
+# descpt: check if 'command' is installed
+# 20260928
+# last: 20260928
+# ---
 
 if [ $# -eq 1 ]; then
 	cmnd="$1"

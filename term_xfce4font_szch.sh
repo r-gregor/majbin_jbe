@@ -42,7 +42,7 @@ TERMINAL=$(get_terminal_name)
 
 if [ "${TERMINAL}" != "xfce4-terminal" ]; then
 
-	echo "[E] wrong terminal app"
+	echo "[e] wrong terminal app"
 	exit
 fi
 

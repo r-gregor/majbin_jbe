@@ -21,6 +21,7 @@ tms; echo "Starting $0 ..."
 if [ ! $# -eq 1 ]; then
     echo -e "\n\tUsage:"
     echo -e "\t$0 [filename.txt]\n"
+    echo
     exit
 fi
 

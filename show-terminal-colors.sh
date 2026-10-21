@@ -1,4 +1,9 @@
 #! /usr/bin/env bash
+# fname: show-terminal-colors.sh
+# descpt: display terminal colors
+# 20261002 v1
+# last: 20261002
+# ---
 
 printf "256 depth color:\n"
 echo   '\e[38;5;116m 116_BARVA\n'
@@ -34,7 +39,7 @@ printf "Cyan                        "; printf "\e[96m"; echo -n "\e[96m"; printf
 printf "White                       "; printf "\e[97m"; echo -n "\e[97m"; printf "\e[0m"; printf "            \e[107m"; echo -n "   \e[107m"; printf "\e[0m";printf "\n"
 printf "========================================================\n\n"
 
-read -r -p "[?] Examples:"
+read -p "Examples:"
 printf "\e[31;42mCOLOR\e[0m"; echo -n " \e[31;42mCOLOR\e[0m"; printf "\n"
 printf "\e[31;102mCOLOR\e[0m"; echo -n " \e[31;102mCOLOR\e[0m"; printf "\n"
 printf "\e[1;104mCOLOR\e[0m"; echo -n " \e[1;104mCOLOR\e[0m"; printf "\n"
@@ -58,7 +63,7 @@ printf "\e[2;38;2;150;230;100mCOLOR\e[0m"; echo -n " \e[2;38;2;150;230;100mCOLOR
 
 printf "\n"
 
-read -r -p "[?] 10bit colors:"
+read -p "10bit colors:"
 
 # test if terminal is true color (full RGB = 16.777.216 (256^3))
 awk -v term_cols="${width:-$(tput cols || echo 80)}" 'BEGIN{
@@ -77,7 +82,7 @@ awk -v term_cols="${width:-$(tput cols || echo 80)}" 'BEGIN{
 
 printf "\n"
 
-read -r -p "[?] 256 colors:"
+read -p "256 colors:"
 
 set -eu # Fail on errors or undeclared variables
 
@@ -85,7 +90,7 @@ printable_colours=256
 
 # Return a colour that contrasts with the given colour
 # Bash only does integer division, so keep it integral
-contrast_colour() {
+function contrast_colour {
 	local r g b luminance
 	colour="$1"
 
@@ -124,7 +129,7 @@ contrast_colour() {
 }
 
 # Print a coloured block with the number of that colour
-print_colour() {
+function print_colour {
 	local colour="$1" contrast
 	contrast=$(contrast_colour "$1")
 	printf "\e[48;5;%sm" "$colour"				  # Start block of colour
@@ -133,7 +138,7 @@ print_colour() {
 }
 
 # Starting at $1, print a run of $2 colours
-print_run() {
+function print_run {
 	local i
 	for (( i = "$1"; i < "$1" + "$2" && i < printable_colours; i++ )) do
 		print_colour "$i"
@@ -142,7 +147,7 @@ print_run() {
 }
 
 # Print blocks of colours
-print_blocks() {
+function print_blocks {
 	local start="$1" i
 	local end="$2" # inclusive
 	local block_cols="$3"

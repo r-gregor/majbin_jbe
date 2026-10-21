@@ -8,7 +8,7 @@
 ARG="$@"
 
 if [ "${ARG}" = "" ]; then
-	echo -e "[E] -- no string as argument\n"
+	echo -e "[e] -- no string as argument\n"
 	exit
 else
 	STR="$ARG"

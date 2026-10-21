@@ -4,37 +4,34 @@
 # 20260331 v1: display from newest to oldst: $(seq start end) --> $(seq end -1 start)
 # 20260415 v2: final printout to stdout and into xargs in one line with 'tee /dev/tty' comand
 # 20260831 v3: fzf files list sorted by cathegory
-# 20260925
-# last: 20260925
+# 20261021
+# last: 20261021
 # ---
 
+# === GLOBALS ===
 curryr=$(date +"%Y")
 currmn=$(date +"%m")
 currdy=$(date +"%d")
-
-scrpt=$(basename $0)
 
 SRCDIR="${KNOWLEDGEDB:-${HOME}/majstaf/${HST}git/knowledgedb}"
 
 months=("" "January" "February" "March" "April" "May" "June" "July" "Avgust" "September" "October" "November" "December")
 month_days=(0 31 29 31 30 31 30 31 31 30 31 30 31)
 
+# === FUNCTIONS ===
 usage() {
-cat << EOF
-    Usage: ${scrpt} + 3 parameters:
-                      <year>
-                      <month_num>
-                      <day_num>
-
-       or: ${scrpt} + 2 parameters:
-                      <month_num>
-                      <day_num>
-                      (year is current year)
-
-
-EOF
+	printf "[!] usage: kndb-files-from-yr-tmst-in-mnth + 3 parameters:\n"
+	printf "                  <year>\n"
+	printf "                  <month_num>\n"
+	printf "                  <day_num>\n"
+	printf "\n"
+	printf "   or: kndb-files-from-yr-tmst-in-mnth + 2 parameters:\n"
+	printf "                  <month_num>\n"
+	printf "                  <day_num>\n"
+	printf "                  (year is current year)\n\n"
 }
 
+# === MAIN ===
 if [ $# -eq 2 ]; then
 	slct_yr=$(date +"%Y")
 	slct_mnth="$1"
@@ -60,14 +57,14 @@ fi
 # fi
 
 if [ "${slct_mnth}" -lt 1 ] || [ "${slct_mnth}" -gt 12 ]; then
-	printf "[E] month out of range (1 - 12)\n\n"
+	printf "[e] month out of range (1 - 12)\n\n"
 	exit 1
 elif [ "${slct_day}" -lt 1 ] || [ "${slct_day}" -gt 31 ]; then
-	printf "[E] day of month out of range (1 - 31)\n\n"
+	printf "[e] day of month out of range (1 - 31)\n\n"
 	exit 1
 # elif [ "${slct_mnth}" -eq "${currmn}" ] && [ "${slct_day}" -gt "${currdy}" ]; then
 elif [ "${slct_yr}" -ge "${curryr}" ] && [ "${slct_mnth}" -eq "${currmn}" ] && [ "${slct_day}" -gt "${currdy}" ]; then
-	printf "[E] day of current month out of range\n\n"
+	printf "[e] day of current month out of range\n\n"
 	exit 1
 fi
 
@@ -78,7 +75,7 @@ readarray -t RESULT < <(for DYS in $(seq "${month_days["${slct_mnth}"]}" -1 "${s
 	-iname $(printf "*%d%02d%02d.txt" "${slct_yr}" "${slct_mnth}" "${DYS}"); done)
 
 if [ "${RESULT[0]}" == "" ]; then
-	printf "[E] no files found\n\n"
+	printf "[e] no files found\n\n"
 	exit 1
 fi
 

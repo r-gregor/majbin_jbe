@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 # v1: 20250131_en
 # v2: 20250201_d
 
@@ -26,7 +26,7 @@ if [ -f $dest ]; then
 	# cp -v ${fname} "_brisime_${fname}" # test
 	mv -v ${fname} "_brisime_${fname}"
 else
-	echo -e "[E] cleaning unsuccessful -- aborting\n"
+	echo -e "[e] cleaning unsuccessful -- aborting\n"
 	exit
 fi
 

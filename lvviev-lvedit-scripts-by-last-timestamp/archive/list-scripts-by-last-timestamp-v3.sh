@@ -13,7 +13,7 @@ unset selection
 declare -a fjls_lst
 declare -a selections
 
-dest="/home/rgregor/majstaf/majbin"
+dest="/home/gregor.redelonghi/majstaf/majbin"
 FZFCMD_EN="fzf -e -m --reverse"   # cygwin version does not support --width option
 
 usage() {
@@ -49,7 +49,7 @@ for FFF in $(find ${dest}/* -name "*\.sh" | grep -v 'src/'); do
 done
 
 if [ ${#fjls_lst[@]} -eq 0 ]; then
-	printf "[i] no file with datestamp: '%s' found\n"
+	printf "[INFO] no file with datestamp: '%s' found\n"
 	exit
 fi
 
@@ -61,11 +61,11 @@ selections+=$((for FJL in ${fjls_lst[@]}; do
 done; echo "---"; echo "Quit") | ${FZFCMD_EN})
 
 if [ "${#selections[@]}" -eq 0 ]; then
-	printf "[i] nothing selected\n\n"
+	printf "[INFO] nothing selected\n\n"
 	exit
 fi
 
-printf "[i] Selected:\n"
+printf "[INFO] Selected:\n"
 for selection in ${selections[@]}; do
 	if [ "${selection}" == "Quit" ]; then
 		exit

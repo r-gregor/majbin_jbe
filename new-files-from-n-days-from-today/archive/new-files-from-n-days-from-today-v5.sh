@@ -60,7 +60,7 @@ get_start_date_from_daysdiff() {
 	fi
 
 	if [ "${days_diff}" -ge 365 ]; then
-		printf "[E] to many days back (over a whole year)\n\n"
+		printf "[e] to many days back (over a whole year)\n\n"
 		exit
 	fi
 
@@ -98,7 +98,7 @@ else
 fi
 
 if [ ! -d "${PTH}" ]; then
-	printf "[E] no such directory: '%s'\n\n" "${PTH}"
+	printf "[e] no such directory: '%s'\n\n" "${PTH}"
 	exit 1
 fi
 

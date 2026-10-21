@@ -3,8 +3,8 @@
 # descpt: opens files list from stdin in 'read-write' mode with vim
 # 20261008 v1
 # 20261019 v2 test if stdin line is not a file
-# last: 20261019
-# ---
+# 20261021
+# last: 20261021
 
 # === MAIN ===
 if [ ! -p /dev/stdin ] || [ $# -ne 1 ]; then
@@ -20,4 +20,6 @@ while read LINE; do
 		printf "${LINE}\n"
 	fi
 done | /usr/bin/xargs -ro /usr/bin/vim
+
+printf "\n"
 

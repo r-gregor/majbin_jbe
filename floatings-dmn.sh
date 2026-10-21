@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 # eval $(nohup echo -e "nm-connection-editor\narandr\nlxappearance\nsystem-config-printer\nxfce4-settings-manager\nlxtask\npavucontrol" | fzf)
-cmd=$(nohup echo -e "nm-connection-editor\narandr\nlxappearance\nsystem-config-printer\nxfce4-settings-manager\nlxtask\npavucontrol\nquit" | dmenu -fn 'Ubuntu Mono-24' -l 8 -p "run")
+cmd=$(nohup echo -e "nm-connection-editor\narandr\nlxappearance\nsystem-config-printer\nxfce4-settings-manager\nlxtask\npavucontrol\nquit" | dmenu -fn 'Ubuntu Mono-18' -l 8 -p "run")
 
 if [ $cmd == quit ]; then
 	exit

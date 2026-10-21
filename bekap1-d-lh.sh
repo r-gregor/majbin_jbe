@@ -1,5 +1,23 @@
 #!/bin/bash
 
+### ------------------------------------------------------------------------
+### name:       bckpd.V4.sh
+### author:     RgregoR
+### date:       september 2013 / updated 20150326 / 20150414 / 20150526
+###             updated 20180527 (added $HOME/RUT)
+### ------------------------------------------------------------------------
+### Description:
+### script that creates gzipped tar backup of $HOME/* files
+### and $HOME/majstaf/forallusers/*
+### 1 - checks if at destination folder  is an existing arcive and delets it
+### 2 - creates the archive in the destination folder
+###
+### ------------------------------------------------------------------------
+
+# *************************************************************
+# VARIABLES
+# =========
+
 # timestamp
 tms() {
     echo -n "[ $(date +%Y%m%d_%H%M%S) ] "
@@ -20,11 +38,12 @@ gr_FROMCDNG=$HOME/majstaf
 
 gFromBrc="$HOME/.[hidden files]"
 gFromSzn=$HOME/majstaf/seznami
-gFromMtss=$HOME/majstaf/metsys_jbez0rg
+# gFromMtss=$HOME/majstaf/metsys
+gFromMtss=$HOME/majstaf/metsys
 
 # destination folder
 # !!! PAZI-  POT ZA ARHIVO !!!
-gDest=$HOME/majstaf/bckps_all/bckp_jbez0rg
+gDest=$HOME/majstaf/bckps_all/bckp_muadib
 gLog=$HOME/majstaf/bckps_all/bckp.log
 
 
@@ -33,7 +52,7 @@ gDate=$(date +%Y%m%d_%H%M%S)
 
 # archive:
 gCurrCdng="bckp_cdng_d_${gDate}.tar.gz"
-gCurrRcs="bckp_rcs_d_${gDate}.tar.gz"
+gCurrFau="bckp_rcs_d_${gDate}.tar.gz"
 gCurrSzn="bckp_szn_d_${gDate}.tar.gz"
 gCurrBrc="bckp_brc_d_${gDate}.tar"
 gCurrDoma="bckp-doma_d_${gDate}.tar.gz"
@@ -63,8 +82,8 @@ tms; echo -n "Creating archive: ${gDest}/${gCurrCdng} ... "
 tar -czf ${gDest}/${gCurrCdng} -C ${HOME}/majstaf coding2 majbin
 echo "[OK]"
 
-tms; echo -n "Creating archive: ${gDest}/${gCurrRcs} ... "
-tar -czf ${gDest}/${gCurrRcs} -C ${HOME}/majstaf majrcs
+tms; echo -n "Creating archive: ${gDest}/${gCurrFau} ... "
+tar -czf ${gDest}/${gCurrFau} -C ${HOME}/majstaf majrcs
 echo "[OK]"
 
 tms; echo -n "Creating archive: ${gDest}/${gCurrSzn} ... "
@@ -72,7 +91,7 @@ tar -czf ${gDest}/${gCurrSzn} -C ${HOME}/majstaf seznami
 echo "[OK]"
 
 tms; echo -n "Creating archive: ${gDest}/${gCurrMtss} ... "
-tar -czf ${gDest}/${gCurrMtss} -C ${HOME}/majstaf metsys_jbez0rg
+tar -czf ${gDest}/${gCurrMtss} -C ${HOME}/majstaf metsys
 echo "[OK]"
 
 tms; echo -n "Creating archive: ${gDest}/${gCurrBrc} ... "
@@ -81,7 +100,7 @@ cd $HOME && tar -rf ${gDest}/${gCurrBrc} -C ${HOME}/majstaf ".alseg/"
 gzip ${gDest}/${gCurrBrc}
 echo "[OK]"
 
-(tms; echo "successfully backed up CODING, FAU, SZN, MTSS and BRC archives to ${gDest}/") | tee -a ${gLog} # append to log
+(tms; echo "successfully backed up CODING, RCS, SZN, MTSS and BRC archives to ${gDest}/") | tee -a ${gLog} # append to log
 tms; echo "DONE!"
 tms; crtc ${crtn}
 

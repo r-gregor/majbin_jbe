@@ -10,7 +10,7 @@
 
 
 
-gPth="$HOME/OLDHDD/Dropbox/ODPRTO"	#EN
+gPth="$HOME/Dropbox/ODPRTO"	#EN
 gSrc="${gPth}/_TXT"
 
 gTmpLst="$HOME/.tmp/list.txt"

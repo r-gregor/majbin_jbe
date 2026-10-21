@@ -1,21 +1,18 @@
 #! /usr/bin/env bash
-# make_random_test_moviedir.sh
-# 20240423_01_en
+# fname: make_random_test_moviedir.sh
+# descpt: make random test movie directories
+# 20240423
+# last: 20240423
+# ---
 
-
-mkmvdr() {
+function mkmvdr() {
 	MVD="Movie $((0 + RANDOM % 9))$((0 + RANDOM % 9)) ($((2000 + RANDOM % 24)))"
-
-	# test
-	# echo "mkdir -pv \"${MVD}\""
-
 	mkdir -pv "${MVD}"
 }
 
-# action !
 mkmvdr
 
-# ↪  for N in $(seq 1 10); do mkmvdr; done
+# $> for N in $(seq 1 10); do mkmvdr; done
 # Movie 30 (2004)
 # Movie 10 (2004)
 # Movie 36 (2017)

@@ -14,10 +14,7 @@ num_selected=0
 
 # === FUNCTIONS ===
 usage() {
-	cat <<"EOF"
-	Usage: ff-onetablink-launch <filename>
-
-EOF
+	printf "[!] usage: ff-onetablink-launch <filename>\n\n"
 }
 
 FZFCMD() {
@@ -62,7 +59,7 @@ if [ $# -ne 1 ]; then
 else
 	fjl="$1"
 	if [ ! -f "${fjl}" ]; then
-		printf "%s\n\n" "[E] No such file: ${fjl}"
+		printf "%s\n\n" "[e] No such file: ${fjl}"
 		exit
 	fi
 fi

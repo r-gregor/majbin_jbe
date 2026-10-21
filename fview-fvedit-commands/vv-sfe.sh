@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
-# fname: vv-se
-# pipe output of external command into vv-se
-# 20260402
+# fname: vv-sfe.sh
+# descpt: view fzf-sellected (-e) file in vim
+# v1_20260402
 # last: 20260402
 # ---
 

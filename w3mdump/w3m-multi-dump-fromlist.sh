@@ -1,9 +1,9 @@
 #! /usr/bin/env bash
-# fname: w3m-multi-dump-fromlist-en.sh
+# fname: ./w3mdump/w3m-multi-dump-fromlist.sh
 # descpt: convert multiple 'html-files' into single 'txt-file' with w3m
 # 20261013 make universal --> proxy settins only if on cygwin
-# last: 20261013
-# ---
+# 20261021
+# last: 20261021
 
 # === FUNCTIONS ===
 check_for_ostype() {
@@ -69,14 +69,14 @@ fi
 if [ $# -eq 2 ]; then
 	seznam="$1"
 	if [ ! -f "${seznam}" ]; then
-		printf "[E] no such file: ${seznam}\n\n"
+		printf "[e] no such file: ${seznam}\n\n"
 		exit 1
 	fi
 	ffname="$(fname_string_adjustment "$2")"
 elif [ $# -eq 3 ]; then
 	seznam="$1"
 	if [ ! -f "${seznam}" ]; then
-		printf "[E] no such file: ${seznam}\n\n"
+		printf "[e] no such file: ${seznam}\n\n"
 		exit 1
 	fi
 	pfnm="$(fname_string_adjustment "$2")"

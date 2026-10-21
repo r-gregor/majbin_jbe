@@ -4,7 +4,7 @@
 # 20230907 (d)
 
 local_base="${HOME}/majstaf/coding"
-remote_base="${HOME}/OLDHDD/Dropbox/ODPRTO/MCDN_en/coding"
+remote_base="${HOME}/Dropbox/ODPRTO/MCDN_en/coding"
 
 if [ $# -ne 1 ]; then
 echo -e "Usage:\n\

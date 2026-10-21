@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 # filename: vedit-files-from-vim-history
-# 20260211 jbe v1
+# 20260211 mdb v1
 # last: 20260211
 # ---
 

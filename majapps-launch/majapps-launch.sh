@@ -1,16 +1,17 @@
 #! /usr/bin/env bash
-# filename: majapps-launch-mdb.sh
-# v1_20250917
-# v2_20251020 run inside infinite loop and added 'q' to quit
-#             keys in separate index-ed array to keep display order
-#             added slelection_info() function
-#             $delline calculated from longest KEY line with get_longest function
-#             sorted output to fzf command
-#             extract KEYS from URLS
-# v3_20260423 put all RUN statemnets into majapps_run() function and add option to select input as parameter
-# v4_20260423 selected input as parameter into array, if multiple option to redefine parameter
-# v5_20260507 move selection var with fzf into get_selection_jbe() function
-# v6_20260511 move links to external (csv format with ';' delimiter) file and add load_links_into_array()
+# filename: majapps-launch.sh
+# descpt: Launch apps on this computer from fzf list from external file
+# 20250917 v1
+# 20251020 v2  run inside infinite loop and added 'q' to quit
+#              keys in separate index-ed array to keep display order
+#              added slelection_info() function
+#              $delline calculated from longest KEY line with get_longest function
+#              sorted output to fzf command
+#              extract KEYS from URLS
+# 20260423 v3  put all RUN statemnets into majapps_run() function and add option to select input as parameter
+# 20260423 v4  selected input as parameter into array, if multiple option to redefine parameter
+# 20260507 v5  move selection var with fzf into get_selection_jbe() function
+# 20260511 v6  move links to external (csv format with ';' delimiter) file and add load_links_into_array()
 #             function to load links from file into associative array
 # last: 20260511
 # ---
@@ -19,9 +20,9 @@
 printf "\033[H\033[2J"
 
 # globals
-SRCDIR="$(dirname $(realpath ${BASH_SOURCE[0]}))"
-FNAME="majapps_links_list_mdb"  # v6
-FPTH=${SRCDIR}/${FNAME}         # v6
+SRCDIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+FNAME="majapps_links_list_${HST}"  # v6
+FPTH="${SRCDIR}/${FNAME}"          # v6
 
 # assoc array
 declare -A majapps
@@ -36,7 +37,7 @@ load_links_into_array() {
 
 get_longest() {
 	if [ ! $# -eq 1 ]; then
-		echo "[ERROR1] must supply array of sentences as parameter"
+		printf "[E1] must supply array of sentences as parameter\n"
 		exit 1
 	fi
 
@@ -58,14 +59,14 @@ get_longest() {
 }
 
 selection_info() {
-	printf "[i] selected: $1\n"
+	printf "[i] selected: ${1}\n"
 }
 
 # v3
 majapps_run() {
-	if [ "x${selection}" == "x" ]; then
-		echo -e "[i] no selection\n"
-		exit
+	if [ "${selection}" == "" ]; then
+		printf "[i] no selection\n"
+		exit 1
 	fi
 
 	if [ "${selection}" == "${delline}" ]; then #v3
@@ -74,7 +75,7 @@ majapps_run() {
 
 	if [ "${selection}" == "Quit" ]; then
 		printf "\n"
-		exit
+		exit 0
 	fi
 
 	# eval "nohup ${majapps["${selection}"]} >&/dev/null &"
@@ -125,20 +126,20 @@ if [ $# -eq 1 ]; then
 	done
 
 	if [ "${#options[@]}" -gt 1 ]; then
-		printf "[E] multiple selections:\n"
+		printf "[e] multiple selections:\n"
 		for OPT in "${options[@]}"; do
 			printf "${OPT}\n"
 		done
 		printf "[i] redefine parameter\n\n"
 		exit
 	elif [ "${#options[@]}" -eq 0 ]; then
-		printf "[E] no selection\n\n"
+		printf "[e] no selection\n\n"
 		exit
 	else
 		selection="${options[0]}"
 	fi
 
-	read -r -p "[?] [i] launch: ${selection} ... OK?"
+	read -r -p "[?] launch: ${selection} ... OK?"
 	majapps_run
 	exit
 fi
@@ -153,3 +154,4 @@ while true; do
 	majapps_run
 done
 printf "\n"
+

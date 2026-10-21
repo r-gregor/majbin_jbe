@@ -1,28 +1,34 @@
 #! /bin/bash
+# fname: fnd-txt-latest-files-by-time.sh
+# descpt: find latest *.txt files sorted by time
+# v1_20260514
+#---
+
+# === MAIN ===
 clear
 
-gr_MSG="Usage: $0 [ , < path >, -h ]"
-
 if [ $# -eq 1 ]; then
-	gr_LCT=$1
+	LCT="$1"
 else
-	gr_LCT="$PWD"
+	LCT="$PWD"
 fi
 
-if [ ! -e ${gr_LCT} ]; then
-	echo -e "The path supplied is NONEXISTANT!\n"
+if [ ! -e "${LCT}" ]; then
+	printf "[e] no such path: '%s'\n\n" "${LCT}"
 	exit 1
 fi
 	
 
 clear
-echo -e "Finding [ latest ...txt ] files, sorted by date ..."
-echo -e "\nSerch start location is: \n\t${gr_LCT}\n"
+printf "[i] finding [ latest ... txt ] files, sorted by date ...\n"
+printf "[i] serch start location is: \n\t'%s'\n" "${LCT}"
 	
-	# command:
-	find ${gr_LCT} -type f -iname "*txt" -exec ls -lgG --time-style=long-iso {} \; 2>/dev/null | cut -d' ' -f4- | sort -nr | head -n50
-	if [ $? -ne "0" ]; then
-		echo -e "Something went WRONG.\n"
-	fi
-	
-echo -e "\nDone."
+# command:
+find ${LCT} -type f -iname "*txt" -exec ls -lgG --time-style=long-iso {} \; 2>/dev/null | cut -d' ' -f4- | sort -nr
+if [ $? -ne 0 ]; then
+	printf "[e] something went wrong\n\n"
+	exit 1
+fi
+
+printf "[i] done\n\n"
+

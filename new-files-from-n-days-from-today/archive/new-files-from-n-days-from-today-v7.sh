@@ -31,23 +31,23 @@ list_new_files() {
 	fi
 
 	if [ ! -d "${PTH}" ]; then
-		printf "[E] no such directory: '%s'\n\n" "${PTH}"
+		printf "[e] no such directory: '%s'\n\n" "${PTH}"
 		exit 1
 	fi
 	
 	# v7
 	if ! [[ "${ddiff}" =~ ^[0-9]+$ ]]; then
-		printf "[E] ddiff is not a nubmer\n"
+		printf "[e] ddiff is not a nubmer\n"
 		exit 1
 	fi
 
 	newdate="$(get_start_date_from_daysdiff ${ddiff})"
 	# if [[ ! ${newdate} =~ '^[0-9]+$' ]]; then
-	# 	printf "[E] new date is not a nuber\n"
+	# 	printf "[e] new date is not a nuber\n"
 	# 	exit 1
 	# fi
 
-	printf "[i] looking for files from %s\n---\n" "${newdate}"
+	printf "[INFO] looking for files from %s\n---\n" "${newdate}"
 	find "${PTH}" \( \
 		-path '**/.config*' \
 		-o -path '**/.cache' \
@@ -101,7 +101,7 @@ get_start_date_from_daysdiff() {
 	fi
 
 	if [ "${days_diff}" -ge ${year_days} ]; then
-		printf "[E] to many days back (over a whole year)\n\n"
+		printf "[e] to many days back (over a whole year)\n\n"
 		exit 1
 	fi
 

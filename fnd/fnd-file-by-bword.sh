@@ -31,6 +31,6 @@ if [ $? -eq 0 ]; then
 	echo -e "\nDone."
 else
 	echo -e "Something went wrong, or search pattern was not found ...\n"
-	exit 1
+	xit 1
 fi
 

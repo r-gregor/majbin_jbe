@@ -6,8 +6,8 @@
 #              contain 'descpt: ' line
 #              universal: ${HOME}/majstaf/majbin ...
 # 20261013 v3: show fname only without containing directory
-# last: 20261013
-# ---
+# 20261021
+# last: 20261021
 
 # === GLOBALS ===
 unset found_bash_commands
@@ -28,7 +28,7 @@ for FFF in $(find "${PTH}"/* -maxdepth 1 -type f -name "*\.sh"); do
 done
 
 if [ "${#found_bash_commands[@]}" -lt 1 ]; then
-	printf "[E] no *.sh file with 'descpt: ' line found\n\n"
+	printf "[e] no *.sh file with 'descpt: ' line found\n\n"
 	exit 1
 fi
 

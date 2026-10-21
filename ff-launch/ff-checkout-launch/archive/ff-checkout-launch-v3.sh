@@ -56,7 +56,7 @@ ff_checkout_launch() {
 if [ $# -eq 1 ]; then
 	checkout_files_list="$1"
 	if [ ! -f "${checkout_files_list}" ]; then
-		printf "[ERROR] no such file: %s\n\n" "${checkout_files_list}"
+		printf "[e] no such file: %s\n\n" "${checkout_files_list}"
 		exit 1
 	fi
 fi

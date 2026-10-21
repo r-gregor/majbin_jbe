@@ -1,14 +1,17 @@
 #! /usr/bin/env bash
 # fname: fname-to-lower-with-hypens
+# descpt: rename file to lower with hypens
 # 20226031
 # last: 20260331
 # ---
 
+# === GLOBALS ===
 ARG="$@"
 
-if [ "x${ARG}" = "x" ]; then
-	printf "[E] -- no filename as argument\n"
-	exit
+# === MAIN ===
+if [ "${ARG}" = "" ]; then
+	printf "[e] -- no filename as argument\n\n"
+	exit 1
 else
 	FJLM="$ARG"
 fi

@@ -10,7 +10,7 @@
  
 
 
-gPth="$HOME/OLDHDD/Dropbox/ODPRTO"	#EN
+gPth="$HOME/Dropbox/ODPRTO"	#EN
 gPtn="${gPth}/_PYTHON"
 gTxt="${gPth}/_TXT"
 gJava="${gPth}/_JAVA"

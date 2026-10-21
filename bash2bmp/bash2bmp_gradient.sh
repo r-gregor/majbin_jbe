@@ -1,13 +1,11 @@
 #! /usr/bin/env bash
-# --------------------------------------------------------------------------------------------------
+# fname: bash2bmp_gradient.sh
+# descpt: Creating a Bitmap Image using Just Bash: emits a gradient BMP image to stdout (must be redirected to *.bmp image file)
 # from:      https://www.youtube.com/watch?v=XjAIhULJsjc
 #            I Created a Bitmap Image using Just Bash! (yes, really) - Graphics Programming in Bash?!
-#
+# ---
 # BMP file
 # structure: http://www.ue.eti.pg.gda.pl/fpgalab/zadania.spartan3/zad_vga_struktura_pliku_bmp_en.html
-# ---
-# filename:       bash2bmp_gradient
-# desc:           emits a gradient BMP image to stdout (must bbe redirected to *.bmp iamge file)
 # ---
 # 20251121 v1 en: export 2x2 bytes img
 # 20251121 v2 en: put header part into function bmp_header()
@@ -17,7 +15,7 @@
 # 20251121 v4 en: move bmp building part into make_bmp function, so it can write image into image,
 #                 so no redirection is needed
 # last: 20251121
-# --------------------------------------------------------------------------------------------------
+# ---
 
 source ./lib/bmp || exit
 
@@ -65,7 +63,7 @@ main () {
 	local dest="./output/${fname}"
 
 	make_bmp "${width}" "${height}" > ${dest}
-	echo "[i] finished creating ${dest}"
+	echo "[INFO] finished creating ${dest}"
 }
 
 # v2

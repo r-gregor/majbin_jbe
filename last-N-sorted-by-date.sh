@@ -1,36 +1,35 @@
 #! /usr/bin/env bash
 # fname: last-N-sorted-by-date.sh
-# descpt: display last n-files by in knowledgedb by category sorrted by date
-# 20261009 v1
-# last: 20261009
-# ---
+# descpt: List last 10 files from $KNOWLEDGEDB in all cathegories sorted by date
+# 20220202: added ${DEST1}, and ${DEST2}
+#           changed for loop
+# 20260407: DEST1, DEST2 ==> readarray 'ls -1' command into CATEGORIES
+#           DRPBO --> KNWLGDB
+# last: 20260407
+#---
 
-# === GLOBALS ===
-# CMD1="${HOME}"/.local/bin/rsort-by-enddate-g
-# CMD2="${HOME}"/.local/bin/rsort-by-tmstmp-c
-SRCDIR="${HOME}/majstaf/${HST}git/knowledgedb"
+KNWLGDB="${HOME}/majstaf/${HST}git/knowledgedb"
 
-
-DEST1="C_and_Cpp,JAVA,PYTHON,CS_and_other_PL,GIT,VIM,DOCKER,LINUX_SYSTEM,BASH,TXT,ZIG"
-DEST2="C_and_Cpp JAVA PYTHON CS_and_other_PL GIT VIM DOCKER LINUX_SYSTEM BASH TXT ZIG"
-
-
-# === FUNCTIONS ===
 CMD1() {
-	~/.local/bin/rsort-by-enddate-g
+	"${HOME}"/.local/bin/sort-files-by-end-date
 }
 
 CMD2() {
-	~/.local/bin/rsort-by-tmstmp-c
-} 
+	"${HOME}"/.local/bin/rsort-by-tmstmp-c
+}
+
+unset CATEGORIES
+readarray -t CATEGORIES < <(ls -1 "${KNWLGDB}")
+
 usage() {
 MSG=$(cat << HDOC
 
-[U] usage: last-N-sorted-by-date-d-backup [args]
-	args:	-h ... help
-			-n ... number of last files by date
+Usage: last-N-last [args]
+    args:
+        -h        ... help
+        -n <num>  ... number of last files by date
 
-		If no args, then last 10
+        If no args, then last 10
 
 
 HDOC
@@ -38,7 +37,6 @@ HDOC
 	echo "${MSG}"
 }
 
-# === MAIN ===
 noargs="true"
 
 while getopts "hn:" arg; do
@@ -49,33 +47,31 @@ while getopts "hn:" arg; do
 
 		n)
 			num="${OPTARG}"
-			for PTH in ${DEST2}; do
-				printf -- "--- ${SRCDIR}/_${PTH} ---\n"
-				cd "${SRCDIR}/_${PTH}" && CMD2 | head -n "${num}"
-			done
+			for PTH in "${CATEGORIES[@]}"; do
+				printf "--- ${KNWLGDB}/${PTH} ---\n"
+				cd "${KNWLGDB}/${PTH}" && CMD2 | head -n "${num}"; done
 		;;
 
 		*)
-			printf "[i] displaying last 10 files from ${SRCDIR}/_${DEST1}\n"
-			printf "[i] for more options/usage run with -h\n\n"
-
-			for PTH in ${DEST2}; do
-				printf -- "--- ${SRCDIR}/_${PTH} ---\n"
-				cd "${SRCDIR}/_${PTH}" && CMD2 | head -n10
-			done
+			echo "Displaying last 10 files from all categories in: ${KNWLGDB}"
+			echo "For more options/usage run with -h!"
+			printf "\n"
+			for PTH in "${CATEGORIES[@]}"; do
+				printf "--- ${KNWLGDB}/${PTH} ---\n"
+				cd "${KNWLGDB}/${PTH}" && CMD2 | head -n10; done
 		;;
 	esac
 	noargs="false"
 done
 
 
-if [[ ${noargs} == "true" ]]; then
-	printf "[i] displaying last 10 files from ${SRCDIR}/_${DEST1}\n"
-	printf "[i] for more options/usage run with -h\n\n"
-
-	for PTH in ${DEST2}; do
-		printf -- "--- ${SRCDIR}/_${PTH} ---\n"
-		cd "${SRCDIR}/_${PTH}" && CMD2 | head -n10; done
+if [[ "${noargs}" == "true" ]]; then
+	printf "Displaying last 10 files from all categories in: ${KNWLGDB}\n"
+	printf "For more options/usage run with -h!\n"
+	printf "\n"
+	for PTH in "${CATEGORIES[@]}"; do
+		printf "--- ${KNWLGDB}/${PTH} ---\n"
+		cd "${KNWLGDB}/${PTH}" && CMD2 | head -n10; done
 fi
 
 printf "\n"

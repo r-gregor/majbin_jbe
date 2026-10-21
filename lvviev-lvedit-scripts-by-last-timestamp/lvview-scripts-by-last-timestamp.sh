@@ -1,50 +1,43 @@
 #! /usr/bin/env bash
 # fname: lvview-scripts-by-last-timestamp.sh
-# descpt: view scripts in vim from fzf list
-# v1_20260520
-# v2_20260520 add fzf single selection
-# v3_20260220 fzf to multiple selections to open in vim
-# v4_20260521 refactor parts of code into functions and introduce main()
-# v5_20260521 open in vim
-# last: 20260521
+# descpt: View script in vim with FZF sellection with timestamp
+# 20260520 v1
+# 20260520 v2: add fzf single selection
+# 20260220 v3: fzf to multiple selections to open in vim
+# 20260521 v4: refactor parts of code into functions and introduce main()
+# 20260521 v5: open in vim
+# 20260917 v6: put FZFCMD into function
+# last: 20260917
 # ---
+
 
 # === GLOBALS ===
 unset fjls_lst
 unset selections
-
 declare -a fjls_lst
 declare -a selections
 
 currdtstmp=$(date +"%Y%m%d")
 
-dest_jbe="/home/rgregor/majstaf/majbin"
-
-VIM_CMD='/usr/bin/vim -M'
+DEST="${HOME}/majstaf/majbin"
+VIM_CMD="/usr/bin/vim -M"
 
 # === FUNCTIONS ===
-FZFCMD() {
-	# fzf -e -m --reverse --border rounded
-	fzf -e -m --reverse
-}
-
-
 usage() {
-cat << "EOF"
-	Usage: list-scripts-by-last-timestamp <datestamp>
-		<datestamp> format: YYYYmmdd ("20260520")
-                            at least YYYYmm
-
-EOF
+	printf "[!] usage: lvview-scripts-by-last-timestamp <datestamp>\n"
+	printf "           <datestamp> format: YYYYmmdd ("20260520")\n"
+    printf "                      at least YYYYmm\n\n"
 }
 
+FZFCMD_EN() {
+	fzf -e -m --reverse # cygwin version does not support --width option
+}
 
 load_files_into_list() {
-	input="${1}"
-	for FFF in $(find ${dest_jbe}/* -name "*\.sh" | grep -v 'src/'); do
+	for FFF in $(find "${DEST}" -name "*\.sh" | grep -v 'archive/'); do
 		dtstmp=$(grep last "$FFF" | grep -Eo "[0-9]{8}")
 		if [ $? -eq 0 ]; then
-			if [[ ${dtstmp} =~ ${djt} ]]; then
+			if [[ "${dtstmp}" =~ ${djt} ]]; then
 				fjls_lst+=("${FFF};${dtstmp}")
 			else
 				continue
@@ -54,8 +47,8 @@ load_files_into_list() {
 		fi
 	done
 
-	if [ ${#fjls_lst[@]} -eq 0 ]; then
-		printf "[i] no file with datestamp: '%s' found\n\n" "${input}"
+	if [ "${#fjls_lst[@]}" -eq 0 ]; then
+		printf "[e] no file with datestamp: '%s' found\n\n" "${dtstmp}"
 		exit 1
 	fi
 
@@ -63,8 +56,8 @@ load_files_into_list() {
 	fjls_lst+=("Quit;${currdtstmp}")
 }
 
-# === MAIN ===
-lvview() {
+# v3
+main() {
 	if [ $# -ne 1 ]; then
 		usage
 		exit 1
@@ -73,41 +66,44 @@ lvview() {
 		exit 1
 	else
 		djt="$1"
-		load_files_into_list "${djt}"
+		load_files_into_list
 	fi
 
-	selections+=$((for FJL in ${fjls_lst[@]}; do
+	selections+=$((for FJL in "${fjls_lst[@]}"; do
 		while IFS=';' read fname dtstmp; do
 			echo "${fname}"
-		done < <(echo ${FJL})
-	done) | FZFCMD)
+		done < <(echo "${FJL}")
+	done) | FZFCMD_EN)
 
 	if [ "${#selections[@]}" -eq 0 ]; then
-		printf "[i] nothing selected\n\n"
-		exit 1
+		printf "[!] nothing selected\n\n"
+		exit 0
 	fi
 
-	for selection1 in ${selections[@]}; do
+	for selection1 in "${selections[@]}"; do
 		if [[ "${selection1}" == "Quit" ]]; then
-			printf "[i] nothing selected\n\n"
-			exit 1
+			printf "[!] nothing selected\n\n"
+			exit 0
 		fi
 	done
 
 	# info
 	printf "[i] Selected:\n"
-	for selection2 in ${selections[@]}; do
+	for selection2 in "${selections[@]}"; do
 		printf "${selection2}\n"
 	done
-	# printf "\n"
+	printf "\n"
 
 	# open in vim
-	for selection2 in ${selections[@]}; do
+	for selection2 in "${selections[@]}"; do
 		printf "${selection2} "
-	done | xargs -ro $VIM_CMD
+	done | xargs -ro ${VIM_CMD}
 	printf "\n"
 }
 
 
-#MAIN
-lvview "$@"
+# === MAIN ===
+main "$@"
+
+printf "\n"
+

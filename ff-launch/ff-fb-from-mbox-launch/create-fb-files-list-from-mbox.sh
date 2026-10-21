@@ -22,7 +22,7 @@ bkp_local="backups/backup_fb_files_list_from_mbox_${tdy}.txt"
 
 # === MAIN ===
 if [ $# -ne 1 ]; then
-	printf "[E] no source *.mbox file supplied\n"
+	printf "[e] no source *.mbox file supplied\n"
 	printf "[i] Usage: create-fb-files-list-from-mbox <mbox file>\n\n"
 	exit 1
 else
@@ -30,7 +30,7 @@ else
 fi
 
 if [ ! -f "${src}" ]; then
-	printf "[E] no such file: %s\n\n" "${src}"
+	printf "[e] no such file: %s\n\n" "${src}"
 	exit 1
 fi
 

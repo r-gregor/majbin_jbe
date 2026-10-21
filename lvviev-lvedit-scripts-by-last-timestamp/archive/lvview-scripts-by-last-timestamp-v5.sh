@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-# fname: lvview-scripts-by-last-timestamp_jbe.sh
+# fname: lvview-scripts-by-last-timestamp.sh
 # v1_20260520
 # v2_20260520 add fzf single selection
 # v3_20260220 fzf to multiple selections to open in vim
@@ -10,14 +10,15 @@
 
 unset fjls_lst
 unset selections
+unset selection
 
 declare -a fjls_lst
 declare -a selections
 
 currdtstmp=$(date +"%Y%m%d")
 
-dest_jbe="/home/rgregor/majstaf/majbin"
-FZFCMD='fzf -e -m --reverse --border rounded'
+dest="/home/gregor.redelonghi/majstaf/majbin"
+FZFCMD_EN="fzf -e -m --reverse"   # cygwin version does not support --width option
 VIM_CMD="/usr/bin/vim -M"
 
 usage() {
@@ -31,7 +32,7 @@ EOF
 
 
 load_files_into_list() {
-	for FFF in $(find ${dest_jbe}/* -name "*\.sh" | grep -v 'src/'); do
+	for FFF in $(find ${dest}/* -name "*\.sh" | grep -v 'src/'); do
 		dtstmp=$(grep last "$FFF" | grep -Eo "[0-9]{8}")
 		if [ $? -eq 0 ]; then
 			if [[ ${dtstmp} =~ ${djt} ]]; then
@@ -45,7 +46,7 @@ load_files_into_list() {
 	done
 
 	if [ ${#fjls_lst[@]} -eq 0 ]; then
-		printf "[i] no file with datestamp: '%s' found\n\n" "${dtstmp}"
+		printf "[INFO] no file with datestamp: '%s' found\n\n" "${dtstmp}"
 		exit 1
 	fi
 
@@ -70,22 +71,22 @@ main() {
 		while IFS=';' read fname dtstmp; do
 			echo "${fname}"
 		done < <(echo ${FJL})
-	done) | ${FZFCMD})
+	done) | ${FZFCMD_EN})
 
 	if [ "${#selections[@]}" -eq 0 ]; then
-		printf "[i] nothing selected\n\n"
+		printf "[INFO] nothing selected\n\n"
 		exit 1
 	fi
 
 	for selection1 in ${selections[@]}; do
 		if [[ "${selection1}" == "Quit" ]]; then
-			printf "[i] nothing selected\n\n"
+			printf "[INFO] nothing selected\n\n"
 			exit 1
 		fi
 	done
 
 	# info
-	printf "[i] Selected:\n"
+	printf "[INFO] Selected:\n"
 	for selection2 in ${selections[@]}; do
 		printf "${selection2}\n"
 	done

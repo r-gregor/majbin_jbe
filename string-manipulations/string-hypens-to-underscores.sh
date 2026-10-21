@@ -8,7 +8,7 @@
 ARG="$@"
 
 if [ "${ARG}" = "" ]; then
-	printf "[E] -- no string as argument\n"
+	printf "[e] -- no string as argument\n"
 	exit
 else
 	STRNG="$ARG"

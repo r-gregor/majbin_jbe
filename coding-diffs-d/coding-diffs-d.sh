@@ -6,7 +6,7 @@
 
 
 local_base="${HOME}/majstaf/coding"
-remote_base="${HOME}/OLDHDD/Dropbox/ODPRTO/MCDN_en/coding"
+remote_base="${HOME}/Dropbox/ODPRTO/MCDN_en/coding"
 
 
 if [ $# -ne 2 ]; then
@@ -56,5 +56,5 @@ LOCAL:\t${CODING_LOCAL}\n\
 REMOTE:\t${CODING_REMOTE}"
 
 echo "---"
-diff -q ${CODING_LOCAL} ${CODING_REMOTE} | sed -e 's/\/home\/.*majstaf.*\//LOCAL  :: /g' -e 's/\/home\/.*OLDHDD.*\//REMOTE :: /g' -e 's/Files LOCAL/        Files/g' # | grep -vi common
+diff -q ${CODING_LOCAL} ${CODING_REMOTE} | sed -e 's/\/home\/.*majstaf.*\//LOCAL  :: /g' -e 's/\/home\/.*Dropbox.*\//REMOTE :: /g' -e 's/Files LOCAL/        Files/g' # | grep -vi common
 

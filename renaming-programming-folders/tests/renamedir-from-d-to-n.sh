@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 if [ $# -ne 1 ]; then
-	echo -e "Usage: $0 <dirname>\n"
+	echo "Usage: $0 <dirname>"
 	exit
 else
 	dname1=$1

@@ -1,43 +1,51 @@
 #!/bin/bash
+#! /usr/bin/env bash
+# fname: rewrapp.sh
+# descpt: converts documnet to linux lineendins format (dos2unix)
+# 20261021
+# last: 20261021
+# ---
 
-### scriopt that:
-### 1 - converts documnet to linux lineendins format (dos2unix)
-###	2 - rewraps paragraphs to 80 chrs width (fmt --width=80 [filename])
-### fmt - simple optimal text formatter (included in cygwin and Lubuntu)
-### 3 - backup copy tp ~/.tmp --> rename to new rewraped --> remove backup (20181015)
 
+# === GLOBALS ===
+unset FAJL
 
-
-unset gr_FAJL
-
+# === MAIN ===
 clear
 
-if [ ! ${1} ]; then
-	echo
-	echo -e "Usage: $0 [filename]   ..exiting!\n"
+if [ ! "${1}" ]; then
+	printf "[e] usage: rewrapp <filename>\n\n"
 	exit 1
 fi
 
-gr_FAJL=${1}
+FAJL="${1}"
 
-dos2unix ${gr_FAJL}
+if [ ! -f "${FAJL}" ]; then
+	printf "[e] no such file: '%s'\n\n" "${FAJL}"
+	exit 1
+fi
 
-gr_FAJL_tmp=tmp_${gr_FAJL}
+dos2unix "${FAJL}"
 
-echo
-echo  "fmt --width=110 -s ${gr_FAJL} >> ${gr_FAJL_tmp}"
-fmt --width=110 -s ${gr_FAJL} >> ${gr_FAJL_tmp}
+FAJL_tmp="tmp_${FAJL}"
+printf "fmt --width=110 -s ${FAJL}\n >> ${FAJL_tmp}\n"
+fmt --width=110 -s "${FAJL}" >> "${FAJL_tmp}"
 
-echo
-cp ${gr_FAJL} ~/.tmp/
-echo "${gr_FAJL} copied to ~/.tmp"
+printf -- "---\n"
 
-echo
-rm ${gr_FAJL}
-mv ${gr_FAJL_tmp} ${gr_FAJL}
-echo "${gr_FAJL_tmp} renamed to: ${gr_FAJL}"
+cp -v "${FAJL}" ~/.tmp/
+printf "[i] '%s' copied to ~/.tmp/\n" "${FAJL}"
 
-echo
-echo "Removing temporary file:"
-rm -i ~/.tmp/${gr_FAJL}
-echo -e "\nDONE!\n"
+printf -- "---\n"
+
+rm -v "${FAJL}"
+mv -v "${FAJL_tmp}" "${FAJL}"
+printf "[i] '%s' renamed to: '%s'\n" "${FAJL_tmp}" "${FAJL}"
+
+printf -- "---\n"
+
+printf "[i] removing temporary file ...\n"
+rm -i ~/.tmp/"${FAJL}"
+printf "[i] done\n"
+printf -- "---\n\n"
+

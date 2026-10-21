@@ -1,8 +1,11 @@
-#! /bin/bash
+#! /usr/bin/env bash
+# fname: oifs.sh
+# descpt: set IFS to orginal value: ' \t\n'
+# 20261001 v1
+# last: 20261001
+# ---
 
-### 20141027 IFS value settings
-# set IFS to orginal ' \t\n'
-echo -n "setting IFS to original value ..."
+printf "[i] setting IFS to original value ..."
 IFS=$' \t\n'
-echo " done."
+echo " done"
 

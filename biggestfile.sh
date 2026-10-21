@@ -1,12 +1,20 @@
 #! /bin/bash
+# filenme: biggestfile.sh
+# descpt: clear the screen and display biggest files under current dir
+# 20260928
+# last: 20260928
+# --# 20260928
+# last: 20260928
+# ---
 
-### clear the screen and display biggest files
-### under current dir ...
+# CHANGING IFS TO NEWLINE
+gr_oldifs=$IFS
+IFS=$'\n'
 
 clear # clear the screen ...
 
 if [ ! $1 ]; then		# if commandline argument is NOT set ...
-	echo "usage: biggestdirs [linesnum] ... (default=30)" 
+	echo "usage: biggestfiles [linesnum] ... (default=30)" 
 	echo -en "Enter linesnum or hit <ENTER> to skip:  "
 	read gr_vnos		# read value
 	gr_linesnum=${gr_vnos:-30}	# if no value is entered, it defaults to 30 ...
@@ -16,24 +24,13 @@ fi
 
 
 # if currdir is a SYMLINK, convert it to absolute path ...
-if [ -L $PWD ]; then
-	gr_POT=$(readlink $PWD)
-else
-	gr_POT=$PWD
+if [ -L $PWD ]; 
+	then gr_POT=$(readlink $PWD)
+	else gr_POT=$PWD
 fi
 
-
-# setting IFS to newline ...
-IFS=$'\n'
-
 # run command ...
-# needs new $IFS (newline as line delimiter, otherwise wrong filenames) ...
-clear; echo; for FFF in $(find ${gr_POT} -type f 2>/dev/null); do du -h ${FFF} 2> /dev/null; done | sort -hr | head -n ${gr_linesnum} | cat -n
+clear; echo; for FFF in $(find ${gr_POT} -type f 2>/dev/null); do du -ah "${FFF}" 2> /dev/null; done | sort -hr | head -n ${gr_linesnum} | cat -n
 
-# direct find method ...
-# clear; echo; find ${gr_POT} -type f 2>/dev/null -exec du -h {} \; | sort -hr | head -n ${gr_linesnum} | cat -n
-
-# setting IFS to original value ...
-IFS=$' \t\n'
-
-
+# SET THE IFS TO ORIGINAL VALUE
+IFS=${gr_oldifs}

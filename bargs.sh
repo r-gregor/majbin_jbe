@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
 # fname:    bargs.sh
+# descpt: display args to check for args expansion to avoid
 # from:     When Do Quotes Matter on The Terminal?
 #           https://www.youtube.com/watch?v=w-PgWIZm5Qs
 # original: https://mywiki.wooledge.org/WordSplitting

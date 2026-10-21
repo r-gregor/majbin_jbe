@@ -1,7 +1,11 @@
 #! /usr/bin/env bash
+# filename: show-aliases-en.sh
+# descpt: Show all aliases from $MRCS
+# last: 20260922
+# ---
 
 PDD=20
-PTH="${HOME}/majstaf/majrcs/aliases-jbez0rg"
+PTH="${HOME}/majstaf/majrcs/aliases-*"
 
 if [ $# -gt 0 ]; then
 	pattern="$1"
@@ -12,9 +16,9 @@ if [ $# -gt 0 ]; then
 		pattern="$pattern\|$param"
 	done
 
-	cmd='cat ${PTH} | \grep "^alias" | sed -e "/^#/d" -e "/^$/d" | sed "s/^alias //" | grep "${pattern}"'
+	cmd='cat ${PTH} | \grep "^alias" | sed -e "/^#/d" -e "/^$/d" | sed "s/^alias //" | grep "${pattern}" | sorti | uniq'
 else
-	cmd='cat ${PTH} | \grep "^alias" | sed -e "/^#/d" -e "/^$/d" | sed "s/^alias //"'
+	cmd='cat ${PTH} | \grep "^alias" | sed -e "/^#/d" -e "/^$/d" | sed "s/^alias //" | sort | uniq'
 fi
 
 while read LINE; do

@@ -65,7 +65,7 @@ main () {
 	local dest="./output/${fname}"
 
 	make_bmp "${width}" "${height}" > ${dest}
-	echo "[i] finished creating ${dest}"
+	echo "[INFO] finished creating ${dest}"
 }
 
 # v2

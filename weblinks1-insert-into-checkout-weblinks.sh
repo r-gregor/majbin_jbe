@@ -37,7 +37,8 @@ read -r -p "[?] Proceed?"
 ls -1 ${gr_IZE}/*.txt
 if [ $? -ne 0 ]; then
 	echo
-	echo -e "there are NO *.txt files in  ${gr_IZE}\n"
+	echo "there are NO *.txt files in  ${gr_IZE}"
+	echo -e "Exiting ...\n"
 	exit 1
 fi
 

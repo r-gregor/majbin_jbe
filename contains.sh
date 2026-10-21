@@ -1,37 +1,37 @@
 #!/usr/bin/env bash
-
-### updated 20210125 (EN):
-### added lines count to echo if no files found or
-### to echo how many file(s) found
-### ---
-###
+# fname: contains.sh
+# descpt: Checks if any file in currdir/sundirs/... contains URL at the top
+# 20210125 v2: added lines count to echo if no files found or to echo how many file(s) found
+# last: 20210125
+# ---
 
 # timestamp
-tms() {
-    echo -n "[ $(date +%Y%m%d_%H%M%S) ] "
+function tms() {
+	echo -n "[ $(date +%Y%m%d_%H%M%S) ] "
 }
-
-# Start
-tms; echo "Started: $0"
 
 # check the number of parameters
 if [ $# -ne 1 ]; then
-    tms; echo -e "Only ONE parameter allowed!\nUsage:\n\t$(basename $0) <URL, or KeyWord>\n"
-    exit
+	tms; echo -e "Only ONE parameter allowed!\nUsage:\n\t$(basename $0) <URL, or KeyWord>\n"
+	exit
 fi
 
 my_URL=$1
-mycmd() {
+
+# Start
+tms; echo "Looking for file with URL: $my_URL ..."
+
+function mycmd() {
 	tmpf=$(mktemp)
-    # ls $PWD | xargs -IS grep -s --color -Hn $my_URL S | tee $tmpf
-    # \ls $PWD | xargs -IS grep -s -Hn ${my_URL} S > ${tmpf}
-	find $PWD -type f -iname "*.txt" | xargs -I{} grep -s -Hn $my_URL {} > $tmpf
-	num=$(cat ${tmpf} | wc -l)
-	if [ ${num} -eq 0 ]; then
+	# ls $PWD | xargs -IS grep -s --color -Hn $my_URL S | tee $tmpf
+	# \ls $PWD | xargs -IS grep -s -Hn $my_URL S > $tmpf
+	find "$PWD" -type f -iname "*.txt" | xargs -I{} grep -s -Hn "$my_URL" {} > "$tmpf"
+	num=$(cat "$tmpf" | wc -l)
+	if [ "$num" -eq 0 ]; then
 		tms; echo "No files with that URL found!"
 	else
 		tms; echo "${num} file(s) found:"
-		cat ${tmpf}
+		cat "$tmpf"
 		echo
 	fi
 }
@@ -39,6 +39,6 @@ mycmd() {
 #run command ...
 mycmd
 
-rm ${tmpf}
+rm "$tmpf"
 tms; echo "Done."
 

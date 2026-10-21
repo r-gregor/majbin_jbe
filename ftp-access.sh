@@ -43,7 +43,7 @@ case "${GR_ANSWER}" in
 	;;
 
 	"0" )
-	echo -e "Bye!\n"
+	echo -e 'Bye!\n'
 	exit
 	;;
 

@@ -1,45 +1,53 @@
 #! /bin/bash
-
-### script:	30najvecjih.sh
-### opis:	poisce in izpise 30 najvecjih map in datotek
-###		sortirane po velikosti porabljenega prostora
-###		na disku (30.najvecjih.[datestamp].txt) in to datoteko
-###             shrani v $HOME/majstaf/SEZNAMI/
-### -----------------------------------------------------------------
+# filename: 30najvecjih.sh
+# descpt: displays 30 largest files sorted by space usage
+# 20260928
+# last: 20260928
+# ---
 
 
 # Variables:
-gr_DATE=$(date +%Y-%m-%d.%H%M)
-gr_DEST1="$HOME/majstaf/SEZNAMI"
-gr_FILE1="30.najvecjih_${gr_DATE}.txt"
+vDATE=$(date +%Y%m%d_%H%M)
+vDEST1="${HOME}/majstaf/seznami"
+vFILE1="30.najvecjih_${vDATE}.txt"
+gFinalDest="${vDEST1}/${vFILE1}"
 
-gr_IZHD=/
-gr_SZNM=~/majstaf/.tmp/list.dat
-gr_DIRSI=~/majstaf/.tmp/list-by-size.dat
+printf "[INFO] creating ${gFinalDest}...\n"
+touch "${gFinalDest}"
 
-gr_ST_ZNAKOV=85
+vIZHD="/c"
+vSZNM=~/.tmp/list.dat
+vDIRSI=~/.tmp/list-by-size.dat
+vST_ZNAKOV=85
 
-crtice () {
-	printf "%${gr_ST_ZNAKOV}s\n" | tr " " "-"	# draw a line of "-" number-of-chars times ...
-	}
+grf_crtice () {
+	printf "%${vST_ZNAKOV}s\n" | tr " " "-"	# draw a line of "-" number-of-chars times ...
+}
 
-crtice
-printf "%s\n" "[ $(date +%Y-%m-%d.%H%M) ] starting script \"$0\" ..."
+grf_crtice
+printf "%s\n" "[ $(date +%Y%m%d_%H%M) ] starting script \"$0\" ..."
 
-crtice
-rm -vvv ${gr_SZNM} ${gr_DIRSI}
+grf_crtice
 
-sudo du -h --max-depth=1 ${gr_IZHD} 2>/dev/null | sort -hr | head -n 30 >> ${gr_DIRSI}
+if [ -f "${vSZNM}" ]; then
+	rm -vvv "${vSZNM}"
+fi
 
-crtice
-cat -n ${gr_DIRSI} | tee ${gr_DEST1}/${gr_FILE1}
+	rm -vvv "${vDIRSI}"
+fi
 
-cat ${gr_DIRSI} | awk '{$1=""; print $0}' >> ${gr_SZNM}
+du -h --max-depth=1 "${vIZHD}" 2>/dev/null | sort -hr | head -n 30 >> "${vDIRSI}"
+
+grf_crtice
+cat -n "${vDIRSI}" | tee "${gFinalDest}"
+
+cat "${vDIRSI}" | awk '{$1=""; print $0}' >> "${vSZNM}"
 
 
-while read F; do
-	echo "---------------------------------------------------------------" >>  ${gr_DEST1}/${gr_FILE1}
-	sudo du -ah --max-depth=2 "${F}" 2>/dev/null | sort -hr | head -n5 >> ${gr_DEST1}/${gr_FILE1}
+while read F; do 	
+	echo "---------------------------------------------------------------" >>  "${gFinalDest}"
+	du -ah --max-depth=2 "${F}/" 2> /dev/null | sort -hr | head -n5 >> "${gFinalDest}"
 
-done <${gr_SZNM}
-crtice
+done <"${vSZNM}"
+grf_crtice
+

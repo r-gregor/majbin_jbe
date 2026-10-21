@@ -1,10 +1,15 @@
 #! /usr/bin/env bash
+# filename: clean-and-replace-fname-case.sh
+# descpt: cleans filename (hanges all letters to LOWERCASE, with underscores) and offers to rename it
+# 20260928
+# last: 20260928
+# ---
 
 # clean_and_replace_fname_case
 # changes all letters to LOWERCASE
 
 if [ $# -ne 1 ]; then
-	echo "usage: clean_and_replace_fname_case [fname]"
+	echo "usage: clean_and_replace_fname [fname]"
 	echo -e "\n"
 	exit
 else
@@ -36,7 +41,7 @@ echo mv "\"${FFF}\"" $(echo "${FFF}" | sed \
 	| tr '[:upper:]' '[:lower:]' \
 )
 
-read -r -p "[?] Continue?"
+read -p "Continue?"
 
 mv -v "${FFF}" $(echo "${FFF}" | sed \
 	-e "s/\s\+/_/g" \

@@ -1,23 +1,27 @@
-#! /bin/bash
+#! /usr/bin/env bash
+# fname: pagesnum.sh
+# descpt: get number of pages in fname (approx: chars per line: 80)
+# 20261001 v1
+# 20261021
+# last: 20261021
 
-### Name:   Scriptname ...
-### Author: Author ... 
-### Date:   2013-05-24 
-### Decription:
-### 
-### 
-### 
+# === GLOBALS ===
+unset FJL
 
-
-if [ $# -eq 0 ]; then
-    echo -e "Usage $0 + [filename]\n"
+# === MAIN ===
+if [ $# -ne 1 ]; then
+    printf "[e] usage: pagesnum + <filename>\n\n"
     exit 1
+else
+	FJL="$1"
 fi
 
-gr_FJL=$1
 
-gr_PGNM=$(echo "$(cat ${gr_FJL} | wc -l) / 80" | bc)
-echo
-echo -n "Number of pages of file ${gr_FJL} is:  __${gr_PGNM}__" 
-echo
+PGNM=$(echo "$(cat "${FJL}" | wc -l) / 80" | bc)
+
+if [ "${PGNM}" -lt 1 ]; then
+	PGNM=1
+fi
+
+printf "[i] number of pages in file '%s' is: %d\n\n" "${FJL}" "${PGNM}"
 

@@ -1,18 +1,18 @@
 #! /usr/bin/env bash
+# fname: relink-shell-link-names-to-names-with-sh.sh
+# descpt: relink scrips from external files-list to existing link in ~/.local/bin
+# 20261001 v1
+# last: 20261001
+# ---
 
-# while IFS=';' read link path; do printf "%-30s --> %s\n" "${link}" "${path}"; done < sflinks.txt
+# oneliner:
+# while IFS=';' read link spath; do printf "%-30s --> %s\n" "${link}" "${spath}"; done < sflinks.txt
 
 ULB="${HOME}/.local/bin"
 
-while IFS=';' read link path; do
-
-	if [ -f ${path}.sh ]; then
-		# TEST
-		# printf "ln -snf ${path}.sh ${ULB}/${link}\n"
-		# printf "mv -v ${ULB}/${link} ${ULB}/${link}.sh\n"
-		#REAL DEAL
-		ln -snf "${path}.sh" "${ULB}/${link}"
-		# mv -v "${ULB}/${link}" "${ULB}/${link}.sh"
+while IFS=';' read slink spath; do
+	if [ -f "${spath}.sh" ]; then
+		ln -snf "${spath}.sh" "${ULB}/${slink}"
 	fi
 done < sflinks.txt
 

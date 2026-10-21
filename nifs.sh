@@ -1,8 +1,11 @@
-#! /bin/bash
+#! /usr/bin/env bash
+# fname: nifs.sh
+# descpt: setting IFS to newline
+# 20261001 v1
+# last: 20261001
+# ---
 
-### 20141027 IFS value settings
-# set IFS to newline '\n'
-echo -n "setting IFS to newline ..."
+printf "[i] setting IFS to newline ..."
 IFS=$'\n'
-echo " done."
+printf " done"
 

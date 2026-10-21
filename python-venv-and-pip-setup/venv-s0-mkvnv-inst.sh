@@ -1,6 +1,7 @@
 #! /usr/bin/env bash
 
-ptn3="/usr/bin/python3.10"
+# ptn3="/usr/local/bin/python3.9"
+ptn3="/usr/bin/python3"
 PY3="./venv/bin/python3"
 
 # venv_s1

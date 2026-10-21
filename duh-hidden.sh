@@ -1,17 +1,16 @@
 #! /usr/bin/env bash
-
-### Name:	Scriptname ...
-### Author:	Author ... 
-### Date:	 
-### Decription:
-### 
-### 
-### 
+# filename: duh-hidden.sh
+# descpt: du, but with hidden files
+# last: 20260922
+# ---
 
 gCurDir="."
 nLines=0
 
-cmd="du -hs --total .[^.]* *"
+# cmd="du -hs --total .[^.]* *"
+cmd() {
+	du -hs --total .[^.]* *
+}
 
 usage() {
 cat << EOF
@@ -41,8 +40,8 @@ if [ $# -eq 2 ] && [ -d $1 ] && [ ! $2 = "-h" ]; then
 fi
 
 if [ ${nLines} -gt 0 ]; then
-	cd ${gCurDir} && ${cmd} 2>/dev/null | sort -hr | head -n ${nLines}
+	cd ${gCurDir} && cmd | sort -hr | head -n ${nLines}
 else
-	cd ${gCurDir} && ${cmd} 2>/dev/null | sort -hr
+	cd ${gCurDir} && cmd | sort -hr
 fi
 

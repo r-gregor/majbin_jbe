@@ -1,18 +1,25 @@
 #! /usr/bin/env bash
+#! /usr/bin/env bash
+# fname: show-trees-of-subdirs.sh
+# descpt: show a tree of subdirs
+# 20261002 v1
+# last: 20261002
+# ---
+
 
 
 # set IFS to newline '\n'
 nifs() {
-	echo -n "setting IFS to newline ..."
+	# echo -n "setting IFS to newline ..."
 	IFS=$'\n'
-	echo " done."
+	# echo " done."
 }
 
 # set IFS to orginal ' \t\n'
 oifs() {
-	echo -n "setting IFS to original value ..."
+	# echo -n "setting IFS to original value ..."
 	IFS=$' \t\n'
-	echo " done."
+	# echo " done."
 }
 
 nifs
@@ -22,3 +29,4 @@ for DDD in $(find * -maxdepth 0 -type d); do
 done
 
 oifs
+

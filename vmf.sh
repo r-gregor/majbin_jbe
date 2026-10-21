@@ -1,12 +1,17 @@
 #! /usr/bin/env bash
+# fname: vmf.sh
+# descpt: fzf-find any file/files and open it/them in vim
+# 20261006 v1
+# last: 20261006
+# ---
 
-### Name:	vmf.sh (vimfind)
-
+# === MAIN ===
 if [ $# -eq 1 ]; then
-	PTH=$1
-	cd $PTH
+	PTH="$1"
+	cd "${PTH}"
+else
+	PTH="."
 fi
 
-# xargs '-r' flag: if no arguments to xargs DO NOT run command
-find . | fzf | xargs -r -o vim
+find "${PTH}" | fzf -m | xargs -ro vim
 

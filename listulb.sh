@@ -1,18 +1,21 @@
-#! /bin/bash
-
+#! /usr/bin/env bash
+# fname: listulb.sh
+# descpt: display all soft-linked scriptd in ~/.local/bin
 # change: 20150310
-# change: 20200308:	- display only basename of ~/.local/bin/[filename]
-#					- sorted output by ~/.local/bin/[filename]
-
+# change: 20200308:  - display only basename of ${HOME}/.local/bin/[filename]
+#                    - sorted output by ${HOME}/.local/bin/[filename]
+# 20261001
+# last: 20261001
+# ---
 
 clear
-echo "List of \"soft-linked\" scripts in ~/.local/bin:"
-echo
+printf "List of \"soft-linked\" scripts in ${HOME}/.local/bin:\n\n"
 
-for aaa in $(find ~/.local/bin -type l); do
-	F1=$(basename "${aaa}")
-	F2=$(ls -lgG "${aaa}" | awk '{print $9}')
-    printf "%-50s%s\n" $F1 $F2 | tr ' ' '.'
+for slfname in $(find "${HOME}/.local/bin" -type l); do
+	F1=$(basename "${slfname}")
+	F2=$(ls -lgG "${slfname}" | awk '{print $9}')
+    printf "%-40s%s\n" $F1 $F2 | tr ' ' '.'
 done | sort
-echo
- 
+
+printf "\n"
+

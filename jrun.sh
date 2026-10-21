@@ -1,10 +1,25 @@
 #! /usr/bin/env bash
-unixpath=$1
-shift
-rest="$@"
+# fname: jjrun.sh
+# descpt: run *.jar file with java -jar (cygwin)
+# 20261001 v1
+# last: 20261001
+# ---
 
-# cygwin on windows:
-# java -jar $(cygpath -w $(realpath $unixpath)) $rest
+# === GLOBALS ===
+unset unixpath
+unset rest
 
-# linux:
-java -jar $unixpath $rest
+# === MAIN ===
+if [ $# -lt 1 ];
+	printf "[e] must supply unixpath and/or options\n\n"
+	exit 1
+else
+	unixpath="$1"
+	shift
+	rest="$@"
+fi
+
+java -jar $(cygpath -w $(realpath "${unixpath}")) "${rest}"
+
+printf "\n"
+

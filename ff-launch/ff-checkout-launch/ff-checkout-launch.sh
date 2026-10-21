@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 # filename: ff-checkout-launch.sh
 # descpt: Launch www-sites from external file in format: 'http-link;decription'
-# from: ff-fb-mails-from-mbox-launch-en.sh
+# from: ff-fb-mails-from-mbox-launch.sh
 # 20261006 v2: add sellection counter 'num_selected'
 # last: 20261006
 # ---
@@ -56,7 +56,7 @@ ff_checkout_launch() {
 if [ $# -eq 1 ]; then
 	checkout_files_list="$1"
 	if [ ! -f "${checkout_files_list}" ]; then
-		printf "[ERROR] no such file: %s\n\n" "${checkout_files_list}"
+		printf "[e] no such file: %s\n\n" "${checkout_files_list}"
 		exit 1
 	fi
 fi

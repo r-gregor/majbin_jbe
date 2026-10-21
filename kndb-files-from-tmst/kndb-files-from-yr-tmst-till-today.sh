@@ -5,37 +5,35 @@
 # 20260331 v1: display from newest to oldset
 # 20260415 v2: final printout to stdout and into xargs in one line with 'tee /dev/tty' comand
 # 20260831 v3: fzf files list sorted by cathegory
-# 20260925
-# last: 20260925
+# 20261021
+# last: 20261021
 # ---
 
+# === GLOBALS ===
 curryr=$(date +"%Y")
 currmn=$(date +"%m")
 currdy=$(date +"%d")
 currdt=$(date +"%Y%m%d")
 
-scrpt=$(basename $0)
 SRCDIR="${KNOWLEDGEDB:-${HOME}/majstaf/${HST}git/knowledgedb}"
 
 months=("" "January" "February" "March" "April" "May" "June" "July" "Avgust" "September" "October" "November" "December")
 month_days=(0 31 29 31 30 31 30 31 31 30 31 30 31)
 
+# === FUNCTIONS ===
 usage() {
-cat << EOF
-    Usage: "${scrpt}" + 3 parameters:
-                      <year>
-                      <month_num>
-                      <day_num>
-
-       or: "${scrpt}" + 2 parameters:
-                      <month_num>
-                      <day_num>
-                      (year is current year)
-
-
-EOF
+	printf "[!] usage: kndb-files-from-yr-tmst-till-today + 3 parameters:\n"
+	printf "                  <year>\n"
+	printf "                  <month_num>\n"
+	printf "                  <day_num>\n"
+	printf "\n"
+	printf "   or: kndb-files-from-yr-tmst-till-today + 2 parameters:\n"
+	printf "                  <month_num>\n"
+	printf "                  <day_num>\n"
+	printf "                  (year is current year)\n\n"
 }
 
+# === MAIN ===
 if [ $# -eq 2 ]; then
 	slctd_yr=$(date +"%Y")
 	slctd_mt="$1"
@@ -50,11 +48,11 @@ else
 fi
 
 if [ "${slctd_mt}" -lt 1 ] || [ "${slctd_mt}" -gt 12 ]; then
-	printf "[E] month out of range (1 - 12)\n\n"
+	printf "[e] month out of range (1 - 12)\n\n"
 	exit 1
 elif
 	[ "${slctd_dy}" -lt 1 ] || [ "${slctd_dy}" -gt "${month_days["${slctd_mt}"]}" ]; then
-	printf "[E] day of month out of range (1 - "${month_days["${slctd_mt}"]}")\n\n"
+	printf "[e] day of month out of range (1 - "${month_days["${slctd_mt}"]}")\n\n"
 	exit 1
 fi
 
@@ -88,7 +86,7 @@ unset RESULT
 readarray -t RESULT < <(for DYS in "${DAYS[@]}"; do find "${SRCDIR}" -iname "*${DYS}.txt"; done)
 
 if [ "${RESULT[0]}" == "" ]; then
-	printf "[E] no files found\n\n"
+	printf "[e] no files found\n\n"
 	exit 1
 fi
 

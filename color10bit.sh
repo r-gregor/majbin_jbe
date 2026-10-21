@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+# filename: color10bit.sh
+# descpt: test if terminal is truecolor
+# 20260928
+# last: 20260928
+# ---
 
 # test if terminal is true color (full RGB = 16.777.216 (256^3))
 awk -v term_cols="${width:-$(tput cols || echo 80)}" 'BEGIN{

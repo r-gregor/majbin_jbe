@@ -1,18 +1,24 @@
 #! /usr/bin/env bash
-# filename: showw
-# list all show-* commands ...
-# 20260209 en
+# filename: showw.sh
+# descpt: List all show-* commands and run fzf selection
+# 20260209
 # last: 20260209
+# ---
 
-show_cmds=()
+show_cmmds=()
 pth="$HOME/.local/bin"
 
-for show_cmd in $(ls -1 $HOME/.local/bin/show-*); do
-	show_cmds+=(${show_cmd})
+run() {
+	"${pth}/${selection}"
+}
+
+for show_cmmd in $(ls -1 "$HOME"/.local/bin/show-*); do
+	show_cmmds+=( "${show_cmmd}" )
 done
 
-selection=$(for cmd in "${show_cmds[@]}"; do
-	echo "${cmd##*/}"
+selection=$(for cmmd in "${show_cmmds[@]}"; do
+	echo "${cmmd##*/}"
 done | fzf -e --reverse)
 
-"${pth}/${selection}"
+run
+

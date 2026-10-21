@@ -14,11 +14,11 @@ vol_cmd="/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKDIR}"
 ghvol="git@github.com:r-gregor/vlpprs_${HST}.git"
 glvol="git@gitlab.com:r-gregor/vlpprs_${HST}.git"
 
-echo "[i] Testpush to ${ghvol} ..."
+printf "[i] testpush to ${ghvol} ...\n"
 ${vol_cmd} push --dry-run ${ghvol} main
-echo "---"
+printf "---\n"
 
-echo "[i] Testpush to ${glvol} ..."
+printf "[i] testpush to ${glvol} ...\n"
 ${vol_cmd} push --dry-run ${glvol} main
-echo "---"
+printf "---\n"
 

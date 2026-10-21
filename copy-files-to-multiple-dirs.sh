@@ -56,14 +56,14 @@ while getopts "f:d:h" opt; do
 done
 
 if [ "${farg}" != "true" ]; then
-	echo "[E] no file selected"
+	echo "[e] no file selected"
 	usage
 	exit
 fi
 
 
 if [ "${darg}" != "true" ]; then
-	echo "[E] no directory selected"
+	echo "[e] no directory selected"
 	usage
 	exit
 fi
@@ -71,14 +71,14 @@ IFS=$OIFS
 
 for DDD in "${dsts[@]}"; do
 	if [ ! -d "${DDD}" ]; then
-		printf "[E] no such directory: ${DDD}\n\n"
+		printf "[e] no such directory: ${DDD}\n\n"
 		exit
 	fi
 done
 
 for FFF in "${fjls[@]}"; do
 	if [ ! -f "${FFF}" ]; then
-		printf "[E] no such file: ${FFF}\n\n"
+		printf "[e] no such file: ${FFF}\n\n"
 		exit
 	fi
 done

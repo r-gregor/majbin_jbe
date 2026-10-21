@@ -1,5 +1,11 @@
 #! /usr/bin/env bash
-# clean_and_replace_fname_02
+# filename: clean-and-replace-fname.sh
+# descpt: cleans filename (preserves lettercase, with underscores) and offers to rename it
+# 20260928
+# last: 20260928
+# ---
+
+# preserves letter case
 
 if [ $# -ne 1 ]; then
 	echo "usage: clean_and_replace_fname [fname]"
@@ -15,7 +21,6 @@ echo mv "\"${FFF}\"" $(echo "${FFF}" | sed \
 	-e "s/\s\+/_/g" \
 	-e "s/#//g" \
 	-e "s/!//g" \
-	-e "s/&//g" \
 	-e "s/|//g" \
 	-e "s/｜//g" \
 	-e "s/：//g" \
@@ -34,13 +39,12 @@ echo mv "\"${FFF}\"" $(echo "${FFF}" | sed \
 	-e "s/_\{2,\}/_/g"
 )
 
-read -r -p "[?] Continue?"
+read -p "Continue?"
 
 mv -v "${FFF}" $(echo "${FFF}" | sed \
 	-e "s/\s\+/_/g" \
 	-e "s/#//g" \
 	-e "s/!//g" \
-	-e "s/&//g" \
 	-e "s/|//g" \
 	-e "s/｜//g" \
 	-e "s/：//g" \

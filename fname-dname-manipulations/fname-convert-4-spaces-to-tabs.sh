@@ -1,19 +1,20 @@
 #! /usr/bin/env bash
 # fname: fname-convert-4-spaces-to-tabs
+# descpt: rename fname: 4 spaces to tabs
 # 20226031
 # last: 20260331
 # ---
 
 ARG="$@"
 
-if [ "x${ARG}" = "x" ]; then
-	printf "[E] -- no string as argument\n"
-	exit
+if [ "${ARG}" = "" ]; then
+	printf "[e] no string as argument\n\n"
+	exit 1
 else
 	FNAME="$ARG"
 fi
 
-echo -n "Converting 4 spaces to tabs for file '${FNAME}' ... "
+printf "i[i] converting 4 spaces to tabs for file '${FNAME}' ... "
 sed -i 's/ \{4\}/\t/g' "${FNAME}"
-printf "[OK].\n"
+printf "[?] ok?\n"
 

@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-# fname: string-spaces-to-hypens-en.sh
+# fname: string-spaces-to-hypens.sh
 # descpt: Change string spaces to hypens
 # 20260925
 # last: 20260925
@@ -8,7 +8,7 @@
 ARG="$@"
 
 if [ "${ARG}" = "" ]; then
-	printf "[E] -- no string as argument\n"
+	printf "[e] -- no string as argument\n"
 	exit
 else
 	STRNG="$ARG"

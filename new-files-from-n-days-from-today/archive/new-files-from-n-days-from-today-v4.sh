@@ -39,7 +39,7 @@ else
 fi
 
 if [ ! -d "${PTH}" ]; then
-	printf "[E] no such directory: '%s'\n\n" "${PTH}"
+	printf "[e] no such directory: '%s'\n\n" "${PTH}"
 	exit 1
 fi
 
@@ -48,10 +48,10 @@ new_MN=${MN//0/}
 
 # test
 # echo "new_DY: ${new_DY}"
-# read -r -p "[?] OK?"
+# read -p "OK?"
 
 if [ $new_DY -le 0 ]; then
-	printf "[E] The days difference is to big\n"
+	printf "[e] The days difference is to big\n"
 	exit 1
 fi
 
@@ -59,5 +59,5 @@ newdate=$(printf "%4d%02d%02d\n" "${YR}" "${new_MN}" "${new_DY}")
 
 # test
 # echo "newdate: ${newdate}"
-# read -r -p "[?] OK?"
+# read -p "OK?"
 list_new_files
