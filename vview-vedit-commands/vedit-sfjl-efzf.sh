@@ -2,7 +2,8 @@
 # fname: vedit-sfjl-efzf.sh
 # descpt: vim-edit single file from fzf-sellection -- exact match
 # 20261006 v1
-# last: 20261006
+# 20261023 v2
+# last: 20261023
 # ---
 
 # === GLOBALS ===
@@ -30,4 +31,6 @@ done
 for selection in "${selections[@]}"; do
 	printf "${HOME}/${selection} "
 done | xargs -ro ${vcmd}
+
+printf "\n"
 
