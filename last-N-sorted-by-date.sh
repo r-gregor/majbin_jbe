@@ -70,7 +70,7 @@ if [[ "${noargs}" == "true" ]]; then
 	printf "For more options/usage run with -h!\n"
 	printf "\n"
 	for PTH in "${CATEGORIES[@]}"; do
-		printf "--- ${KNWLGDB}/${PTH} ---\n"
+		printf -- "--- ${KNWLGDB}/${PTH} ---\n"
 		cd "${KNWLGDB}/${PTH}" && CMD2 | head -n10; done
 fi
 
