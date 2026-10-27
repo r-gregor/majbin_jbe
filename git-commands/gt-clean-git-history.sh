@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-# filename: clean-git-history.sh
+# filename: gt-clean-git-history.sh
 # descpt: Clean git-history from git-repository
 # 20260921 v1
 # 20260924: unified scripts for linux

@@ -18,9 +18,9 @@ glvol="git@gitlab.com:r-gregor/vlpprs_${HST}.git"
 
 printf "[i] testpush to ${ghvol} ...\n"
 ${vol_cmd} push --dry-run ${ghvol} main
-printf "---\n"
+printf -- "---\n"
 
 printf "[i] testpush to ${glvol} ...\n"
 ${vol_cmd} push --dry-run ${glvol} main
-printf "---\n"
+printf -- "---\n"
 

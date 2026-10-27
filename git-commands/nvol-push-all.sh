@@ -16,9 +16,9 @@ glvol="git@gitlab.com:r-gregor/vlpprs_${HST}.git"
 
 printf "[i] push to ${ghvol} ...\n"
 ${git_nvol} push ${ghvol} main
-printf "---\n"
+printf -- "---\n"
 
 printf "[i] push to ${glvol} ...\n"
 ${git_nvol} push ${glvol} main
-printf "---\n"
+printf -- "---\n"
 
