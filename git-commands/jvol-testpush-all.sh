@@ -7,7 +7,7 @@
 # last: 20260925
 # ---
 
-export VOLGITDIR="${HOME}/majstaf/${HST}git/vlpprs_${HST}"
+export VOLGITDIR="${HOME}/majstaf/${HST}git/vlpprs_${HST}.git"
 export VOLWORKDIR="${HOME}/majstaf/majvolpejpers"
 vol_cmd="/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKDIR}"
 

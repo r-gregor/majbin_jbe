@@ -9,7 +9,7 @@
 
 HST="en"
 
-export VOLGITDIR="${HOME}/majstaf/${HST}git/vlpprs_${HST}"
+export VOLGITDIR="${HOME}/majstaf/${HST}git/vlpprs_${HST}.git"
 export VOLWORKDIR="/c/Users/gregor.redelonghi/majstaf_${HST}/${HST}_staf/majvolpejprs"
 vol_cmd="/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKDIR}"
 
