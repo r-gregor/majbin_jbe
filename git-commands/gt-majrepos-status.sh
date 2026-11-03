@@ -58,7 +58,7 @@ done
 
 # volpejpers
 DDD="vlpprs_${HST}"
-VOLGITDIR="${HOME}/majstaf/${HST}git/vlpprs_${HST}"
+VOLGITDIR="${HOME}/majstaf/${HST}git/vlpprs_${HST}.git"
 VOLWORKTREE="${HOME}/majstaf/majvolpejpers"
 get_status "/usr/bin/git --git-dir=${VOLGITDIR} --work-tree=${VOLWORKTREE}"
 
