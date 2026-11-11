@@ -17,7 +17,6 @@ newbindir:
 %: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -o $(BUILDDIR)/$@ $<
 
-
 clean:
 	$(RM) $(BUILDDIR)/*
 
