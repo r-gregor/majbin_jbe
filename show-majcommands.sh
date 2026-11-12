@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 # fname: show-majcommands.sh
 # descpt: make list of majcommands with decription
-# 20261112
+# 20261112: same as majcommands-list/majcommands-list.sh
 # last: 20261112
 
 # === GLOBALS ===
