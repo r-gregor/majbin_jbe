@@ -7,7 +7,7 @@
 # ---
 
 # === GLOBALS ===
-seivom_pth="${HOME}/majstaf/${HST}git/prenos/seivom/"
+seivom_pth="${HOME}/majstaf/${HST}git/prenos/seivom/_DSVM.txt"
 
 # === MAIN ===
 if [ $# -ne 1 ]; then
