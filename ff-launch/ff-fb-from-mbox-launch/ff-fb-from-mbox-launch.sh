@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 # filename: ff-fb-from-mbox-launch-mdb.sh
 # descpt: open fb-link in Firefox from fzf list from mbox file
-# 20261006 v3: add sellection counter 'num_selected'
-# last: 20261006
+# 20261113 v4
+# last: 20261113
 # ---
 
 # === GLOBALS ===
@@ -18,7 +18,17 @@ declare -A fb_files=()
 
 # === FUNCTIONS ===
 FZFCMD() {
-	fzf -e --reverse
+	# fzf -e --reverse
+	fzf -e --reverse --height=50% --border=rounded
+}
+usage() {
+	printf "[!] usage:
+    1 - to run on existing fb-links list:
+        $> ff-fb-from-mbox-launch
+
+    2 - to first update existing fb-links list from new mbox file:
+        $> create-fb-files-list-from-mbox <mbox file>
+        $> ff-fb-from-mbox-launch\n\n"
 }
 
 fb_files_list_update() {
@@ -72,11 +82,14 @@ fb_launch() {
 
 # === MAIN ===
 if [ $# -eq 1 ]; then
-	if [ "$1" == "-u" ] || [ "$1" == "--update" ]; then
-		printf "[i] updating ${fb_files_list} ...\n"
-		fb_files_list_update
+	if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+		usage
+		exit 0
+	else
+		printf "[e] wrong flag\n"
+		printf "[!] only '-h/--help' alowed\n\n"
+		exit 1
 	fi
-	fb_files_load
 else
 	fb_files_load
 fi
