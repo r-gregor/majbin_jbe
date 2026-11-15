@@ -19,13 +19,12 @@ usage() {
 }
 
 FZFCMD() {
-	fzf -e --reverse
+	fzf -e --reverse --border=rounded
 }
 
 ff_onetablink_launch() {
 	selection=$( (for descrp in "${llist[@]}"; do echo "${descrp}"; done; echo '----'; echo 'Quit') | FZFCMD ) #v4
 
-	#v4
 	if [ "${selection}" == "" ]; then
 		printf "[!] nothing selected\n\n"
 		exit 0
