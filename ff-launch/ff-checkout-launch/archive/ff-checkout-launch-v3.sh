@@ -1,9 +1,9 @@
 #! /usr/bin/env bash
 # filename: ff-checkout-launch.sh
 # descpt: Launch www-sites from external file in format: 'http-link;decription'
-# from: ff-fb-mails-from-mbox-launch-en.sh
-# 20261006 v2: add sellection counter 'num_selected'
-# last: 20261006
+# from: ff-fb-mails-from-mbox-launch.sh
+# 20261115 v3
+# last: 20261115
 # ---
 
 # === GLOBALS ===
@@ -18,11 +18,11 @@ declare -A checkout_files
 
 # === FUNCTIONS ===
 FZFCMD() {
-	fzf -e --reverse
+	fzf -e --reverse --height=50% --border=rounded
 }
 
 ff_checkout_launch() {
-	selection=$( (for descrp in "${checkout_files[@]}"; do echo "${descrp}"; done | sort; echo "----"; echo "Quit") | FZFCMD)
+	selection=$( (for descrp in "${checkout_files[@]}"; do echo "${descrp}"; done | sort -nr; echo "----"; echo "Quit") | FZFCMD)
 
 	if [ "${selection}" == "" ]; then
 		printf "[i] nothing selected\n\n"
@@ -45,7 +45,6 @@ ff_checkout_launch() {
 	for URL in "${!checkout_files[@]}"; do
 		if [[ "${checkout_files["${URL}"]}" =~ "${selection}" ]]; then
 			printf "[i] selected: %s\n" "${selection}" #v4
-			# cygstart "${FFCMD}" "${URL}"
 			(nohup "${FFCMD}" "${URL}" &) >/dev/null 2>&1
 			((num_selected++))
 		fi
@@ -66,8 +65,9 @@ while IFS= read -r LINE; do
 		continue
 	fi
 
-	url=${LINE%%;*}
-	dscr=${LINE#*;}
+	converted_line="$(echo "$LINE" | sed -e 's/\([^ ]\+\) | \(.*\)/\1;\2/' -e 's/([[:digit:]]\+) //' -e '/\S/!d')"
+	url=${converted_line%%;*}
+	dscr=${converted_line#*;}
 	checkout_files["${url}"]="${dscr}"
 
 done < "${checkout_files_list}"

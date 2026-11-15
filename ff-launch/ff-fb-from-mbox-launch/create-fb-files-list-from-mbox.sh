@@ -19,6 +19,7 @@ SRCDIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 tdy=$(date +"%Y%m%d_%H%M%S")
 dst_local="data/fb_files_list_from_mbox.txt"
 bkp_local="backups/backup_fb_files_list_from_mbox_${tdy}.txt"
+fbf_backup="${SRCDIR}/${bkp_local}"
 
 # === MAIN ===
 if [ $# -ne 1 ]; then
@@ -34,8 +35,27 @@ if [ ! -f "${src}" ]; then
 	exit 1
 fi
 
-dst="${SRCDIR}/${dst_local}"
-fbf_backup="${SRCDIR}/${bkp_local}"
+read -r -p "[?] create custom destination file (y/Y or n/N)? " ans
+
+case "${ans}" in
+	y|Y)
+		read -r -p "[?] filename: " dst_custom
+		dst="${SRCDIR}/${dst_custom}"
+		if [ -f "${dst}" ]; then
+			printf "[!] file '%s' exists -- choose another file name" "${dst}"
+			exit 1
+		fi
+	;;
+	
+	n/N)
+		dst="${SRCDIR}/${dst_local}"
+	;;
+
+	*)
+		dst="${SRCDIR}/${dst_local}"
+	;;
+esac
+
 
 # needed as zip-ed files have WIN endings containing '\r' char
 dos2unix "${src}" &> /dev/null

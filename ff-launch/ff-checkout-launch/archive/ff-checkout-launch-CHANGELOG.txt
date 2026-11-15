@@ -1,2 +1,6 @@
 # 20260923 v1
 # 20261006 v2: add sellection counter 'num_selected'
+# 20261115 v3: add url --> converted_line to use records with ' | ' as separator
+#              alongside ';' so it can use onetab stile records
+#              upgrade FZFCMD function
+#
