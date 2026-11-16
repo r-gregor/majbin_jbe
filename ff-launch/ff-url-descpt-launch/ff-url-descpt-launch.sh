@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-# filename: ff-checkout-launch.sh
+# filename: ff-url-descpt-launch.sh
 # descpt: Launch www-sites from external file in format: 'http-link;decription'
 # from: ff-fb-mails-from-mbox-launch.sh
 # 20261115 v3
